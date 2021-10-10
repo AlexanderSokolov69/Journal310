@@ -21,11 +21,27 @@ def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
 
 
+class QLabelClk(QLabel):
+    clicked=pyqtSignal()
+
+    def __init__(self, parent=None):
+        QLabel.__init__(self, parent)
+
+    def releaseMouse(self) -> None:
+        pass
+
+    def mousePressEvent(self, ev):
+        pass
+
+    def mouseReleaseEvent(self, ev: QtGui.QMouseEvent) -> None:
+        self.clicked.emit()
+
+
 class tab4FormWindow(QWidget, Ui_tab4Form):
     # NUM_SLOTS = 20
     FONT_SIZE = 9
     collisium = pyqtSignal()
-    LABEL_OK = '----'
+    LABEL_OK = '[  ]'
     LABEL_FREE = ' ' * 4
     LABEL_COLL = 'XXX'
 
@@ -80,6 +96,9 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
             self.id = 0
         elif 'edit' in name_btn:
             self.id = self.rasp.data[self.tab4_rasp_view.currentIndex().row()][0]
+        self.start_edit_rasp()
+
+    def start_edit_rasp(self):
         self.current_data = []
         self.create_edit_widgets()
         self.map_table()
@@ -117,9 +136,10 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         for d, day in enumerate(self.days_lst):
             for k, kab in enumerate(self.kab_lst):
                 for t, time in enumerate(self.time_lst):
-                    widg : QLabel = self.slots_dic.get(f"{d} {k} {t}", None)
+                    widg : QLabelClk = self.slots_dic.get(f"{d} {k} {t}", None)
                     if widg:
                         widg.setText(self.LABEL_FREE)
+                        widg.clicked.connect(self.test)
                         widg.setStyleSheet(
                             f"""background-color: rgb(255, 255, 255); font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
         if not len(self.rasp.data[0]):
@@ -140,12 +160,36 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
                             widg.setText(self.LABEL_COLL)
                         else:
                             widg.setText(self.LABEL_OK)
+                            widg.setToolTip(f"{rec[0]} {rec[1]}")
+
+                            widg.clicked.connect(self.test)
+
                         widg.setStyleSheet(
                             f"""background-color: rgb{self.kab_lst[nkab][1]}; font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
 
+    def test(self):
+        pass
+        # lbl : QLabelClk = self.sender()
+        # # print(lbl.objectName())
+        # # print(lbl.toolTip())
+        # for rec in self.rasp.data:
+        #     # print(rec[0], lbl.toolTip().split()[0])
+        #     if lbl.toolTip() and rec[0] == int(lbl.toolTip().split()[0]):
+        #         self.id = rec[0]
+        #         break
+        # else:
+        #     self.id = 0
+        # print(self.id)
+        # self.start_edit_rasp()
+
+
+    # def mouseDoubleClickEvent(self, a0: QtGui.QMouseEvent) -> None:
+    #     print(a0, self.sender())
+    #     # return self.super().MouseDoubleClickEvent(self, a0)
+
     def click(self):
         btn : QCheckBox = self.sender()
-        print(btn.objectName(), type(btn))
+        # print(btn.objectName(), type(btn))
         num_day, num_kab, num_time = map(int, btn.objectName().split())
         if btn.isChecked():
             btn.setStyleSheet(f"background-color: rgb{self.kab_lst[num_kab][1]};")
@@ -159,13 +203,13 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        head = QLabel(self.short_days_lst[day])
+        head = QLabelClk(self.short_days_lst[day])
         head.setAlignment(QtCore.Qt.AlignCenter)
         head.setStyleSheet(f"""font: {self.FONT_SIZE + 2}pt "MS Shell Dlg 2";""")
         obj.addWidget(head, 0, 0)
 #        obj.addWidget(head, 0, 0, 1, 7)
         for i, num in enumerate(self.kab_lst):
-            lbl = QLabel(f" {num[0]} ")
+            lbl = QLabelClk(f" {num[0]} ")
             # lbl.setStyleSheet(f'background-color: rgb{num[1]}; font: {self.FONT_SIZE}pt "MS Shell Dlg 2";')
             lbl.setAlignment(QtCore.Qt.AlignCenter)
             # sizePolicy.setHeightForWidth(lbl.sizePolicy().hasHeightForWidth())
@@ -174,7 +218,7 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
 #            lbl.setStyleSheet(f"background-color: rgb{num[1]};")
             obj.addWidget(lbl, 0, i + 1)
         for i in range(len(self.time_lst)):
-            lbl = QLabel(f"{self.time_lst[i]} ")
+            lbl = QLabelClk(f"{self.time_lst[i]} ")
             lbl.setSizePolicy(sizePolicy)
             lbl.setStyleSheet(f"""font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
 #            lbl.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
@@ -183,7 +227,7 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
             obj.addWidget(lbl, i + 1, 0)
             for j, num in enumerate(self.kab_lst):
                 # ch_b = QCheckBox(' ')
-                ch_b = QLabel('')
+                ch_b = QLabelClk('')
                 ch_b.setAlignment(QtCore.Qt.AlignCenter)
                 ch_b.setObjectName(f"{day} {j} {i}")
                 ch_b.setStyleSheet(f"""background-color: rgb(255, 255, 255);  font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
@@ -234,7 +278,7 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
                     id = fnd[:fnd.find(':') - 1]
                     if id == str(val[2]):
                         self.edit_widgets[-1].setCurrentIndex(i)
-                print(self.edit_widgets[-1].count())
+                # print(self.edit_widgets[-1].count())
             else:
                 le = QLineEdit(str(val[2]), self)
                 if val[0][:] in ['start', 'end']:
