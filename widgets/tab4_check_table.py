@@ -168,8 +168,7 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
                             f"""background-color: rgb{self.kab_lst[nkab][1]}; font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
 
     def test(self):
-        pass
-        # lbl : QLabelClk = self.sender()
+        lbl : QLabelClk = self.sender()
         # # print(lbl.objectName())
         # # print(lbl.toolTip())
         # for rec in self.rasp.data:
