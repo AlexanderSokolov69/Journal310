@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtWidgets import QTableView
+from PyQt5.QtCore import Qt, pyqtSignal, QObject, QEvent
+from PyQt5.QtWidgets import QTableView, QLabel
 
 from classes.bb_converts import *
 import datetime
@@ -18,6 +18,8 @@ class MyTableModel(QtCore.QAbstractTableModel):
         self.editable = editable
         self.date_col = date_col
         self.current_index = (-1, -1)
+
+
 
     def headerData(self, section: int, orientation: Qt.Orientation, role: int):
         if role == QtCore.Qt.DisplayRole:
@@ -46,6 +48,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
 
     def rowCount(self, parent=None):
             return len(self.data)
+
 
     def data(self, index, role):
         ret = None
@@ -89,3 +92,43 @@ class MyTableModel(QtCore.QAbstractTableModel):
             #     self.need_edit.emit()
             # self.current_index = (0, 0)
             return Qt.ItemIsSelectable | Qt.ItemIsEnabled
+
+
+class MultiClicker(QObject):
+    clicked = pyqtSignal()
+    dblClicked = pyqtSignal()
+
+    def __init__(self):
+        super().__init__(self)
+        self.installEventFilter(self)
+
+        self.single_click_timer = QtCore.QTimer()
+        self.single_click_timer.setInterval(200)
+        self.single_click_timer.timeout.connect(self.single_click)
+
+    def single_click(self):
+        self.single_click_timer.stop()
+        self.clicked.emit()
+
+    def eventFilter(self, object, event):
+        if event.type() == QEvent.MouseButtonPress:
+            if event.buttons() == Qt.LeftButton:
+                self.single_click_timer.start()
+                return True
+        elif event.type() == QEvent.MouseButtonDblClick:
+            if event.buttons() == Qt.LeftButton:
+                self.single_click_timer.stop()
+                self.dblClicked.emit()
+                return True
+        return False
+
+
+class QLabelClk(QLabel, MultiClicker):
+    clicked = pyqtSignal()
+    dblClicked = pyqtSignal()
+
+    def __init__(self, parent=None):
+        QLabel.__init__(self, parent)
+        MultiClicker.__init__(self)
+
+

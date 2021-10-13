@@ -3,7 +3,7 @@ from .cl_sqlobject import SQLObject
 
 
 class Roles(SQLObject):
-    def set_sql(self, sql=None, flt='id'):
+    def set_sql(self, sql=None, ord='id'):
         self.keys = (
             ('name', 'Роль пользователя:'),
             ('idPriv', 'Привилегия доступа:'),
@@ -14,7 +14,7 @@ class Roles(SQLObject):
             self.sql = f"""select r.id as 'id', r.name as 'Наименование', p.name as "Привилегии", 
                r.comment as "Коментарий"
                from roles r
-               join priv p on p.id = r.idPriv
-            order by {flt}"""
+               join priv p on p.id = r.idPriv"""
         else:
-            self.sql = f"""{sql} order by {flt}"""
+            self.sql = f"""{sql}"""
+        self.set_order(ord)

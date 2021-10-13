@@ -15,12 +15,16 @@ class SQLObject(QObject):
         self.cur = con.cursor()
         self.tmodel = None
         self.sql = None
+        self.filter = None
+        self.order = None
         self.dbname = None
         self.header = []
         self.data = []
         self.keys = []
         self.editable = editable
         self.date_col = date_col
+        self.set_filter()
+        self.set_order()
         self.set_sql()
         self.update()
         # self.log = Logger(con)
@@ -30,16 +34,28 @@ class SQLObject(QObject):
             return 0
         return len(self.data)
 
+    def set_order(self, ord=None):
+        if ord:
+            self.order = f"order by {ord}"
+        else:
+            self.order = ''
+
+    def set_filter(self, flt=None):
+        if flt:
+            self.filter = f"where {flt}"
+        else:
+            self.filter = ''
+
     def set_sql(self, sql=None, flt=None):
         pass
 
     def update(self):
         if self.sql is not None:
             try:
-                ret = self.cur.execute(self.sql).fetchall()
+                sql = f"""{self.sql} {self.filter} {self.order}"""
+                ret = self.cur.execute(sql).fetchall()
             except (sqlite3.Error, sqlite3.Warning) as err:
-                # self.log.out(str(datetime.date), str(datetime.time), '[update class]', str(err), self.sql)
-                print(err, '[update class]', self.sql)
+                print(err, '[update class]', sql)
                 ret = None
             if ret:
                 self.header = [i[0] for i in self.cur.description]

@@ -2,7 +2,7 @@ from .cl_sqlobject import SQLObject
 
 
 class GroupTable(SQLObject):
-    def set_sql(self, sql=None, flt='id'):
+    def set_sql(self, sql=None, ord='id'):
         self.keys = (
             ('idGroups', 'Учебная группа:'),
             ('idUsers', 'Фамилия И.О. кубиста:'),
@@ -14,7 +14,7 @@ class GroupTable(SQLObject):
                     t.comment as "Комментарий" 
                 from group_table t
                 join groups g on g.id = t.idGroups
-                join users u on u.id = t.idUsers
-            order by {flt}"""
+                join users u on u.id = t.idUsers"""
         else:
-            self.sql = f"""{sql} order by {flt}"""
+            self.sql = f"""{sql}"""
+        self.set_order(ord)

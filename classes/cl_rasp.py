@@ -2,7 +2,7 @@ from .cl_sqlobject import SQLObject
 
 
 class Rasp(SQLObject):
-    def set_sql(self, sql=None, flt='g.id'):
+    def set_sql(self, sql=None, ord='g.id'):
         self.keys = (
             ('idGroups', 'Учебная группа:'),
             ('idDays', 'День недели'),
@@ -21,7 +21,8 @@ class Rasp(SQLObject):
                 join days d on r.idDays = d.id
                 join groups g on r.idGroups = g.id
                 join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
-                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses
-            order by d.id, k.id, r.start"""
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses"""
+            self.set_order('d.id, k.id, r.start')
         else:
-            self.sql = f"""{sql} order by {flt}"""
+            self.sql = f"""{sql}"""
+            self.set_order(ord)

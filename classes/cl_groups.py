@@ -2,7 +2,7 @@ from .cl_sqlobject import SQLObject
 
 
 class Groups(SQLObject):
-    def set_sql(self, sql=None, flt='g.id'):
+    def set_sql(self, sql=None, ord='g.id'):
         self.keys = (
             ('name', 'Кодовое название учебной группы:'),
             ('idCourses', 'Учебная программа:'),
@@ -14,7 +14,7 @@ class Groups(SQLObject):
                     c.lesson as "Занятие", c.year as "Уч.год", u.name as "ФИО наставника" 
                 from groups g
                 join users u on g.idUsers = u.id
-                join courses c on g.idCourses = c.id
-            order by {flt}"""
+                join courses c on g.idCourses = c.id"""
         else:
-            self.sql = f"""{sql} order by {flt}"""
+            self.sql = f"""{sql}"""
+        self.set_order(ord)

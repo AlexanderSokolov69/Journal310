@@ -2,7 +2,7 @@ from .cl_sqlobject import SQLObject
 
 
 class Courses(SQLObject):
-    def set_sql(self, sql=None, flt='id'):
+    def set_sql(self, sql=None, ord='id'):
         self.keys = (
             ('name', 'Наименование учебного курса:'),
             ('target', 'Возрастная группа:'),
@@ -17,6 +17,7 @@ class Courses(SQLObject):
         if sql is None:
             self.sql = f"""select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
                    lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
-                from courses order by {flt}"""
+                from courses"""
         else:
-            self.sql = f"""{sql} order by {flt}"""
+            self.sql = f"""{sql}"""
+        self.set_order(ord)
