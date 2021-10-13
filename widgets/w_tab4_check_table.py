@@ -17,7 +17,6 @@ def except_hook(cls, exception, traceback):
 
 
 class tab4FormWindow(QWidget, Ui_tab4Form):
-    # NUM_SLOTS = 20
     FONT_SIZE = 9
     collisium = pyqtSignal()
     LABEL_OK = '[  ]'
@@ -30,6 +29,11 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         self.initUi(con)
 
     def initUi(self, con):
+        """
+        Начальная настройка формы работы с расписанием
+        :param con: указатель на БД SQL
+        :return:
+        """
         self.con = con
         self.days_lst = get_day_list(self.con)
         self.short_days_lst = get_short_day_list(self.con)
@@ -46,7 +50,6 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         for nday in range(len(self.days_lst)):
             calend.append(self.create_day(nday))
             self.h_layout_table.addLayout(calend[-1])
-#        self.chk_buttonGroup.buttonClicked.connect(self.click)
         self.rasp = Rasp(self.con)
         self.map_table()
         self.tab4_add_btn.clicked.connect(self.group_clicked)
@@ -84,6 +87,10 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         self.activate()
 
     def rasp_set_filter(self):
+        """
+        Подготовка комбобоксов для фильтров
+        :return:
+        """
         filters = []
         if self.flt_user.count():
             if self.flt_user.currentIndex() > 0:
@@ -102,6 +109,10 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
             self.activate()
 
     def group_clicked(self):
+        """
+        Обработка кнопок редактора расписания
+        :return:
+        """
         btn= self.sender()
         name_btn = btn.objectName()
         if 'commit' in name_btn:
@@ -125,6 +136,10 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         self.start_edit_rasp()
 
     def start_edit_rasp(self):
+        """
+        Начало работы режима редактора расписания
+        :return:
+        """
         self.current_data = []
         self.create_edit_widgets()
         self.map_table()
@@ -140,6 +155,10 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         return super().showEvent(a0)
 
     def map_table(self):
+        """
+        Обновление формы расписания и цветовых маркеров
+        :return:
+        """
         self.tab4_rasp_view.setDisabled(False)
         for btn in self.tab4_btn_group.buttons():
             btn.setDisabled(False)
@@ -192,12 +211,20 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_rasp_view.setFocus()
 
     def set_current_record(self, id=None):
+        """
+        Перенос текущего указателя списка расписания
+        :param id: УН записи расписания
+        :return:
+        """
         for i in range(self.tab4_rasp_view.model().rowCount()):
-            # print(self.tab4_rasp_view.model().itemData(self.tab4_rasp_view.model().index(i, 0)))
             if self.tab4_rasp_view.model().itemData(self.tab4_rasp_view.model().index(i, 0))[0] == id:
                 self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(i, 0))
 
     def color_table_click(self):
+        """
+        Обработка клика мыши в цветовом поле
+        :return:
+        """
         if len(self.edit_widgets):
             return
         lbl = self.sender()
@@ -207,6 +234,10 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
             self.tab4_rasp_view.setFocus()
 
     def color_table_dbl_click(self):
+        """
+        Обработка двойного клика мыши в цветовом поле
+        :return:
+        """
         if len(self.edit_widgets):
             return
         lbl = self.sender()
@@ -226,6 +257,11 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         # print('dbl', lbl.objectName())
 
     def add1_5hours(self, time0 : str):
+        """
+        Увеличение временной метки на 1,5 часа
+        :param time0: метка времени '08:30'
+        :return: '10:00'
+        """
         try:
             h, m = time0.split(':')
             m2 = (int(m) + 30) % 60
@@ -235,51 +271,43 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
             h2 = 0
         return(f"{h2:02}:{m2:02}")
 
-    # def mouseDoubleClickEvent(self, a0: QtGui.QMouseEvent) -> None:
-    #     print(a0, self.sender())
-    #     # return self.super().MouseDoubleClickEvent(self, a0)
-
-    def click(self):
-        btn = self.sender()
-        # print(btn.objectName(), type(btn))
-        num_day, num_kab, num_time = map(int, btn.objectName().split())
-        if btn.isChecked():
-            btn.setStyleSheet(f"background-color: rgb{self.kab_lst[num_kab][1]};")
-        else:
-            btn.setStyleSheet(f"background-color: rgb(255, 255, 255);")
+    # def click(self):
+    #     btn = self.sender()
+    #     # print(btn.objectName(), type(btn))
+    #     num_day, num_kab, num_time = map(int, btn.objectName().split())
+    #     if btn.isChecked():
+    #         btn.setStyleSheet(f"background-color: rgb{self.kab_lst[num_kab][1]};")
+    #     else:
+    #         btn.setStyleSheet(f"background-color: rgb(255, 255, 255);")
 
     def create_day(self, day=0):
+        """
+        Создание визуальной формы на конкретный день
+        :param day: Номер дня
+        :return: заполненный Layout
+        """
         obj = QGridLayout()
         obj.setAlignment(QtCore.Qt.AlignCenter)
-        # obj.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         head = QLabel(self.short_days_lst[day])
         head.setAlignment(QtCore.Qt.AlignCenter)
         head.setStyleSheet(f"""font: {self.FONT_SIZE + 2}pt "MS Shell Dlg 2";""")
-
         obj.addWidget(head, 0, 0)
-#        obj.addWidget(head, 0, 0, 1, 7)
         for i, num in enumerate(self.kab_lst):
             lbl = QLabel(f" {num[0]} ")
-            # lbl.setStyleSheet(f'background-color: rgb{num[1]}; font: {self.FONT_SIZE}pt "MS Shell Dlg 2";')
             lbl.setAlignment(QtCore.Qt.AlignCenter)
-            # sizePolicy.setHeightForWidth(lbl.sizePolicy().hasHeightForWidth())
             lbl.setSizePolicy(sizePolicy)
             lbl.setStyleSheet(f"""font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
-#            lbl.setStyleSheet(f"background-color: rgb{num[1]};")
             obj.addWidget(lbl, 0, i + 1)
         for i in range(len(self.time_lst)):
             lbl = QLabel(f"{self.time_lst[i]} ")
             lbl.setSizePolicy(sizePolicy)
             lbl.setStyleSheet(f"""font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
-#            lbl.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
-#            sizePolicy.setHeightForWidth(lbl.sizePolicy().hasHeightForWidth())
             lbl.setAlignment(QtCore.Qt.AlignCenter)
             obj.addWidget(lbl, i + 1, 0)
             for j, num in enumerate(self.kab_lst):
-                # ch_b = QCheckBox(' ')
                 ch_b = QLabelClk('')
                 ch_b.clicked.connect(self.color_table_click)
                 ch_b.dblClicked.connect(self.color_table_dbl_click)
@@ -296,18 +324,22 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         return obj
 
     def delete_edit_form(self, curLayout):
-        """ Удаляем поля редактирования """
+        """ Удаляем поля редактирования
+        """
         for widg in self.edit_widgets:
             curLayout.removeWidget(widg)
             widg.deleteLater()
         self.edit_widgets.clear()
 
     def create_edit_widgets(self):
+        """
+        Создаём поля для ввода данных по расписанию
+        :return:
+        """
         curLayout = self.tab4_edit_layout
         """ Создание полей редактирования записи """
         self.current_data = self.rasp.get_record(self.id)
         self.delete_edit_form(curLayout)
-#        print(self.current_data)
         if not self.current_data[0][2] and self.new_preset:
             self.current_data[1][2] = self.new_preset['idDays']
             self.current_data[2][2] = self.new_preset['idKabs']
@@ -331,7 +363,6 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
                     sql = f"""select id || " : " || name from {val[0][2:]} order by name"""
                 else:
                     sql = f"""select id || " : " || name from {val[0][2:]}"""
-                # sql = f"select name from {val[0][2:]}"
                 cur = self.con.cursor()
                 spis = cur.execute(sql).fetchall()
                 self.edit_widgets[-1].addItems([val[:][0] for val in spis])
@@ -340,7 +371,6 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
                     id = fnd[:fnd.find(':') - 1]
                     if id == str(val[2]):
                         self.edit_widgets[-1].setCurrentIndex(i)
-                # print(self.edit_widgets[-1].count())
             else:
                 le = QLineEdit(str(val[2]), self)
                 if val[0][:] in ['start', 'end']:
@@ -371,6 +401,11 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         self.edit_widgets.append(pbC)
 
     def calculate(self, object):
+        """
+        Вычисляем +1,5 часа к записи 'start'
+        :param object: Куба положить результат
+        :return:
+        """
         new = ''
         for key, _, val in self.current_data:
             if key == 'start':
@@ -380,18 +415,29 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
 
 
     def selected_edit(self):
+        """
+        Выделение поля ввода виджета sender()
+        :return:
+        """
         if self.sender().objectName() in ['start', 'end']:
             self.sender().selectAll()
 
 
     def edit_buttons(self):
+        """
+        Завершаем редактироваие/ввод записи расписания
+        :return:
+        """
         if self.sender().objectName() in 'Save':
             self.update_edit_frame()
         self.delete_edit_form(self.tab4_edit_layout)
         self.map_table()
 
     def update_edit_frame(self):
-        """ Сохраняем результаты редактирования. либо создание новой записи """
+        """
+        Сохраняем результаты редактирования. либо создание новой записи
+        :return:
+        """
         arg = {}
         for i, widg in enumerate(self.edit_widgets[1:-2:2]):
             if type(widg) == QLineEdit:
@@ -411,17 +457,22 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
             self.rasp.rec_update(self.id, arg)
 
     def activate(self):
-        """ Проверка на сохранение данных при выходе из программы """
+        """ Проверка на сохранение данных при выходе из программы
+
+        """
         self.delete_edit_form(self.tab4_edit_layout)
         self.map_table()
         self.show()
 
-    def eventFilter(self, object: 'QObject', event: 'QEvent') -> bool:
-        # # print(object.objectName(), event.type())
-        # if object.objectName() == 'end':
-        #     if event.type() == 12:
-        #         self.calculate(object)
-        return super().eventFilter(object, event)
+    # def eventFilter(self, object: 'QObject', event: 'QEvent') -> bool:
+    """ 
+    Обрабатываем события формы
+    """
+    #     # # print(object.objectName(), event.type())
+    #     # if object.objectName() == 'end':
+    #     #     if event.type() == 12:
+    #     #         self.calculate(object)
+    #     return super().eventFilter(object, event)
 
 
 if __name__ == '__main__':

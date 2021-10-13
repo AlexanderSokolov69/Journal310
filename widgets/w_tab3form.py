@@ -8,7 +8,6 @@ from classes.cl_courses import Courses
 from classes.cl_group_table import GroupTable
 from classes.cl_groups import Groups
 from classes.cl_users import Users
-from classes.db_session import connectdb
 from widgets.tab3_form import Ui_tab3Form
 
 
@@ -40,22 +39,15 @@ class tab3FormWindow(QWidget, Ui_tab3Form):
         self.tab3_only_free.stateChanged.connect(self.tab3_change_users)
         self.tab3_program_box.currentTextChanged.connect(self.tab3_change_program)  # Смена уч.программы
 
-#        self.tab3_tree_view.setModel(self.grp.model())
-#        self.tab3_tree_view.
-        # self.connect(self.usrs.model(), QtCore.SIGNAL('selectionChanged(QItemSelection, QItemSelection)'),
-        #                       self.tab3_current_display)
-        # self.tab3_users_table.currentChanged = self.tab3_current_display
-        # self.tab3_users_table.currentChanged(2, 2).connect(self.tab3_current_display)
-
         self.tab3_group_list.clicked.connect(self.tab3_change_group)  # Смена учебной группы
         self.tab3_add_button.clicked.connect(self.tab3_add_to_group)
         self.tab3_del_button.clicked.connect(self.tab3_erase_from_group)
         self.tab3_commit_button.clicked.connect(self.tab3_commit_base)
         self.tab3_cancel_button.clicked.connect(self.tab3_rollback_base)
 
-    def tab3_current_display(self, cur, prev):
-        print(cur, prev)
-        # self.tab3_users_current.setText(self.usrs.data[self.tab3_users_table.currentIndex().row()][2])
+    # def tab3_current_display(self, cur, prev):
+    #     print(cur, prev)
+    #     # self.tab3_users_current.setText(self.usrs.data[self.tab3_users_table.currentIndex().row()][2])
 
     def tab3_change_users(self):
         sql = ''
@@ -117,7 +109,6 @@ class tab3FormWindow(QWidget, Ui_tab3Form):
         else:
             self.tab3_ned_lcd.display(0)
 
-
     def tab3_change_program(self):
         tst  = self.tab3_program_box.currentText()
         idCourses = int(tst[:tst.find(':')])
@@ -143,20 +134,15 @@ class tab3FormWindow(QWidget, Ui_tab3Form):
         self.tab3_change_group()
 
     def tab3_check_for_commit(self):
-        """ Диалог для COMMIT - ROLLBACK изменений """
+        """
+        Диалог для COMMIT - ROLLBACK изменений
+        """
         if self.con.in_transaction:
             self.tab3_commit_button.setDisabled(False)
             self.tab3_cancel_button.setDisabled(False)
         else:
             self.tab3_commit_button.setDisabled(True)
             self.tab3_cancel_button.setDisabled(True)
-            #
-            # buttonReply = QMessageBox.question(self, 'Редактор', "Остались несохранённые изменения, сохранить?",
-            #                                    QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-            # if buttonReply == QMessageBox.Yes:
-            #     self.currTable.commit()
-            # else:
-            #     self.currTable.rollback()
 
     def tab3_add_to_group(self):
         idGroups = self.grp.data[self.tab3_group_list.currentIndex().row()][0]

@@ -1,4 +1,9 @@
 def date_us_ru(data):
+    """
+    Перевод US даты в RU
+    :param data:
+    :return:
+    """
     data = str(data)
     ret = ''
     if len(data) == 10:
@@ -10,6 +15,11 @@ def date_us_ru(data):
     return ret
 
 def date_ru_us(data):
+    """
+    Перевод RU даты в US
+    :param data:
+    :return:
+    """
     tst = str(data)
     ret = '1900-01-01'
     if len(tst) > 0:
@@ -41,11 +51,6 @@ def get_time_list(con):
     sql = "select name from times order by id"
     res = cur.execute(sql).fetchall()
     return [s[0].strip() for s in res]
-    # spis = []
-    # for i in range(20):
-    #     spis.append(f'{8 + i // 2:02}:{i * 30 % 60:02} ')
-    # return spis
-
 
 def get_kab_list(con):
     cur = con.cursor()

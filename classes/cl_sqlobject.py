@@ -6,7 +6,14 @@ from PyQt5.QtCore import pyqtSignal, QObject
 
 class SQLObject(QObject):
     need_to_save = pyqtSignal()
+
     def __init__(self, con: connect, editable=False, date_col=8):
+        """
+        Базовый класс работы с БД SQL
+        :param con: указатель на БД SQL
+        :param editable: Порождать редактируемую модель
+        :param date_col:
+        """
         super(SQLObject, self).__init__()
         if con is None:
             Exception('NO database connection')
@@ -30,33 +37,56 @@ class SQLObject(QObject):
         # self.log = Logger(con)
 
     def rows(self):
+        """
+        Количество записей в таблице
+        :return:
+        """
         if len(self.data[0]) == 0:
             return 0
         return len(self.data)
 
     def set_order(self, ord=None):
+        """
+        Сортировка для UPDATE
+        :param ord:
+        :return:
+        """
         if ord:
             self.order = f"order by {ord}"
         else:
             self.order = ''
 
     def set_filter(self, flt=None):
+        """
+        Фильтр для UPDATE
+        :param flt: строка для WHERE
+        :return:
+        """
         if flt:
             self.filter = f"where {flt}"
         else:
             self.filter = ''
 
     def set_sql(self, sql=None, flt=None):
+        """
+        Описание конкретной таблицы
+        :param sql: SQL запрос для UPDATE
+        :param flt: фильтр для UPDATE
+        :return:
+        """
         pass
 
     def update(self):
-        global flog
+        """
+        Обновление данных из БД SQL для визуализации
+        :return:
+        """
         if self.sql is not None:
             try:
                 sql = f"""{self.sql} {self.filter} {self.order}"""
                 ret = self.cur.execute(sql).fetchall()
             except (sqlite3.Error, sqlite3.Warning) as err:
-                print(err, '[update class]', sql, file=flog)
+                print(err, '[update class]', sql)
                 ret = None
             if ret:
                 self.header = [i[0] for i in self.cur.description]
@@ -70,6 +100,10 @@ class SQLObject(QObject):
             return 0
 
     def update_model(self):
+        """
+        Обновление модели для визуальных виджетов
+        :return:
+        """
         self.rec_update(self.data[self.tmodel.current_index[0]][0],
                         {self.keys[self.tmodel.current_index[1] - 1][0]:
                              self.data[self.tmodel.current_index[0]][self.tmodel.current_index[1]]}
@@ -77,25 +111,41 @@ class SQLObject(QObject):
         self.need_to_save.emit()
 
     def model(self):
+        """
+        Вернуть созданную модель
+        :return:
+        """
         return self.tmodel
 
     def commit(self):
-        global flog
+        """
+        COMMIT изменений в БД
+        :return:
+        """
         try:
             self.con.commit()
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[commit]', str(err), '')
-            print(err, '[commit]', file=flog)
+            print(err, '[commit]')
 
     def rollback(self):
-        global flog
+        """
+        ROLLBACK изменений в БД
+        :return:
+        """
         try:
             self.con.rollback()
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[rollback]', str(err), '')
-            print(err, '[rollback]', file=flog)
+            print(err, '[rollback]')
 
     def rec_update(self, id, arg: dict):
+        """
+        Обновление записи в БД
+        :param id: ID записи
+        :param arg: список кортежей для корректировки
+        :return:
+        """
         args = ', '.join([f'{item[0]} = "{item[1]}"' for item in arg.items()])
         sql = f"update {self.dbname} set {args} where id = {id}"
         try:
@@ -106,6 +156,11 @@ class SQLObject(QObject):
         return True
 
     def rec_append(self, arg: dict):
+        """
+        Добавление записи в таблицу
+        :param arg: словарь данных для записи в БД
+        :return:
+        """
         key = ', '.join(arg.keys())
         val = '"' + '", "'.join(arg.values()) +'"'
         sql = f"""insert into {self.dbname} ({key}) values ({val})"""
@@ -117,16 +172,24 @@ class SQLObject(QObject):
         return True
 
     def rec_delete(self, id):
-        global flog
+        """
+        Удаление записи
+        :param id: ID записи для удаления
+        :return:
+        """
         sql = f"delete from {self.dbname} where id = {id}"
         try:
             self.cur.execute(sql)
         except (sqlite3.Error, sqlite3.Warning) as err:
-            # self.log.out(str(datetime.date), str(datetime.time), '[delete record]', str(err), self.sql)
-            print(err, '[delete record]', sql, file=flog)
+            print(err, '[delete record]', sql)
         return True
 
     def get_record(self, id):
+        """
+        Получить запись таблицы по ID
+        :param id: ID записи
+        :return:
+        """
         fields = ', '.join([key[0] for key in self.keys])
         sql = f"select {fields} from {self.dbname} where id = {id}"
         cur = self.con.cursor()
@@ -146,6 +209,11 @@ class SQLObject(QObject):
         return ret
 
     def execute_command(self, comm):
+        """
+        Исполнение произвольной команды SQL
+        :param comm: SQL команда
+        :return:
+        """
         cur = self.con.cursor()
         try:
             ret = cur.execute(comm).fetchall()
