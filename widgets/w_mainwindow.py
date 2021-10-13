@@ -6,7 +6,7 @@ from classes.cl_users import Users
 from classes.db_classes import Privileges, Roles, Places, Courses, GroupTable, Groups
 from classes.bb_converts import *
 from widgets.MainWindow import Ui_MainWindow
-from widgets.tab4_check_table import tab4FormWindow
+from widgets.w_tab4_check_table import tab4FormWindow
 from widgets.w_tab3form import tab3FormWindow
 
 
@@ -42,6 +42,7 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
 
         self.tab4_myLayout = QHBoxLayout(self)
         self.tab4.setLayout(self.tab4_myLayout)
+        self.tab4_myLayout.setContentsMargins(0, 0, 0, 0)
         self.tab4Widget = tab4FormWindow(con)
         self.tab4_myLayout.addWidget(self.tab4Widget)
         self.tab4Widget.collisium.connect(self.rasp_coll)

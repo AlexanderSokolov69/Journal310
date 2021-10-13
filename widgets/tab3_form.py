@@ -16,7 +16,7 @@ class Ui_tab3Form(object):
         tab3Form.setObjectName("tab3Form")
         tab3Form.resize(842, 775)
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         tab3Form.setFont(font)
         self.horizontalLayout = QtWidgets.QHBoxLayout(tab3Form)
         self.horizontalLayout.setObjectName("horizontalLayout")

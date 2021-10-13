@@ -55,6 +55,13 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_commit_btn.clicked.connect(self.group_clicked)
         self.tab4_rollback_btn.clicked.connect(self.group_clicked)
         # self.installEventFilter(self)
+        self.tab4_lmonts.clear()
+        sql = f"""select num || " : " || name from monts order by id"""
+        cur = self.con.cursor()
+        spis = cur.execute(sql).fetchall()
+        self.tab4_lmonts.insertItem(0, '')
+        self.tab4_lmonts.addItems([val[:][0] for val in spis])
+        self.tab4_lmonts.setCurrentIndex(0)
         self.flt_user.clear()
         self.flt_user.insertItem(0, '')
         sql = f"""select distinct u.id || " : " || u.name 
@@ -151,6 +158,7 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
 
         self.tab4_rasp_view.setModel(self.rasp.model())
         self.tab4_rasp_view.resizeColumnsToContents()
+        self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(0, 0))
         self.tab4_rasp_view.setSelectionBehavior(QAbstractItemView.SelectRows)
         for d, day in enumerate(self.days_lst):
             for k, kab in enumerate(self.kab_lst):
@@ -181,6 +189,7 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
 
                         widg.setStyleSheet(
                             f"""background-color: rgb{self.kab_lst[nkab][1]}; font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
+        self.tab4_rasp_view.setFocus()
 
     def set_current_record(self, id=None):
         for i in range(self.tab4_rasp_view.model().rowCount()):
@@ -418,8 +427,8 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     sys.excepthook = except_hook
-#    con =  sqlite3.connect('../db/database_J.db')
-    con = sqlite3.connect('O:/Журналы/db/database_J.db')
+    con =  sqlite3.connect('../db/database_J.db')
+    # con = sqlite3.connect('O:/Журналы/db/database_J.db')
     wnd = tab4FormWindow(con)
     wnd.show()
     sys.exit(app.exec())
