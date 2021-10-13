@@ -9,8 +9,10 @@ from widgets.w_syslogin import LoginDialog
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
 
+global flog
 
 if __name__ == '__main__':
+    flog = open('errors.log', 'w+')
     app = QApplication(sys.argv)
     sys.excepthook = except_hook
     con = connectdb()

@@ -50,12 +50,13 @@ class SQLObject(QObject):
         pass
 
     def update(self):
+        global flog
         if self.sql is not None:
             try:
                 sql = f"""{self.sql} {self.filter} {self.order}"""
                 ret = self.cur.execute(sql).fetchall()
             except (sqlite3.Error, sqlite3.Warning) as err:
-                print(err, '[update class]', sql)
+                print(err, '[update class]', sql, file=flog)
                 ret = None
             if ret:
                 self.header = [i[0] for i in self.cur.description]
@@ -79,18 +80,20 @@ class SQLObject(QObject):
         return self.tmodel
 
     def commit(self):
+        global flog
         try:
             self.con.commit()
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[commit]', str(err), '')
-            print(err, '[commit]')
+            print(err, '[commit]', file=flog)
 
     def rollback(self):
+        global flog
         try:
             self.con.rollback()
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[rollback]', str(err), '')
-            print(err, '[rollback]')
+            print(err, '[rollback]', file=flog)
 
     def rec_update(self, id, arg: dict):
         args = ', '.join([f'{item[0]} = "{item[1]}"' for item in arg.items()])
@@ -114,12 +117,13 @@ class SQLObject(QObject):
         return True
 
     def rec_delete(self, id):
+        global flog
         sql = f"delete from {self.dbname} where id = {id}"
         try:
             self.cur.execute(sql)
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[delete record]', str(err), self.sql)
-            print(err, '[delete record]', sql)
+            print(err, '[delete record]', sql, file=flog)
         return True
 
     def get_record(self, id):

@@ -1,22 +1,15 @@
 import sys
 import sqlite3
 
-from PyQt5.QtCore import QModelIndex, pyqtSignal, Qt, QEvent, QObject
-from PyQt5.QtGui import QFocusEvent
-from PyQt5.QtWidgets import QWidget, QApplication, QTableWidgetItem, QAbstractItemView, QTableView, QGridLayout, QLabel, \
-    QCheckBox, QFrame, QButtonGroup, QSizePolicy, QPushButton, QComboBox, QLineEdit
-from PyQt5 import QtGui, QtCore
+from PyQt5.QtCore import pyqtSignal, Qt, QEvent, QObject
+from PyQt5.QtWidgets import QWidget, QApplication, QAbstractItemView, QGridLayout, QLabel, \
+    QFrame, QButtonGroup, QSizePolicy, QPushButton, QComboBox, QLineEdit
+from PyQt5 import QtCore
 
 from classes.bb_converts import get_day_list, get_kab_list, get_time_list, get_short_day_list
-from classes.cl_courses import Courses
-from classes.cl_group_table import GroupTable
-from classes.cl_groups import Groups
 from classes.cl_rasp import Rasp
-from classes.cl_users import Users
-from classes.db_session import connectdb
-from classes.qt_classes import MultiClicker, QLabelClk
+from classes.qt_classes import QLabelClk
 from widgets.checkTable import Ui_tab4Form
-from widgets.tab3_form import Ui_tab3Form
 
 
 def except_hook(cls, exception, traceback):
@@ -102,7 +95,7 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
             self.activate()
 
     def group_clicked(self):
-        btn : QPushButton = self.sender()
+        btn= self.sender()
         name_btn = btn.objectName()
         if 'commit' in name_btn:
             self.rasp.commit()
@@ -131,6 +124,9 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_rasp_view.setDisabled(True)
         for btn in self.tab4_btn_group.buttons():
             btn.setDisabled(True)
+        self.flt_user.setDisabled(True)
+        self.flt_day.setDisabled(True)
+        self.flt_kab.setDisabled(True)
 
     def showEvent(self, a0):
         self.map_table()
@@ -140,6 +136,9 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_rasp_view.setDisabled(False)
         for btn in self.tab4_btn_group.buttons():
             btn.setDisabled(False)
+        self.flt_user.setDisabled(False)
+        self.flt_day.setDisabled(False)
+        self.flt_kab.setDisabled(False)
 
         self.rasp.update()
         self.tab4_count_lcd.display(self.rasp.rows())
@@ -192,7 +191,7 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
     def color_table_click(self):
         if len(self.edit_widgets):
             return
-        lbl : QLabelClk = self.sender()
+        lbl = self.sender()
 #        print(lbl.objectName())
         if lbl.toolTip():
             self.set_current_record(lbl.toolTip().split()[0])
@@ -201,7 +200,7 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
     def color_table_dbl_click(self):
         if len(self.edit_widgets):
             return
-        lbl : QLabelClk = self.sender()
+        lbl = self.sender()
 #        print(lbl.toolTip())
         if lbl.toolTip():
             self.set_current_record(lbl.toolTip().split()[0])
@@ -232,7 +231,7 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
     #     # return self.super().MouseDoubleClickEvent(self, a0)
 
     def click(self):
-        btn : QCheckBox = self.sender()
+        btn = self.sender()
         # print(btn.objectName(), type(btn))
         num_day, num_kab, num_time = map(int, btn.objectName().split())
         if btn.isChecked():
@@ -284,7 +283,7 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
                 obj.addWidget(ch_b, i + 1, j + 1)
         v_line = QFrame()
         v_line.setFrameShape(QFrame.VLine)
-        obj.addWidget(v_line, 0, len(self.kab_lst) + 1, i + 2, len(self.kab_lst) + 1)
+        obj.addWidget(v_line, 0, len(self.kab_lst) + 1, len(self.time_lst) + 2, len(self.kab_lst) + 1)
         return obj
 
     def delete_edit_form(self, curLayout):
@@ -419,8 +418,8 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     sys.excepthook = except_hook
-    con = sqlite3.connect('../db/database_J.db')
-#    con = sqlite3.connect('O:/Журналы/db/database_J.db')
+#    con =  sqlite3.connect('../db/database_J.db')
+    con = sqlite3.connect('O:/Журналы/db/database_J.db')
     wnd = tab4FormWindow(con)
     wnd.show()
     sys.exit(app.exec())
