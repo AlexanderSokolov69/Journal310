@@ -15,7 +15,8 @@ class Rasp(SQLObject):
         if sql is None:
             self.sql = f"""select r.id, g.name || " - " || ju.name as "Группа - наставник", d.name as "День недели" , 
                     k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
-                    jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация"
+                    jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
+                    r.idGroups as "Группа"
                 from rasp r
                 join kabs k on r.idKabs = k.id
                 join days d on r.idDays = d.id

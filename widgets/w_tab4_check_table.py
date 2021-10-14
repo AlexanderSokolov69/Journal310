@@ -1,12 +1,13 @@
 import sys
 import sqlite3
 
-from PyQt5.QtCore import pyqtSignal, Qt, QEvent, QObject
+from PyQt5.QtCore import pyqtSignal, Qt, QEvent, QObject, QModelIndex
 from PyQt5.QtWidgets import QWidget, QApplication, QAbstractItemView, QGridLayout, QLabel, \
     QFrame, QButtonGroup, QSizePolicy, QPushButton, QComboBox, QLineEdit
 from PyQt5 import QtCore
 
 from classes.bb_converts import get_day_list, get_kab_list, get_time_list, get_short_day_list
+from classes.cl_journals import Journals
 from classes.cl_rasp import Rasp
 from classes.qt_classes import QLabelClk
 from widgets.checkTable import Ui_tab4Form
@@ -84,7 +85,28 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         self.flt_user.currentIndexChanged.connect(self.rasp_set_filter)
         self.flt_day.currentIndexChanged.connect(self.rasp_set_filter)
         self.flt_kab.currentIndexChanged.connect(self.rasp_set_filter)
+        self.journ = Journals(self.con)
+        self.tab4_journ_view.setModel(self.journ.model())
+        self.rasp_curent_row = -1
+        self.tab4_rasp_view.installEventFilter(self)
         self.activate()
+
+    def eventFilter(self, object: 'QObject', event: 'QEvent') -> bool:
+        if object.objectName() == 'tab4_rasp_view':
+            row = object.currentIndex().row()
+            col = 1
+            if row != self.rasp_curent_row:
+                self.rasp_curent_row = row
+                self.id = self.rasp.data[object.currentIndex().row()][0]
+                self.idGroups = self.rasp.data[object.currentIndex().row()][9]
+                ngrp = self.rasp.data[object.currentIndex().row()][1].split()[0]
+                self.tab4_curr_grp.setText(ngrp)
+
+                self.journ.set_filter(f'j.idGroups = {self.idGroups}')
+                self.journ.update()
+                self.tab4_journ_view.update()
+#                print(row)
+        return False
 
     def rasp_set_filter(self):
         """
@@ -146,9 +168,8 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_rasp_view.setDisabled(True)
         for btn in self.tab4_btn_group.buttons():
             btn.setDisabled(True)
-        self.flt_user.setDisabled(True)
-        self.flt_day.setDisabled(True)
-        self.flt_kab.setDisabled(True)
+        self.tab4_filter_frame.setEnabled(False)
+        self.tab4_journ_frame.setEnabled(False)
 
     def showEvent(self, a0):
         self.map_table()
@@ -162,16 +183,17 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_rasp_view.setDisabled(False)
         for btn in self.tab4_btn_group.buttons():
             btn.setDisabled(False)
-        self.flt_user.setDisabled(False)
-        self.flt_day.setDisabled(False)
-        self.flt_kab.setDisabled(False)
+        self.tab4_filter_frame.setEnabled(True)
+        self.tab4_journ_frame.setEnabled(True)
 
         self.rasp.update()
         self.tab4_count_lcd.display(self.rasp.rows())
         if self.con.in_transaction:
+            self.tab4_commit_frame.show()
             self.tab4_commit_btn.setDisabled(False)
             self.tab4_rollback_btn.setDisabled(False)
         else:
+            self.tab4_commit_frame.hide()
             self.tab4_commit_btn.setDisabled(True)
             self.tab4_rollback_btn.setDisabled(True)
 
@@ -219,6 +241,9 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         for i in range(self.tab4_rasp_view.model().rowCount()):
             if self.tab4_rasp_view.model().itemData(self.tab4_rasp_view.model().index(i, 0))[0] == id:
                 self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(i, 0))
+                self.tab4_rasp_view.update()
+#        print(self.tab4_rasp_view.model().itemData(self.tab4_rasp_view.model().index(i, 1))[0].split()[0])
+
 
     def color_table_click(self):
         """

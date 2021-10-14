@@ -8,3 +8,4 @@ from .cl_roles import Roles
 from .cl_places import Places
 from .cl_courses import Courses
 from .cl_group_table import GroupTable
+from .cl_journals import Journals
