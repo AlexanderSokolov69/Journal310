@@ -78,8 +78,6 @@ def get_days_list(days: dict, mon=9, year=2021):
     d2 = next_first_date(d1)
     ret = []
     oneday = datetime.timedelta(1)
-    print(d1)
-    print(d2)
     while d1 < d2:
         if d1.weekday() in days.keys():
             ret.append([str(d1), *days[d1.weekday()]])

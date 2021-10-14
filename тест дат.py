@@ -21,5 +21,6 @@ def get_days_list(days: dict, mon=9, year=2021):
     return ret
 
 
-days = {0: ['08:00', '09:30'], 3: ['09:00', '10:30']}
-print(get_days_list(days))
+print(d.year, d.month, d.day, d.weekday())
+# days = {0: ['08:00', '09:30'], 3: ['09:00', '10:30']}
+# print(get_days_list(days))

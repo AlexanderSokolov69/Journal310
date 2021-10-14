@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QWidget, QApplication, QAbstractItemView, QGridLayou
     QFrame, QButtonGroup, QSizePolicy, QPushButton, QComboBox, QLineEdit
 from PyQt5 import QtCore
 
-from classes.bb_converts import get_day_list, get_kab_list, get_time_list, get_short_day_list
+from classes.bb_converts import get_day_list, get_kab_list, get_time_list, get_short_day_list, get_days_list
 from classes.cl_journals import Journals
 from classes.cl_rasp import Rasp
 from classes.qt_classes import QLabelClk
@@ -23,6 +23,10 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
     LABEL_OK = '[  ]'
     LABEL_FREE = ' ' * 4
     LABEL_COLL = 'XXX'
+    IDGROUPS_POS = 9
+    IDDAY_POS = 10
+    START_POS = 4
+    END_POS = 5
 
     def __init__(self, con):
         super(tab4FormWindow, self).__init__()
@@ -85,26 +89,83 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         self.flt_user.currentIndexChanged.connect(self.rasp_set_filter)
         self.flt_day.currentIndexChanged.connect(self.rasp_set_filter)
         self.flt_kab.currentIndexChanged.connect(self.rasp_set_filter)
-        self.journ = Journals(self.con)
+        self.journ = Journals(self.con, date_col=1)
         self.tab4_journ_view.setModel(self.journ.model())
         self.rasp_curent_row = -1
         self.tab4_rasp_view.installEventFilter(self)
+        self.tab4_journ_view.installEventFilter(self)
         self.activate()
 
+        self.tab4_add_journ.clicked.connect(self.journ_corrector)
+        self.tab4_del_journ.clicked.connect(self.journ_corrector)
+        self.tab4_journ_view.doubleClicked.connect(self.edit_journ_record)
+
+    def edit_journ_record(self):
+        print('edit')
+
+    def journ_corrector(self):
+        object = self.sender().objectName()
+        if object == 'tab4_del_journ':
+            id = self.journ.data[self.tab4_journ_view.currentIndex().row()][0]
+            self.journ.rec_delete(id)
+            self.journ_update()
+        elif object == 'tab4_add_journ':
+            if self.tab4_lmonts.currentText():
+                month = int(self.tab4_lmonts.currentText().split()[0])
+
+                list_days = dict()
+                for item in self.rasp.data:
+                    if item[self.IDGROUPS_POS] == self.idGroups:
+                        list_days[item[self.IDDAY_POS]] = [item[self.START_POS], item[self.END_POS]]
+                list_days = get_days_list(list_days, month)
+                test = [] if self.journ.rows() == 0 else [day[1] for day in self.journ.data]
+                for rec in list_days:
+                    if rec[0] not in test:
+                        arg = dict()
+                        arg['idGroups'] = str(self.idGroups)
+                        arg['date'] = rec[0]
+                        arg['name'] = 'Тема...'
+                        arg['start'] = rec[1]
+                        arg['end'] = rec[2]
+                        self.journ.rec_append(arg)
+                self.journ_update()
+
+    def journ_update(self):
+        self.journ.update()
+        self.tab4_journ_view.setModel(self.journ.model())
+        self.tab4_journ_view.resizeColumnsToContents()
+        self.tab4_journ_view.setCurrentIndex(self.tab4_rasp_view.model().index(0, 0))
+        self.tab4_journ_view.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tab4_count_journ.display(self.journ.rows())
+        self.tab4_journ_view.update()
+
+    def restate_commit(self):
+        if self.con.in_transaction:
+            self.tab4_commit_frame.show()
+            self.tab4_commit_btn.setDisabled(False)
+            self.tab4_rollback_btn.setDisabled(False)
+        else:
+            self.tab4_commit_frame.hide()
+            self.tab4_commit_btn.setDisabled(True)
+            self.tab4_rollback_btn.setDisabled(True)
+
     def eventFilter(self, object: 'QObject', event: 'QEvent') -> bool:
-        if object.objectName() == 'tab4_rasp_view':
+        self.restate_commit()
+        if object.objectName() == 'tab4_journ_view':
+            if event.type() == QEvent.MouseButtonDblClick:
+                print('dbl')
+        elif object.objectName() == 'tab4_rasp_view':
             row = object.currentIndex().row()
             col = 1
             if row != self.rasp_curent_row:
                 self.rasp_curent_row = row
                 self.id = self.rasp.data[object.currentIndex().row()][0]
-                self.idGroups = self.rasp.data[object.currentIndex().row()][9]
+                self.idGroups = self.rasp.data[object.currentIndex().row()][self.IDGROUPS_POS]
                 ngrp = self.rasp.data[object.currentIndex().row()][1].split()[0]
                 self.tab4_curr_grp.setText(ngrp)
 
                 self.journ.set_filter(f'j.idGroups = {self.idGroups}')
-                self.journ.update()
-                self.tab4_journ_view.update()
+                self.journ_update()
 #                print(row)
         return False
 
