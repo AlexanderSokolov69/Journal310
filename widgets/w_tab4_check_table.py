@@ -225,7 +225,7 @@ class tab4FormWindow(QWidget, Ui_tab4Form):
         """
         self.current_data = []
         self.create_edit_widgets()
-        self.map_table()
+#        self.map_table()
         self.tab4_rasp_view.setDisabled(True)
         for btn in self.tab4_btn_group.buttons():
             btn.setDisabled(True)

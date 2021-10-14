@@ -1,9 +1,21 @@
+import datetime
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import Qt, pyqtSignal, QObject, QEvent
 from PyQt5.QtWidgets import QTableView, QLabel
 
 from classes.bb_converts import *
 import datetime
+
+
+class LogWriter(QObject):
+    def __init__(self):
+        super(LogWriter, self).__init__()
+        self.fname = 'errorlog.txt'
+
+    def to_log(self, message):
+        timestamp = datetime.datetime.now()
+        with open(self.fname, 'a', encoding='utf8') as f:
+            f.write(f"""{timestamp} ==> {message}\n<===\n""")
 
 
 class MyTableModel(QtCore.QAbstractTableModel):
@@ -131,4 +143,6 @@ class QLabelClk(QLabel, MultiClicker):
         QLabel.__init__(self, parent)
         MultiClicker.__init__(self)
 
-
+if __name__ == '__main__':
+    log = LogWriter()
+    log.to_log('Ошибка')

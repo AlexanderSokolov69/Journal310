@@ -1,6 +1,6 @@
 import sqlite3
 from sqlite3 import connect
-from .qt_classes import MyTableModel
+from .qt_classes import MyTableModel, LogWriter
 from PyQt5.QtCore import pyqtSignal, QObject
 
 
@@ -18,6 +18,7 @@ class SQLObject(QObject):
         if con is None:
             Exception('NO database connection')
         # self.need_save = pyqtSignal()
+        self.logfile = LogWriter()
         self.con : sqlite3.connect = con
         self.cur = con.cursor()
         self.tmodel = None
@@ -86,7 +87,8 @@ class SQLObject(QObject):
                 sql = f"""{self.sql} {self.filter} {self.order}"""
                 ret = self.cur.execute(sql).fetchall()
             except (sqlite3.Error, sqlite3.Warning) as err:
-                print(err, '[update class]', sql)
+                self.logfile.to_log(f"""{err} [update class] \n{sql}""")
+                # print(err, '[update class]', sql)
                 ret = None
             if ret:
                 self.header = [i[0] for i in self.cur.description]
@@ -125,8 +127,9 @@ class SQLObject(QObject):
         try:
             self.con.commit()
         except (sqlite3.Error, sqlite3.Warning) as err:
+            self.logfile.to_log(f"""{err} [commit]""")
             # self.log.out(str(datetime.date), str(datetime.time), '[commit]', str(err), '')
-            print(err, '[commit]')
+            # print(err, '[commit]')
 
     def rollback(self):
         """
@@ -137,7 +140,8 @@ class SQLObject(QObject):
             self.con.rollback()
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[rollback]', str(err), '')
-            print(err, '[rollback]')
+            self.logfile.to_log(f"""{err} [rollback]""")
+            # print(err, '[rollback]')
 
     def rec_update(self, id, arg: dict):
         """
@@ -152,7 +156,8 @@ class SQLObject(QObject):
             self.cur.execute(sql)
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[update record]', str(err), self.sql)
-            print(err, '[update record]', sql)
+            self.logfile.to_log(f"""{err} [update record] \n{sql}""")
+            # print(err, '[update record]', sql)
         return True
 
     def rec_append(self, arg: dict):
@@ -168,7 +173,8 @@ class SQLObject(QObject):
             self.cur.execute(sql)
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[append record]', str(err), self.sql)
-            print(err, '[append record]', sql)
+            self.logfile.to_log(f"""{err} [append record] \n{sql}""")
+            # print(err, '[append record]', sql)
         return True
 
     def rec_delete(self, id):
@@ -181,7 +187,8 @@ class SQLObject(QObject):
         try:
             self.cur.execute(sql)
         except (sqlite3.Error, sqlite3.Warning) as err:
-            print(err, '[delete record]', sql)
+            self.logfile.to_log(f"""{err} [delete record] \n{sql}""")
+            # print(err, '[delete record]', sql)
         return True
 
     def get_record(self, id):
@@ -198,7 +205,8 @@ class SQLObject(QObject):
             data = cur.execute(sql).fetchone()
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[get record]', str(err), self.sql)
-            print(err, '[get record]', sql)
+            self.logfile.to_log(f"""{err} [get record] \n{sql}""")
+            # print(err, '[get record]', sql)
         if not data:
             data = [''] * len(self.keys)
         ret = []
@@ -219,7 +227,8 @@ class SQLObject(QObject):
             ret = cur.execute(comm).fetchall()
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[execute command]', str(err), self.sql)
-            print(err, '[execute command]', comm)
+            self.logfile.to_log(f"""{err} [execute command] \n{comm}""")
+            # print(err, '[execute command]', comm)
             ret = [[]]
         return ret
 
