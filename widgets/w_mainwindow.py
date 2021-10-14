@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt
 from classes.cl_users import Users
 from classes.db_classes import Privileges, Roles, Places, Courses, Groups
 from classes.bb_converts import *
-from widgets.MainWindow import Ui_MainWindow
+from forms.MainWindow import Ui_MainWindow
 from widgets.w_tab4_check_table import tab4FormWindow
 from widgets.w_tab3form import tab3FormWindow
 

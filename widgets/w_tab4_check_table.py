@@ -1,7 +1,7 @@
 import sys
 import sqlite3
 
-from PyQt5.QtCore import pyqtSignal, Qt, QEvent, QObject, QModelIndex
+from PyQt5.QtCore import pyqtSignal, Qt, QEvent, QObject
 from PyQt5.QtWidgets import QWidget, QApplication, QAbstractItemView, QGridLayout, QLabel, \
     QFrame, QButtonGroup, QSizePolicy, QPushButton, QComboBox, QLineEdit
 from PyQt5 import QtCore
@@ -10,7 +10,7 @@ from classes.bb_converts import get_day_list, get_kab_list, get_time_list, get_s
 from classes.cl_journals import Journals
 from classes.cl_rasp import Rasp
 from classes.qt_classes import QLabelClk
-from widgets.checkTable import Ui_tab4Form
+from forms.checkTable import Ui_tab4Form
 
 
 def except_hook(cls, exception, traceback):

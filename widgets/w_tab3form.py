@@ -2,13 +2,12 @@ import sys
 import sqlite3
 
 from PyQt5.QtCore import QModelIndex
-from PyQt5.QtWidgets import QWidget, QApplication, QTableWidgetItem, QAbstractItemView, QTableView
-from PyQt5 import QtGui, QtCore
+from PyQt5.QtWidgets import QWidget, QApplication, QAbstractItemView
 from classes.cl_courses import Courses
 from classes.cl_group_table import GroupTable
 from classes.cl_groups import Groups
 from classes.cl_users import Users
-from widgets.tab3_form import Ui_tab3Form
+from forms.tab3_form import Ui_tab3Form
 
 
 def except_hook(cls, exception, traceback):
