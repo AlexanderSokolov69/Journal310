@@ -4,9 +4,7 @@ from PyQt5.QtWidgets import QWidget, QApplication
 
 from classes.cl_password import Password
 from classes.cl_users import Users
-from forms.loginDlg import Ui_Dialog
-
-
+from forms_journal.loginDlg import Ui_Dialog
 
 
 class LoginDialog(QWidget, Ui_Dialog):
