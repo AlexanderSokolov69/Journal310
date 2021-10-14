@@ -1,5 +1,5 @@
 import sqlite3
-from .cl_sqlobject import SQLObject
+from .cl__main_sqlobject import SQLObject
 
 
 class Roles(SQLObject):

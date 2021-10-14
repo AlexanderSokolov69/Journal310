@@ -2,7 +2,7 @@ import sys
 import traceback as tb
 from PyQt5.QtWidgets import QApplication
 from classes.db_session import connectdb
-from classes.qt_classes import LogWriter
+from classes.qt__classes import LogWriter
 from widgets.w_mainwindow import MWindow
 from widgets.w_syslogin import LoginDialog
 

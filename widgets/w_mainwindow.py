@@ -3,11 +3,11 @@ from PyQt5.QtWidgets import QLabel, QMainWindow, QAbstractItemView, QMessageBox,
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 from classes.cl_users import Users
-from classes.db_classes import Privileges, Roles, Places, Courses, Groups
+from classes.db__classes import Privileges, Roles, Places, Courses, Groups
 from classes.bb_converts import *
 from forms.MainWindow import Ui_MainWindow
-from widgets.w_tab4_check_table import tab4FormWindow
-from widgets.w_tab3form import tab3FormWindow
+from widgets.w_tab4_form import Tab4FormWindow
+from widgets.w_tab3_form import Tab3FormWindow
 
 
 class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно приложения
@@ -41,12 +41,12 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
 
         self.tab3_myLayout = QHBoxLayout(self)
         self.tab3.setLayout(self.tab3_myLayout)
-        self.tab3_myLayout.addWidget(tab3FormWindow(con))
+        self.tab3_myLayout.addWidget(Tab3FormWindow(con))
 
         self.tab4_myLayout = QHBoxLayout(self)
         self.tab4.setLayout(self.tab4_myLayout)
         self.tab4_myLayout.setContentsMargins(0, 0, 0, 0)
-        self.tab4Widget = tab4FormWindow(con)
+        self.tab4Widget = Tab4FormWindow(con)
         self.tab4_myLayout.addWidget(self.tab4Widget)
         self.tab4Widget.collisium.connect(self.rasp_coll)
 

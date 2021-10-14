@@ -1,4 +1,4 @@
-from .cl_sqlobject import SQLObject
+from .cl__main_sqlobject import SQLObject
 
 
 class Courses(SQLObject):

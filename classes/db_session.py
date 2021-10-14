@@ -2,7 +2,7 @@ import sqlite3
 import sys
 from configparser import ConfigParser
 
-from classes.qt_classes import LogWriter
+from classes.qt__classes import LogWriter
 
 
 def connectdb(path=''):
