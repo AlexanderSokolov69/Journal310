@@ -94,3 +94,93 @@ select r.id, g.name || " - " || ju.name as "Группа - наставник", 
                 join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
                 join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.start
 <===
+2021-10-15 17:53:29.687599 ==> Старт программы
+<===
+2021-10-15 17:53:29.731479 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-15 17:53:35.007652 ==> 4, Гафиулина Н.Н., Успешный вход
+<===
+2021-10-15 17:53:35.684629 ==> no such table: journ [update class] 
+select r.id, g.name || " - " || ju.name as "Группа - наставник", d.name as "День недели" , 
+                    k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
+                    jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
+                    r.idGroups as "Группа", d.id as "День"
+                from journ r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.start
+<===
+2021-10-15 17:53:35.695784 ==> no such table: journ [update class] 
+select r.id, g.name || " - " || ju.name as "Группа - наставник", d.name as "День недели" , 
+                    k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
+                    jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
+                    r.idGroups as "Группа", d.id as "День"
+                from journ r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.start
+<===
+2021-10-15 17:53:35.725757 ==> no such table: journ [update class] 
+select r.id, g.name || " - " || ju.name as "Группа - наставник", d.name as "День недели" , 
+                    k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
+                    jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
+                    r.idGroups as "Группа", d.id as "День"
+                from journ r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.start
+<===
+2021-10-15 17:53:35.936715 ==> no such table: journ [update class] 
+select r.id, g.name || " - " || ju.name as "Группа - наставник", d.name as "День недели" , 
+                    k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
+                    jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
+                    r.idGroups as "Группа", d.id as "День"
+                from journ r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.start
+<===
+2021-10-15 17:54:25.450852 ==> no such table: journ [update class] 
+select r.id, g.name || " - " || ju.name as "Группа - наставник", d.name as "День недели" , 
+                    k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
+                    jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
+                    r.idGroups as "Группа", d.id as "День"
+                from journ r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.start
+<===
+2021-10-15 17:54:25.593153 ==> no such table: journ [update class] 
+select r.id, g.name || " - " || ju.name as "Группа - наставник", d.name as "День недели" , 
+                    k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
+                    jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
+                    r.idGroups as "Группа", d.id as "День"
+                from journ r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.start
+<===
+2021-10-15 17:58:17.201813 ==> Старт программы
+<===
+2021-10-15 17:58:17.227439 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-15 17:58:22.409545 ==> 4, Гафиулина Н.Н., Успешный вход
+<===
+2021-10-15 17:58:49.821582 ==> Старт программы
+<===
+2021-10-15 17:58:49.843727 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-15 17:58:57.057294 ==> 4, Гафиулина Н.Н., Успешный вход
+<===

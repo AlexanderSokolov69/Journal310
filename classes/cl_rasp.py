@@ -17,7 +17,7 @@ class Rasp(SQLObject):
                     k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
                     jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
                     r.idGroups as "Группа", d.id as "День"
-                from journ r
+                from rasp r
                 join kabs k on r.idKabs = k.id
                 join days d on r.idDays = d.id
                 join groups g on r.idGroups = g.id

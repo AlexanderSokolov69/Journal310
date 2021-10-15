@@ -139,7 +139,7 @@ class TSQLObject(QObject):
         :param arg: список кортежей для корректировки
         :return:
         """
-        args = ', '.join([f'{item[0]} = "{item[1]}"' for item in arg.items()])
+        args = ', '.join([f"""{item[0]} = "{item[1]}" """ for item in arg.items()])
         sql = f"update {self.dbname} set {args} where id = {id}"
         try:
             self.cur.execute(sql)
