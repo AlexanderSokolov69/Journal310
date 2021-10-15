@@ -6,6 +6,12 @@ from classes.bb_converts import date_us_ru
 from classes.t__sqlobject import TSQLObject
 
 
+class Const:
+    PRESENT = 5
+    ESTIM = 6
+    SHTRAF = 7
+
+
 class TJournalModel(QAbstractTableModel):
     def __init__(self, sql_obj: TSQLObject, date_col=[]):
         super(TJournalModel, self).__init__()
@@ -47,7 +53,10 @@ class TJournalModel(QAbstractTableModel):
         if self.sql_obj.rows() > 0:
             row = index.row()
             col = index.column()
-            ret = self.sql_obj.data[row][col]
+            if col in [Const.PRESENT, Const.ESTIM, Const.SHTRAF]:
+                ret = len(self.sql_obj.data[row][col].split())
+            else:
+                ret = self.sql_obj.data[row][col]
             if col in self.date_col:
                 ret = date_us_ru(ret)
         else:

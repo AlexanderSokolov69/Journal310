@@ -8,23 +8,25 @@ from classes.bb_converts import *
 from forms_journal.MainWindow import Ui_MainWindow
 from widgets_journal.j_tab4_form import Tab4FormWindow
 from widgets_journal.j_tab3_form import Tab3FormWindow
+from widgets_teacher.t_mainwindow import T5Window
 
 
 class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно приложения
-    def __init__(self, con):
+    def __init__(self, con, login_id):
         super(MWindow, self).__init__()
         self.setupUi(self)
         # uic.loadUi('widgets_journal\\MainWindow.ui', self)
-        self.initUi(con)
+        self.initUi(con, login_id)
 
-    def initUi(self, con):
+    def initUi(self, con, login_id):
         """
         Начальная настройка форм первых двух вкладок
         :param con:
         :return:
         """
-        self.setWindowTitle('IT-куб. Белая Холуница. Журналы. v.0.9')
+        self.setWindowTitle('IT-куб. Белая Холуница. Журналы. v.1.0')
         self.con = con
+        self.login_id = login_id
         self.id = None
         self.currTable = None
         self.edit_widgets = []
@@ -49,6 +51,12 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         self.tab4Widget = Tab4FormWindow(con)
         self.tab4_myLayout.addWidget(self.tab4Widget)
         self.tab4Widget.collisium.connect(self.rasp_coll)
+
+        self.tab5_myLayout = QHBoxLayout(self)
+        self.tab5.setLayout(self.tab5_myLayout)
+        self.tab5_myLayout.setContentsMargins(0, 0, 0, 0)
+        self.tab5Widget = T5Window(con, self.login_id)
+        self.tab5_myLayout.addWidget(self.tab5Widget)
 
         self.tableView.doubleClicked.connect(self.edit_Button.click)
         self.MainTab.currentChanged.connect(self.main_prepare_tab)
@@ -96,7 +104,8 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         elif self.tab4.isVisible():
             self.tab4Widget.activate()
         elif self.tab5.isVisible():
-            print('tab5')
+            self.tab5Widget.activate()
+            # print('tab5')
         elif self.tab6.isVisible():
             print('tab6')
 

@@ -22,7 +22,8 @@ if __name__ == '__main__':
     login_user = LoginDialog(con)
     app.exec()
     if login_user.passwd_ok:
+        print(login_user.loggedUser['id'])
         flog.to_log(f"""{login_user.loggedUser['id']}, {login_user.loggedUser['name']}, Успешный вход""")
-        wnd = MWindow(con)
+        wnd = MWindow(con, login_user.loggedUser['id'])
         wnd.showMaximized()
         sys.exit(app.exec())

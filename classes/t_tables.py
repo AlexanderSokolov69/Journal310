@@ -45,7 +45,8 @@ class TJournals(TSQLObject):
         self.dbname = 'journals'
         if sql is None:
             self.sql = f"""select j.id, j.date as "Дата", j.name as "Тема занятия", j.start as "Время нач.", 
-                    j.end as "Время оконч.", j.comment as "Доп. информация"
+                    j.end as "Время оконч.", j.present as "Посещаемость", j.estim as "Оценки",
+                     j.shtraf as "Штрафы", j.comment as "Доп. информация"
                 from journals j"""
             self.set_order('j.date, j.start')
         else:
