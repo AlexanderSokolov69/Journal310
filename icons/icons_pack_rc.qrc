@@ -1,0 +1,24 @@
+<RCC>
+  <qresource prefix="icons1">
+    <file>icons1/Tilda_Icons_1ed_beaker.svg</file>
+    <file>icons1/Tilda_Icons_1ed_book.svg</file>
+    <file>icons1/Tilda_Icons_1ed_brain.svg</file>
+    <file>icons1/Tilda_Icons_1ed_calendar.svg</file>
+    <file>icons1/Tilda_Icons_1ed_cup.svg</file>
+    <file>icons1/Tilda_Icons_1ed_discount.svg</file>
+    <file>icons1/Tilda_Icons_1ed_flipchart.svg</file>
+    <file>icons1/Tilda_Icons_1ed_glasses.svg</file>
+    <file>icons1/Tilda_Icons_1ed_group.svg</file>
+    <file>icons1/Tilda_Icons_1ed_hat.svg</file>
+    <file>icons1/Tilda_Icons_1ed_hourglass.svg</file>
+    <file>icons1/Tilda_Icons_1ed_lightbulb 14.svg</file>
+    <file>icons1/Tilda_Icons_1ed_list.svg</file>
+    <file>icons1/Tilda_Icons_1ed_location.svg</file>
+    <file>icons1/Tilda_Icons_1ed_mail.svg</file>
+    <file>icons1/Tilda_Icons_1ed_phone.svg</file>
+    <file>icons1/Tilda_Icons_1ed_purse.svg</file>
+    <file>icons1/Tilda_Icons_1ed_speaker.svg</file>
+    <file>icons1/Tilda_Icons_1ed_teacher.svg</file>
+    <file>icons1/Tilda_Icons_1ed_timer.svg</file>
+  </qresource>
+</RCC>

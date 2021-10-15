@@ -10,7 +10,7 @@ from classes.bb_converts import get_day_list, get_kab_list, get_time_list, get_s
 from classes.cl_journals import Journals
 from classes.cl_rasp import Rasp
 from classes.qt__classes import QLabelClk
-from forms.checkTable import Ui_tab4Form
+from forms_journal.checkTable import Ui_tab4Form
 
 
 def except_hook(cls, exception, traceback):

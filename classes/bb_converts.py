@@ -8,7 +8,7 @@ def date_us_ru(data):
     :return:
     """
     data = str(data)
-    ret = ''
+    ret = data
     if len(data) == 10:
         try:
             ret = f"{int(data[8:10:1]):02}.{int(data[5:7:1]):02}.{int(data[0:4:1]):04}"

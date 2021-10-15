@@ -7,7 +7,7 @@ from classes.cl_courses import Courses
 from classes.cl_group_table import GroupTable
 from classes.cl_groups import Groups
 from classes.cl_users import Users
-from forms.tab3_form import Ui_tab3Form
+from forms_journal.tab3_form import Ui_tab3Form
 
 
 def except_hook(cls, exception, traceback):

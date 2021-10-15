@@ -5,16 +5,16 @@ from PyQt5.QtCore import Qt
 from classes.cl_users import Users
 from classes.db__classes import Privileges, Roles, Places, Courses, Groups
 from classes.bb_converts import *
-from forms.MainWindow import Ui_MainWindow
-from widgets.w_tab4_form import Tab4FormWindow
-from widgets.w_tab3_form import Tab3FormWindow
+from forms_journal.MainWindow import Ui_MainWindow
+from widgets_journal.j_tab4_form import Tab4FormWindow
+from widgets_journal.j_tab3_form import Tab3FormWindow
 
 
 class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно приложения
     def __init__(self, con):
         super(MWindow, self).__init__()
         self.setupUi(self)
-        # uic.loadUi('widgets\\MainWindow.ui', self)
+        # uic.loadUi('widgets_journal\\MainWindow.ui', self)
         self.initUi(con)
 
     def initUi(self, con):
