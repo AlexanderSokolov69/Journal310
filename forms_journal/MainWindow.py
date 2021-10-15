@@ -446,6 +446,10 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1244, 23))
         self.menubar.setObjectName("menubar")
+        self.menu = QtWidgets.QMenu(self.menubar)
+        self.menu.setObjectName("menu")
+        self.menu_2 = QtWidgets.QMenu(self.menubar)
+        self.menu_2.setObjectName("menu_2")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         palette = QtGui.QPalette()
@@ -464,9 +468,14 @@ class Ui_MainWindow(object):
         self.statusbar.setFont(font)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.action_tab1 = QtWidgets.QAction(MainWindow)
+        self.action_tab1.setObjectName("action_tab1")
+        self.menu_2.addAction(self.action_tab1)
+        self.menubar.addAction(self.menu.menuAction())
+        self.menubar.addAction(self.menu_2.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.MainTab.setCurrentIndex(1)
+        self.MainTab.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -498,3 +507,6 @@ class Ui_MainWindow(object):
         self.MainTab.setTabText(self.MainTab.indexOf(self.tab4), _translate("MainWindow", "Расписания"))
         self.MainTab.setTabText(self.MainTab.indexOf(self.tab5), _translate("MainWindow", "Журналы"))
         self.MainTab.setTabText(self.MainTab.indexOf(self.tab6), _translate("MainWindow", "Настройки"))
+        self.menu.setTitle(_translate("MainWindow", "Файл"))
+        self.menu_2.setTitle(_translate("MainWindow", "Режимы"))
+        self.action_tab1.setText(_translate("MainWindow", "Справочники"))

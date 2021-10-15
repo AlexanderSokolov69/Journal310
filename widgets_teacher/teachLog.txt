@@ -1,0 +1,20 @@
+2021-10-16 01:44:33.644588 ==> list index out of range | 
+  File "C:\Tools\Python\310\Journal310\widgets_teacher\t_mainwindow.py", line 274, in <module>
+    wnd = MWindow(con, 1)
+
+<===
+2021-10-16 01:55:35.599121 ==> list index out of range | 
+  File "C:\Tools\Python\310\Journal310\widgets_teacher\t_mainwindow.py", line 274, in <module>
+    wnd = T5Window(con, 4)
+
+<===
+2021-10-16 01:57:59.782611 ==> list index out of range | 
+  File "C:\Tools\Python\310\Journal310\widgets_teacher\t_mainwindow.py", line 170, in start_edit_day
+    self.group_table.set_filter(f"g.id = {self.groups.data[self.groupBox.currentIndex()][0]}")
+
+<===
+2021-10-16 02:16:46.481206 ==> 'NoneType' object has no attribute 'beginResetModel' | 
+  File "C:\Tools\Python\310\Journal310\widgets_teacher\t_mainwindow.py", line 262, in change_current_group
+    self.tableView.model().beginResetModel()
+
+<===

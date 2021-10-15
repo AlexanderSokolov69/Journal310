@@ -38,6 +38,7 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.journ = TJournals(self.con)
         model = TJournalModel(self.journ, [1])
         self.tableView.setModel(model)
+        self.groupBox.currentIndexChanged.connect(self.change_current_group)
         self.activate()
         self.tableView.model().dataChanged.connect(self.signal)
         self.tableView.doubleClicked.connect(self.start_edit_day)
@@ -49,8 +50,8 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
     def activate(self):
         self.tableView.model().beginResetModel()
         self.groups.update()
+        self.groupBox.clear()
         self.groupBox.setCurrentIndex(-1)
-        self.groupBox.currentIndexChanged.connect(self.change_current_group)
         if self.groups.rows() > 0:
             self.groupBox.insertItems(0, [val[1] for val in self.groups.data])
         else:
