@@ -11,13 +11,13 @@ class Rasp(SQLObject):
             ('end', 'Окончание занятий:'),
             ('comment', 'Доп. информация')
         )
-        self.dbname = 'rasp'
+        self.dbname = 'journ'
         if sql is None:
             self.sql = f"""select r.id, g.name || " - " || ju.name as "Группа - наставник", d.name as "День недели" , 
                     k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
                     jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
                     r.idGroups as "Группа", d.id as "День"
-                from rasp r
+                from journ r
                 join kabs k on r.idKabs = k.id
                 join days d on r.idDays = d.id
                 join groups g on r.idGroups = g.id

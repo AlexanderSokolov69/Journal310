@@ -60,6 +60,7 @@ class TSQLObject(QObject):
             self.filter = f"where {flt}"
         else:
             self.filter = ''
+        self.update()
 
     def set_sql(self, sql=None, flt=None):
         """
