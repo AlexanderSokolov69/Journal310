@@ -90,8 +90,8 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
 
         preset = {'present': [], 'estim': [], 'shtraf': []}
         preset['present'] = list(map(int, (self.journ.data[self.record_cursor][Const.PRESENT]).split()))
-        preset['estim'] = {val[0]: val[1] for val in (self.journ.data[self.record_cursor][Const.ESTIM]).split()}
-        preset['shtraf'] = {val[0]: val[1] for val in (self.journ.data[self.record_cursor][Const.SHTRAF]).split()}
+        preset['estim'] = {val.split('=')[0]: val.split('=')[1] for val in (self.journ.data[self.record_cursor][Const.ESTIM]).split()}
+        preset['shtraf'] = {val.split('=')[0]: val.split('=')[1] for val in (self.journ.data[self.record_cursor][Const.SHTRAF]).split()}
         lyoutCorr.setAlignment(QtCore.Qt.AlignCenter)
         le = QLineEdit(self.journ.data[self.record_cursor][2])
         le.setObjectName('lesson Name')
@@ -200,14 +200,14 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
                 oc = QLineEdit()
                 oc.setMaximumWidth(30)
                 oc.setObjectName(f"lesson {userId} estim")
-                oc.setText(preset['estim'].get(userId, ''))
+                oc.setText(preset['estim'].get(str(userId), ''))
                 self.edit_spisok.append(oc)
                 lyoutCorr.addWidget(oc, pos, 7, pos + 1, 7)
 
                 oc = QLineEdit()
                 oc.setMaximumWidth(100)
                 oc.setObjectName(f"lesson {userId} shtraf")
-                oc.setText(preset['shtraf'].get(userId, ''))
+                oc.setText(preset['shtraf'].get(str(userId), ''))
                 self.edit_spisok.append(oc)
                 lyoutCorr.addWidget(oc, pos, 8, pos + 1, 8)
                 pos += 3
@@ -254,6 +254,7 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
             result_head['present'] = ' '.join(result_head['present'])
             result_head['estim'] = ' '.join(result_head['estim'])
             result_head['shtraf'] = ' '.join(result_head['shtraf'])
+
             self.journ.rec_update(id, result_head)
 
     #        self.journ.commit()
