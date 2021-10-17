@@ -18,7 +18,7 @@ class LoginDialog(QWidget, Ui_Dialog):
         self.passwd2.hide()
         self.passwd_ok = False
         self.loggedUser = None
-        self.setFixedSize(480, 210)
+        self.setFixedSize(343, 163)
 
         self.show()
 

@@ -11,18 +11,18 @@ class TRasp(TSQLObject):
             ('end', 'Окончание занятий:'),
             ('comment', 'Доп. информация')
         )
-        self.dbname = 'journ'
+        self.dbname = 'rasp'
         if sql is None:
             self.sql = f"""select r.id, g.name || " - " || ju.name as "Группа - наставник", d.name as "День недели" , 
                     k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
                     jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
-                    r.idGroups as "Группа", d.id as "День"
-                from journ r
+                    r.idGroups as "Группа", d.id as "День", jc.year as "Уч.год"
+                from rasp r
                 join kabs k on r.idKabs = k.id
                 join days d on r.idDays = d.id
                 join groups g on r.idGroups = g.id
                 join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
-                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses"""
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses"""
             self.set_order('d.id, k.id, r.start')
         else:
             self.sql = f"""{sql}"""
@@ -47,7 +47,9 @@ class TJournals(TSQLObject):
             self.sql = f"""select j.id, j.date as "Дата", j.name as "Тема занятия", j.start as "Время нач.", 
                     j.end as "Время оконч.", j.present as "Посещаемость", j.estim as "Оценки",
                      j.shtraf as "Штрафы", j.comment as "Доп. информация"
-                from journals j"""
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses"""
             self.set_order('j.date, j.start')
         else:
             self.sql = f"""{sql}"""
@@ -135,7 +137,9 @@ class TGroupTable(TSQLObject):
                     t.comment as "Комментарий" 
                 from group_table t
                 join groups g on g.id = t.idGroups
-                join users u on u.id = t.idUsers"""
+                join users u on u.id = t.idUsers
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses"""
+
         else:
             self.sql = f"""{sql}"""
         self.set_order(ord)

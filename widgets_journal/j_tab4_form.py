@@ -425,6 +425,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         curLayout = self.tab4_edit_layout
         """ Создание полей редактирования записи """
         self.current_data = self.rasp.get_record(self.id)
+        # print(self.id)
         self.delete_edit_form(curLayout)
         if not self.current_data[0][2] and self.new_preset:
             self.current_data[1][2] = self.new_preset['idDays']

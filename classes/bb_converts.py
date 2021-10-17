@@ -17,6 +17,7 @@ def date_us_ru(data):
             # print('error in date_us_ru(data)')
     return ret
 
+
 def date_ru_us(data):
     """
     Перевод RU даты в US
@@ -37,11 +38,13 @@ def date_ru_us(data):
             # print('error in date_ru_us(data)')
     return ret
 
+
 def get_day_list(con):
     cur = con.cursor()
     sql = "select name from days order by id"
     res = cur.execute(sql).fetchall()
     return [s[0] for s in res]
+
 
 def get_short_day_list(con):
     cur = con.cursor()
@@ -49,11 +52,13 @@ def get_short_day_list(con):
     res = cur.execute(sql).fetchall()
     return [s[0] for s in res]
 
+
 def get_time_list(con):
     cur = con.cursor()
     sql = "select name from times order by id"
     res = cur.execute(sql).fetchall()
     return [s[0].strip() for s in res]
+
 
 def get_kab_list(con):
     cur = con.cursor()
@@ -68,12 +73,18 @@ def get_kab_list(con):
     #         ['27', (196, 0, 127)],
     #         ['28', (0, 170, 0)]]
 
+
 def next_first_date(d: datetime):
     month = (d.month) % 12 + 1
     year = d.year + (month == 1)
     return datetime.date(year, month, 1)
 
-def get_days_list(days: dict, mon=9, year=2021):
+
+def get_days_list(days: dict, mon=9):
+    if mon > 8:
+        year = Const.YEAR
+    else:
+        year = Const.YEAR + 1
     d1 = datetime.date(year, mon, 1)
     d2 = next_first_date(d1)
     ret = []
@@ -83,7 +94,3 @@ def get_days_list(days: dict, mon=9, year=2021):
             ret.append([str(d1), *days[d1.weekday()]])
         d1 += oneday
     return ret
-
-
-
-

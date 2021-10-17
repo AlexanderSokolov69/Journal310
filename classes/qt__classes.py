@@ -1,4 +1,3 @@
-import datetime
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import Qt, pyqtSignal, QObject, QEvent
 from PyQt5.QtWidgets import QTableView, QLabel
@@ -33,7 +32,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
 
 
 
-    def headerData(self, section: int, orientation: Qt.Orientation, role: int):
+    def headerData(self, section: int, orientation: Qt.Orientation, role=None):
         if role == QtCore.Qt.DisplayRole:
             if orientation == Qt.Horizontal:
                 return self.head[section]
@@ -62,7 +61,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
             return len(self.data)
 
 
-    def data(self, index, role):
+    def data(self, index, role=None):
         ret = None
         if len(self.data[0]) > 0:
             row = index.row()
@@ -85,7 +84,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
             # See below for the data structure.
             return QtGui.QColor('#f0fcfc')
 
-    def setData(self, index, value, role):  # !!!
+    def setData(self, index, value, role=None):  # !!!
         if role == Qt.EditRole:
             if index.column() > 0:
                 if index.column() == self.date_col:

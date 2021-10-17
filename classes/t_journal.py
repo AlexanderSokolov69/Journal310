@@ -1,23 +1,23 @@
 from PyQt5 import QtGui
-from PyQt5.QtCore import QAbstractTableModel, QModelIndex, Qt
+from PyQt5.QtCore import QAbstractTableModel, QModelIndex, Qt, pyqtSignal
 from PyQt5.QtWidgets import QComboBox
 
 from classes.bb_converts import date_us_ru
+from classes.cl_const import Const
 from classes.t__sqlobject import TSQLObject
 
 
-class Const:
-    PRESENT = 5
-    ESTIM = 6
-    SHTRAF = 7
-
-
 class TJournalModel(QAbstractTableModel):
+    refresh_visual = pyqtSignal()
     def __init__(self, sql_obj: TSQLObject, date_col=[]):
         super(TJournalModel, self).__init__()
         self.sql_obj = sql_obj
         self.date_col = date_col
         self.sort_col = None
+        self.summa_present = 0
+
+    def get_summa_present(self):
+        return self.summa_present
 
     def headerData(self, section: int, orientation: Qt.Orientation, role=None):
         if role == Qt.DisplayRole:
@@ -76,3 +76,9 @@ class TJournalModel(QAbstractTableModel):
 
     def flags(self, index):
             return Qt.ItemIsSelectable | Qt.ItemIsEnabled
+
+    def endResetModel(self) -> None:
+        self.summa_present = 0
+        for i in range(self.rowCount()):
+            self.summa_present += int(self.itemData(self.index(i, Const.PRESENT))[0])
+        self.refresh_visual.emit()

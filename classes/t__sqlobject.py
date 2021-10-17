@@ -1,5 +1,7 @@
 import sqlite3
 from sqlite3 import connect
+
+from classes.err_classes import SQLUpdateError
 from .qt__classes import LogWriter
 from PyQt5.QtCore import pyqtSignal, QObject
 

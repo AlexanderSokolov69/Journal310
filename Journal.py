@@ -1,7 +1,7 @@
 import sys
 import traceback as tb
 from PyQt5.QtWidgets import QApplication
-from classes.db_session import connectdb
+from classes.db_session import ConnectDb
 from classes.qt__classes import LogWriter
 from widgets_journal.j_mainwindow import MWindow
 from widgets_journal.j_syslogin import LoginDialog
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     flog = LogWriter()
     sys.excepthook = except_hook
     flog.to_log('Старт программы')
-    con = connectdb()
+    con = ConnectDb('settings.ini').get_con()
     login_user = LoginDialog(con)
     app.exec()
     if login_user.passwd_ok:
