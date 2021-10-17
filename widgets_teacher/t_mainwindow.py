@@ -125,9 +125,9 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         pos = 1
 
         preset = {'present': [], 'estim': [], 'shtraf': []}
-        preset['present'] = list(map(int, (self.journ.data[self.record_cursor][Const.PRESENT]).split()))
-        preset['estim'] = {val.split('=')[0]: val.split('=')[1] for val in (self.journ.data[self.record_cursor][Const.ESTIM]).split()}
-        preset['shtraf'] = {val.split('=')[0]: val.split('=')[1] for val in (self.journ.data[self.record_cursor][Const.SHTRAF]).split()}
+        preset['present'] = list(map(int, (self.journ.data[self.record_cursor][Const.JRN_PRESENT]).split()))
+        preset['estim'] = {val.split('=')[0]: val.split('=')[1] for val in (self.journ.data[self.record_cursor][Const.JRN_ESTIM]).split()}
+        preset['shtraf'] = {val.split('=')[0]: val.split('=')[1] for val in (self.journ.data[self.record_cursor][Const.JRN_SHTRAF]).split()}
 
         posSh = 0
         le1 = QLineEdit(self.journ.data[self.record_cursor][2])
@@ -306,9 +306,11 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
 
     def change_current_group(self):
         self.tableView.model().beginResetModel()
-        self.programName.setText(self.groups.data[self.groupBox.currentIndex()][2])
-        self.journ.set_filter(f"j.idGroups = {self.groups.data[self.groupBox.currentIndex()][0]}")
-        self.tableView.setCurrentIndex(self.tableView.model().index(0, 0))
+        self.tableView.selectRow(-1)
+        if self.groups.rows() > 0:
+            self.programName.setText(self.groups.data[self.groupBox.currentIndex()][2])
+            self.journ.set_filter(f"j.idGroups = {self.groups.data[self.groupBox.currentIndex()][0]}")
+            self.tableView.selectRow(0)
         self.tableView.model().endResetModel()
         self.tableView.resizeColumnsToContents()
         row = 0

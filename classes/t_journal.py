@@ -53,7 +53,7 @@ class TJournalModel(QAbstractTableModel):
         if self.sql_obj.rows() > 0:
             row = index.row()
             col = index.column()
-            if col in [Const.PRESENT, Const.ESTIM, Const.SHTRAF]:
+            if col in [Const.JRN_PRESENT, Const.JRN_ESTIM, Const.JRN_SHTRAF]:
                 ret = len(self.sql_obj.data[row][col].split())
             else:
                 ret = self.sql_obj.data[row][col]
@@ -80,5 +80,5 @@ class TJournalModel(QAbstractTableModel):
     def endResetModel(self) -> None:
         self.summa_present = 0
         for i in range(self.rowCount()):
-            self.summa_present += int(self.itemData(self.index(i, Const.PRESENT))[0])
+            self.summa_present += int(self.itemData(self.index(i, Const.JRN_PRESENT))[0])
         self.refresh_visual.emit()
