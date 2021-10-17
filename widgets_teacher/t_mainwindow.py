@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QAbstractItemView, QPushB
     QWidget, QFrame
 
 from classes.bb_converts import date_us_ru, date_ru_us
+from classes.cl_statistics import Statistics
 from classes.db_session import ConnectDb
 from classes.qt__classes import LogWriter
 from classes.t_journal import TJournalModel
@@ -37,7 +38,7 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.user = TUsers(con)
         self.user.set_filter( f'u.id = {self.user_id}')
         self.groups = TGroups(con)
-        self.groups.set_filter( f'g.idUsers = {self.user_id}')
+        self.groups.set_filter( f"g.idUsers = {self.user_id} and c.year = {Const.YEAR}")
         # print(self.groups.data)
         self.group_table = TGroupTable(con)
         self.teachName.setText(self.user.data[0][1])
@@ -46,12 +47,12 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         model.refresh_visual.connect(self.count_statistics)
         self.tableView.setModel(model)
         self.groupBox.currentIndexChanged.connect(self.change_current_group)
+        self.stat = Statistics(self.con, self.user_id)
         self.activate()
         self.tableView.doubleClicked.connect(self.start_edit_day)
         self.commitButton.clicked.connect(self.commit_action)
         self.rollbackButton.clicked.connect(self.commit_action)
         self.installEventFilter(self)
-
 
     def activate(self):
         self.tableView.model().beginResetModel()
@@ -61,9 +62,10 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         if self.groups.rows() > 0:
             self.groupBox.insertItems(0, [val[1] for val in self.groups.data])
         else:
-            self.journ.set_filter(f"j.idGroups = -1")
+            self.journ.set_filter(f"j.idGroups = -1 and jc.year = {Const.YEAR}")
         self.tableView.model().endResetModel()
         self.change_current_group()
+        self.count_statistics()
         self.show()
 
     def commit_action(self):
@@ -71,6 +73,7 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.tableView.model().beginResetModel()
         if self.sender().objectName() == 'commitButton':
             self.journ.commit()
+            self.stat.update()
         else:
             self.journ.rollback()
         self.journ.update()
@@ -87,6 +90,10 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         else:
             self.commitButton.hide()
             self.rollbackButton.hide()
+        if self.con.in_transaction:
+            self.frame_3.setStyleSheet("background-color: rgb(240, 212, 212);")
+        else:
+            self.frame_3.setStyleSheet("background-color: rgb(240, 240, 240);")
 
         if event.type() == QEvent.KeyPress:
             if event.key() == QtCore.Qt.Key_Escape:
@@ -217,10 +224,11 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         layoutCorr.addWidget(lb, pos, 3)
         pos += 2
 
-        self.group_table.set_filter(f"g.id = {self.groups.data[self.groupBox.currentIndex()][0]}")
+        self.group_table.set_filter(
+            f"g.id = {self.groups.data[self.groupBox.currentIndex()][0]} and jc.year = {Const.YEAR}")
         if self.group_table.rows() > 0:
             for i, user in enumerate(self.group_table.data):
-                userId = self.group_table.data[i][0]
+                userId = self.group_table.data[i][4]
                 lb = QLabel(f"{i + 1}")
                 lb.setAlignment(QtCore.Qt.AlignCenter)
                 lb.setMaximumWidth(30)
@@ -270,6 +278,7 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
             if to_save:
                 if 'lesson' in wid.objectName():
                     args = wid.objectName().split()
+                    print(args)
                     if len(args) == 2:
                         if args[1] == 'Date':
                             result_head[args[1]] = date_ru_us(wid.text())
@@ -302,14 +311,23 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.edit_spisok.clear()
 
     def count_statistics(self):
-        self.lcdNumber_1.display(self.tableView.model().get_summa_present())
+        # self.lcdNumber_1.display(self.tableView.model().get_summa_present())
+        stats = self.stat.get_statistics()
+        self.lcd_year.display(stats['year'])
+        self.lcd_cnt_stud.display(stats['cnt_stud'])
+        self.lcd_cnt_grp.display(stats['cnt_grp'])
+        self.lcd_cnt_week.display(stats['cnt_week'])
+        self.lcd_h_to_week.display(stats['h_to_week'])
+        self.lb_date_min.setText(date_us_ru(stats['date_min']))
+        self.lb_date_max.setText(date_us_ru(stats['date_max']))
 
     def change_current_group(self):
         self.tableView.model().beginResetModel()
         self.tableView.selectRow(-1)
         if self.groups.rows() > 0:
             self.programName.setText(self.groups.data[self.groupBox.currentIndex()][2])
-            self.journ.set_filter(f"j.idGroups = {self.groups.data[self.groupBox.currentIndex()][0]}")
+            self.journ.set_filter(
+                f"j.idGroups = {self.groups.data[self.groupBox.currentIndex()][0]} and jc.year = {Const.YEAR}")
             self.tableView.selectRow(0)
         self.tableView.model().endResetModel()
         self.tableView.resizeColumnsToContents()
@@ -328,7 +346,7 @@ if __name__ == '__main__':
     sys.excepthook = except_hook
     app = QApplication(sys.argv)
     flog = LogWriter()
-    con = ConnectDb().get_con()
+    con = sqlite3.connect("../db/database_J.db")  # ConnectDb('..db/databases_j.db').get_con()
     wnd = T5Window(con, 19)
     wnd.showMaximized()
     sys.exit(app.exec())

@@ -475,7 +475,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu_2.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.MainTab.setCurrentIndex(0)
+        self.MainTab.setCurrentIndex(5)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -506,7 +506,7 @@ class Ui_MainWindow(object):
         self.MainTab.setTabText(self.MainTab.indexOf(self.tab3), _translate("MainWindow", "Учебные группы"))
         self.MainTab.setTabText(self.MainTab.indexOf(self.tab4), _translate("MainWindow", "Расписания"))
         self.MainTab.setTabText(self.MainTab.indexOf(self.tab5), _translate("MainWindow", "Журналы"))
-        self.MainTab.setTabText(self.MainTab.indexOf(self.tab6), _translate("MainWindow", "Настройки"))
+        self.MainTab.setTabText(self.MainTab.indexOf(self.tab6), _translate("MainWindow", "Статистика"))
         self.menu.setTitle(_translate("MainWindow", "Файл"))
         self.menu_2.setTitle(_translate("MainWindow", "Режимы"))
         self.action_tab1.setText(_translate("MainWindow", "Справочники"))

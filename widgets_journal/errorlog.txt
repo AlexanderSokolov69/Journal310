@@ -1,0 +1,30 @@
+2021-10-17 01:56:30.148222 ==> no such table: journ [get record] 
+select idGroups, idDays, idKabs, start, end, comment from journ where id = 70
+<===
+2021-10-17 01:56:59.425269 ==> no such table: journ [get record] 
+select idGroups, idDays, idKabs, start, end, comment from journ where id = 70
+<===
+2021-10-17 01:57:48.983004 ==> no such table: journ [get record] 
+select idGroups, idDays, idKabs, start, end, comment from journ where id = 70
+<===
+2021-10-17 01:57:54.332462 ==> no such table: journ [get record] 
+select idGroups, idDays, idKabs, start, end, comment from journ where id = 27
+<===
+2021-10-17 01:58:00.804185 ==> no such table: journ [get record] 
+select idGroups, idDays, idKabs, start, end, comment from journ where id = 2
+<===
+2021-10-17 02:02:45.373797 ==> no such table: journ [get record] 
+select idGroups, idDays, idKabs, start, end, comment from journ where id = 70
+<===
+2021-10-17 02:03:21.519668 ==> no such table: journ [get record] 
+select idGroups, idDays, idKabs, start, end, comment from journ where id = 70
+<===
+2021-10-17 02:04:08.655269 ==> no such table: journ [get record] 
+select idGroups, idDays, idKabs, start, end, comment from journ where id = 70
+<===
+2021-10-17 02:06:34.139414 ==> no such table: journ [get record] 
+select idGroups, idDays, idKabs, start, end, comment from journ where id = 70
+<===
+2021-10-17 02:07:31.395827 ==> no such table: journ [get record] 
+select idGroups, idDays, idKabs, start, end, comment from journ where id = 70
+<===

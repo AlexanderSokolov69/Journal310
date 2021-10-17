@@ -134,7 +134,7 @@ class TGroupTable(TSQLObject):
         self.dbname = 'group_table'
         if sql is None:
             self.sql = f"""select t.id as 'id', g.name as "Группа", u.name as "Фамилия И.О.", 
-                    t.comment as "Комментарий" 
+                    t.comment as "Комментарий", t.idUsers as "UID"
                 from group_table t
                 join groups g on g.id = t.idGroups
                 join users u on u.id = t.idUsers

@@ -82,9 +82,9 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         self.tab2_rollback.clicked.connect(self.tab2_clicked_buttons)
         self.tab2_buttonBox.rejected.connect(self.tab2_deactivateEditFrame)
         self.tab2_buttonBox.accepted.connect(self.tab2_save_edit_frame)
-
-        self.MainTab.setCurrentIndex(1)
-        self.tab2_activate()
+        self.MainTab.setCurrentIndex(4)
+        self.tab5Widget.activate()
+        # self.tab2_activate()
 
     def rasp_coll(self):
         self.statusbar.showMessage('Коллизия расписания!!!', 1000)

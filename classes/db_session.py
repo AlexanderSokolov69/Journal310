@@ -24,10 +24,10 @@ class ConnectDb:
             # print('settings.ini where?')
         try:
             self.con = sqlite3.connect(self.path)
-            flog.to_log(f""" ----------------> Подключена БД: {path}""")
+            flog.to_log(f""" ----------------> Подключена БД: {self.path}""")
             # print('Подключена БД:',  path)
         except (sqlite3.Error, sqlite3.Warning) as err:
-            flog.to_log(f"""СТОП!!! \n\t{err} \n\t{path}""")
+            flog.to_log(f"""СТОП!!! \n\t{err} \n\t{self.path}""")
             sys.exit()
 
     def get_con(self):
