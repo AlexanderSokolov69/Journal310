@@ -1,0 +1,14 @@
+2021-10-18 17:38:36.800508 ==> prn_struct() takes from 1 to 2 positional arguments but 3 were given | 
+  File "C:\Tools\Python\Journal310\widgets_teacher\j_tab6_prog.py", line 63, in <module>
+    wnd = T6Window(con, 19)
+
+<===
+2021-10-18 17:40:49.308109 ==>  | 
+  File "C:\Tools\Python\Journal310\widgets_teacher\j_tab6_prog.py", line 66, in <module>
+
+<===
+2021-10-18 17:51:25.436079 ==> Invalid format specifier | 
+  File "C:\Tools\Python\Journal310\widgets_teacher\j_tab6_prog.py", line 63, in <module>
+    wnd = T6Window(con, 19)
+
+<===

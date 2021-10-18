@@ -1,5 +1,7 @@
 class Const:
     YEAR = 2021
+    D_START = '2021-10-01'
+    D_END = '2022-01-01'
 
     # Users
     USR_ID = 0
@@ -15,6 +17,8 @@ class Const:
     USR_ROLE = 10
     USR_PLACE = 11
     USR_DOP = 12
+    USR_COMMENT = 13
+    USR_PRIV = 14
 
     # groups
     GRP_ID = 0

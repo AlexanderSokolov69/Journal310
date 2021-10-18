@@ -1,3 +1,4 @@
+import datetime
 import sqlite3
 import sys
 from configparser import ConfigParser
@@ -19,6 +20,9 @@ class ConnectDb:
                 cfg.read('../settings.ini')
             self.path = cfg.get("Settings", "db_path")
             Const.YEAR = int(cfg.get("Settings", "l_year"))
+            Const.D_START = cfg.get("Settings", "otch_start")
+            Const.D_END = cfg.get("Settings", "otch_end")
+            print(Const.D_START)
         except:
             flog.to_log(f"""Не найден файл [settings.ini]""")
             # print('settings.ini where?')

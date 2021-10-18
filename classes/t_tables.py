@@ -57,7 +57,7 @@ class TJournals(TSQLObject):
 
 
 class TUsers(TSQLObject):
-    def set_sql(self, sql=None, flt=None):
+    def set_sql(self, sql=None, ord='u.name'):
         self.keys = (
             ('name', 'Фамилия И.О.:'),
             ('fam', 'Фамилия:'),
@@ -78,12 +78,14 @@ class TUsers(TSQLObject):
                 u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
                 u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
                 r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
-                u.comment as 'Доп.информация'
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as "priv"
                from users u
                join roles r on u.idRoles = r.id
                join places p on u.idPlaces = p.id"""
         else:
             self.sql = f"""{sql}"""
+        if ord:
+            self.set_order(ord)
 
 
     def get_user_login(self, login):

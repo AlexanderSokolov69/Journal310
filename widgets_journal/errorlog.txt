@@ -28,3 +28,39 @@ select idGroups, idDays, idKabs, start, end, comment from journ where id = 70
 2021-10-17 02:07:31.395827 ==> no such table: journ [get record] 
 select idGroups, idDays, idKabs, start, end, comment from journ where id = 70
 <===
+2021-10-18 13:15:27.670491 ==> no such column: Каткова [update class] 
+select r.id, g.name || " - " || ju.name as "Группа - наставник", d.name as "День недели" , 
+                    k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
+                    jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
+                    r.idGroups as "Группа", d.id as "День"
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = Каткова order by d.id, k.id, r.start
+<===
+2021-10-18 13:15:31.240208 ==> no such column: Сельцов [update class] 
+select r.id, g.name || " - " || ju.name as "Группа - наставник", d.name as "День недели" , 
+                    k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
+                    jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
+                    r.idGroups as "Группа", d.id as "День"
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = Сельцов order by d.id, k.id, r.start
+<===
+2021-10-18 13:15:35.240394 ==> no such column: Гафиулин [update class] 
+select r.id, g.name || " - " || ju.name as "Группа - наставник", d.name as "День недели" , 
+                    k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
+                    jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
+                    r.idGroups as "Группа", d.id as "День"
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = Гафиулин order by d.id, k.id, r.start
+<===

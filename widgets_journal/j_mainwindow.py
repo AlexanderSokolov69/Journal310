@@ -8,7 +8,8 @@ from classes.bb_converts import *
 from forms_journal.MainWindow import Ui_MainWindow
 from widgets_journal.j_tab4_form import Tab4FormWindow
 from widgets_journal.j_tab3_form import Tab3FormWindow
-from widgets_teacher.t_mainwindow import T5Window
+from widgets_teacher.j_tab5_prog import T5Window
+from widgets_teacher.j_tab6_prog import T6Window
 
 
 class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно приложения
@@ -48,7 +49,7 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         self.tab4_myLayout = QHBoxLayout(self)
         self.tab4.setLayout(self.tab4_myLayout)
         self.tab4_myLayout.setContentsMargins(0, 0, 0, 0)
-        self.tab4Widget = Tab4FormWindow(con)
+        self.tab4Widget = Tab4FormWindow(con, self.login_id)
         self.tab4_myLayout.addWidget(self.tab4Widget)
         self.tab4Widget.collisium.connect(self.rasp_coll)
 
@@ -57,6 +58,12 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         self.tab5_myLayout.setContentsMargins(0, 0, 0, 0)
         self.tab5Widget = T5Window(con, self.login_id)
         self.tab5_myLayout.addWidget(self.tab5Widget)
+
+        self.tab6_myLayout = QHBoxLayout(self)
+        self.tab6.setLayout(self.tab6_myLayout)
+        self.tab6_myLayout.setContentsMargins(0, 0, 0, 0)
+        self.tab6Widget = T6Window(con, self.login_id)
+        self.tab6_myLayout.addWidget(self.tab6Widget)
 
         self.tableView.doubleClicked.connect(self.edit_Button.click)
         self.MainTab.currentChanged.connect(self.main_prepare_tab)

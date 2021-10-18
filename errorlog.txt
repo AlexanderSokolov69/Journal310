@@ -554,3 +554,308 @@ select idGroups, idDays, idKabs, start, end, comment from journ where id = 70
 <===
 2021-10-17 22:08:32.417543 ==> 15, Соколов А.Л, Успешный вход
 <===
+2021-10-18 12:18:36.903218 ==> Старт программы
+<===
+2021-10-18 12:18:36.905214 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 12:18:56.881085 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 12:54:04.279408 ==> Старт программы
+<===
+2021-10-18 12:54:04.281403 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 12:54:26.714880 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 13:19:05.663079 ==> Старт программы
+<===
+2021-10-18 13:19:05.665075 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 13:19:44.484158 ==> Старт программы
+<===
+2021-10-18 13:19:44.486153 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 13:19:53.240069 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 13:33:10.280264 ==> Старт программы
+<===
+2021-10-18 13:33:10.282259 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 13:33:18.816806 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 13:33:19.462327 ==> type object 'object' has no attribute 'currentIndex' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 198, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:33:19.464322 ==> type object 'object' has no attribute 'currentIndex' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 198, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:33:19.467320 ==> type object 'object' has no attribute 'currentIndex' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 198, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:33:19.469316 ==> type object 'object' has no attribute 'currentIndex' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 198, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:33:19.475300 ==> type object 'object' has no attribute 'currentIndex' | 
+  File "C:\Tools\Python\Journal310\Journal.py", line 27, in <module>
+    wnd = MWindow(con, login_user.loggedUser['id'])
+
+<===
+2021-10-18 13:34:44.981609 ==> Старт программы
+<===
+2021-10-18 13:34:44.983603 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 13:34:55.927045 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 13:34:56.579060 ==> 'Tab4FormWindow' object has no attribute 'journ' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 198, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:34:56.581052 ==> 'Tab4FormWindow' object has no attribute 'journ' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 198, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:34:56.584476 ==> 'Tab4FormWindow' object has no attribute 'journ' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 198, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:34:56.586470 ==> 'Tab4FormWindow' object has no attribute 'journ' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 198, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:36:52.815381 ==> Старт программы
+<===
+2021-10-18 13:36:52.817375 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 13:36:58.062674 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 13:36:58.712782 ==> 'NoneType' object has no attribute 'beginResetModel' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 200, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:36:58.714777 ==> 'NoneType' object has no attribute 'beginResetModel' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 200, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:36:58.718845 ==> 'NoneType' object has no attribute 'beginResetModel' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 200, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:36:58.719840 ==> 'NoneType' object has no attribute 'beginResetModel' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 200, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:39:26.224197 ==> Старт программы
+<===
+2021-10-18 13:39:26.226192 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 13:39:30.295311 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 13:39:30.945328 ==> 'Tab4FormWindow' object has no attribute 'journ' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 200, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:39:30.946325 ==> 'Tab4FormWindow' object has no attribute 'journ' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 200, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:39:30.950280 ==> 'Tab4FormWindow' object has no attribute 'journ' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 200, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:39:30.952274 ==> 'Tab4FormWindow' object has no attribute 'journ' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 200, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:42:10.220527 ==> Старт программы
+<===
+2021-10-18 13:42:10.221525 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 13:42:14.321352 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 13:42:14.919027 ==> 'NoneType' object has no attribute 'index' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 201, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:42:14.923016 ==> 'NoneType' object has no attribute 'index' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 201, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:42:14.929885 ==> 'NoneType' object has no attribute 'index' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 201, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:42:14.934871 ==> 'NoneType' object has no attribute 'index' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_tab4_form.py", line 201, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-18 13:42:14.939857 ==> 'NoneType' object has no attribute 'index' | 
+  File "C:\Tools\Python\Journal310\Journal.py", line 27, in <module>
+    wnd = MWindow(con, login_user.loggedUser['id'])
+
+<===
+2021-10-18 13:45:07.414131 ==> Старт программы
+<===
+2021-10-18 13:45:07.416125 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 13:45:11.511612 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 13:50:12.047603 ==> Старт программы
+<===
+2021-10-18 13:50:12.049598 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 13:50:17.404275 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 13:54:41.893835 ==> Старт программы
+<===
+2021-10-18 13:54:41.894834 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 13:54:46.090567 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 14:03:31.001963 ==> Старт программы
+<===
+2021-10-18 14:03:31.002960 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 14:03:35.221609 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 14:19:58.942036 ==> Старт программы
+<===
+2021-10-18 14:19:58.944030 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 14:20:05.198149 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 14:20:13.143813 ==> name 'con' is not defined | 
+  File "C:\Tools\Python\Journal310\widgets_teacher\t_mainwindow.py", line 67, in change_teacher
+    self.stat = Statistics(con, self.user_id)
+
+<===
+2021-10-18 15:32:51.624662 ==> Старт программы
+<===
+2021-10-18 15:32:51.626657 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 15:32:57.547381 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 15:55:35.391763 ==> Старт программы
+<===
+2021-10-18 15:55:35.393758 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 15:55:41.646971 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 15:57:35.641993 ==> Старт программы
+<===
+2021-10-18 15:57:35.643987 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 15:57:40.276920 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 16:01:18.054745 ==> Старт программы
+<===
+2021-10-18 16:01:18.055707 ==> Не найден файл [settings.ini]
+<===
+2021-10-18 16:01:18.056704 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:01:22.900815 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 16:02:46.798727 ==> Старт программы
+<===
+2021-10-18 16:02:46.799724 ==> Не найден файл [settings.ini]
+<===
+2021-10-18 16:02:46.800721 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:02:50.943198 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 16:03:11.408757 ==> Старт программы
+<===
+2021-10-18 16:03:11.409754 ==> Не найден файл [settings.ini]
+<===
+2021-10-18 16:03:11.409754 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:03:15.838336 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 16:04:23.170145 ==> Старт программы
+<===
+2021-10-18 16:04:23.171142 ==> Не найден файл [settings.ini]
+<===
+2021-10-18 16:04:23.172139 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:04:28.498292 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 16:04:50.148711 ==> Старт программы
+<===
+2021-10-18 16:04:50.149709 ==> Не найден файл [settings.ini]
+<===
+2021-10-18 16:04:50.150706 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:04:55.504188 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 16:06:42.966361 ==> Старт программы
+<===
+2021-10-18 16:06:42.967313 ==> Не найден файл [settings.ini]
+<===
+2021-10-18 16:06:42.968344 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:07:01.887119 ==> Старт программы
+<===
+2021-10-18 16:07:01.889151 ==> Не найден файл [settings.ini]
+<===
+2021-10-18 16:07:01.889151 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:07:11.921516 ==> Старт программы
+<===
+2021-10-18 16:07:11.922512 ==> Не найден файл [settings.ini]
+<===
+2021-10-18 16:07:11.923511 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:08:40.928077 ==> Старт программы
+<===
+2021-10-18 16:08:40.930071 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:09:16.374239 ==> Старт программы
+<===
+2021-10-18 16:09:16.376234 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:09:21.173445 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 16:09:53.014666 ==> Старт программы
+<===
+2021-10-18 16:09:53.016660 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:09:57.524948 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 16:11:07.248594 ==> Старт программы
+<===
+2021-10-18 16:11:07.250588 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:11:50.369862 ==> Старт программы
+<===
+2021-10-18 16:11:50.371857 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:11:55.593812 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-18 16:49:16.480143 ==> Старт программы
+<===
+2021-10-18 16:49:16.482137 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-18 16:49:22.400790 ==> 15, Соколов А.Л, Успешный вход
+<===

@@ -27,18 +27,21 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
     IDDAY_POS = 10
     START_POS = 4
     END_POS = 5
+    clicked_cancel = pyqtSignal()
+    clicked_enter = pyqtSignal()
 
-    def __init__(self, con):
+    def __init__(self, con, user_id=None):
         super(Tab4FormWindow, self).__init__()
         self.setupUi(self)
-        self.initUi(con)
+        self.initUi(con, user_id)
 
-    def initUi(self, con):
+    def initUi(self, con, user_id):
         """
         Начальная настройка формы работы с расписанием
         :param con: указатель на БД SQL
         :return:
         """
+        self.user_id = user_id
         self.con = con
         self.days_lst = get_day_list(self.con)
         self.short_days_lst = get_short_day_list(self.con)
@@ -55,14 +58,25 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         for nday in range(len(self.days_lst)):
             calend.append(self.create_day(nday))
             self.h_layout_table.addLayout(calend[-1])
+
         self.rasp = Rasp(self.con)
-        self.map_table()
+        self.tab4_rasp_view.setModel(self.rasp.model())
+        self.tab4_rasp_view.resizeColumnsToContents()
+        self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(0, 0))
+        self.tab4_rasp_view.setSelectionBehavior(QAbstractItemView.SelectRows)
+
+        self.journ = Journals(self.con, date_col=1)
+        self.tab4_journ_view.setModel(self.journ.model())
+        self.rasp_curent_row = -1
+        self.tab4_rasp_view.installEventFilter(self)
+#        self.tab4_journ_view.installEventFilter(self)
+
         self.tab4_add_btn.clicked.connect(self.group_clicked)
         self.tab4_edit_btn.clicked.connect(self.group_clicked)
         self.tab4_del_btn.clicked.connect(self.group_clicked)
         self.tab4_commit_btn.clicked.connect(self.group_clicked)
         self.tab4_rollback_btn.clicked.connect(self.group_clicked)
-        # self.installEventFilter(self)
+
         self.tab4_lmonts.clear()
         sql = f"""select num || " : " || name from monts order by id"""
         cur = self.con.cursor()
@@ -70,35 +84,37 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_lmonts.insertItem(0, '')
         self.tab4_lmonts.addItems([val[:][0] for val in spis])
         self.tab4_lmonts.setCurrentIndex(0)
+
+        self.flt_user.currentIndexChanged.connect(self.rasp_set_filter)
+        self.flt_day.currentIndexChanged.connect(self.rasp_set_filter)
+        self.flt_kab.currentIndexChanged.connect(self.rasp_set_filter)
+
         self.flt_user.clear()
         self.flt_user.insertItem(0, '')
-        sql = f"""select distinct u.id || " : " || u.name 
+        sql = f"""select distinct u.id, u.name 
             from groups g
             join users u on g.idUsers = u.id
             order by u.name"""
         cur = self.con.cursor()
         spis = cur.execute(sql).fetchall()
-        self.flt_user.addItems([val[:][0] for val in spis])
-        self.flt_user.setCurrentIndex(0)
+        keys = [val[:][0] for val in spis]
+        id = keys.index(self.user_id)
+        self.flt_user.addItems([f"{val[:][0]:4} : {val[:][1]}" for val in spis])
+        self.flt_user.setCurrentIndex(id + 1)
         self.flt_day.insertItem(0, '')
         self.flt_day.addItems(self.days_lst)
         self.flt_day.setCurrentIndex(0)
         self.flt_kab.insertItem(0, '')
         self.flt_kab.addItems([s[0] for s in self.kab_lst])
         self.flt_kab.setCurrentIndex(0)
-        self.flt_user.currentIndexChanged.connect(self.rasp_set_filter)
-        self.flt_day.currentIndexChanged.connect(self.rasp_set_filter)
-        self.flt_kab.currentIndexChanged.connect(self.rasp_set_filter)
-        self.journ = Journals(self.con, date_col=1)
-        self.tab4_journ_view.setModel(self.journ.model())
-        self.rasp_curent_row = -1
-        self.tab4_rasp_view.installEventFilter(self)
-        self.tab4_journ_view.installEventFilter(self)
+
         self.activate()
 
         self.tab4_add_journ.clicked.connect(self.journ_corrector)
         self.tab4_del_journ.clicked.connect(self.journ_corrector)
         self.tab4_journ_view.doubleClicked.connect(self.edit_journ_record)
+
+        self.installEventFilter(self)
 
     def edit_journ_record(self):
         print('edit')
@@ -150,24 +166,49 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
             self.tab4_rollback_btn.setDisabled(True)
 
     def eventFilter(self, object: 'QObject', event: 'QEvent') -> bool:
-        self.restate_commit()
-        if object.objectName() == 'tab4_journ_view':
-            if event.type() == QEvent.MouseButtonDblClick:
-                print('dbl')
-        elif object.objectName() == 'tab4_rasp_view':
-            row = object.currentIndex().row()
-            col = 1
-            if row != self.rasp_curent_row:
-                self.rasp_curent_row = row
-                self.id = self.rasp.data[object.currentIndex().row()][0]
-                self.idGroups = self.rasp.data[object.currentIndex().row()][self.IDGROUPS_POS]
-                ngrp = self.rasp.data[object.currentIndex().row()][1].split()[0]
-                self.tab4_curr_grp.setText(ngrp)
-
-                self.journ.set_filter(f'j.idGroups = {self.idGroups}')
-                self.journ_update()
-#                print(row)
+        if self.tab4_rasp_view.isEnabled():
+            if self.con.in_transaction:
+                    self.tab4_commit_frame.show()
+                    self.tab4_commit_btn.setDisabled(False)
+                    self.tab4_rollback_btn.setDisabled(False)
+            else:
+                self.tab4_commit_frame.hide()
+                self.tab4_commit_btn.setDisabled(True)
+                self.tab4_rollback_btn.setDisabled(True)
+            self.restate_commit()
+            if object.objectName() == 'tab4_journ_view':
+                if event.type() == QEvent.MouseButtonDblClick:
+                    print('dbl')
+            elif object.objectName() == 'tab4_rasp_view':
+                row = object.currentIndex().row()
+                col = 1
+                if row != self.rasp_curent_row:
+                    self.rasp_curent_row = row
+                    self.change_current_journ()
+        else:
+# -----------------------
+            if event.type() == QEvent.KeyPress:
+                if event.key() == QtCore.Qt.Key_Escape:
+                    print('esc')
+                    self.clicked_cancel.emit()
+                elif event.key() == QtCore.Qt.Key_Return:
+                    print('enter')
+                    self.clicked_enter.emit()
+                elif event.key() == QtCore.Qt.Key_F2:
+                    if self.con.in_transaction:
+                        self.tab4_commit_btn.click()
+        # -----------------------
         return False
+
+    def change_current_journ(self):
+#        self.tab4_journ_view.model().beginResetModel()
+        self.id = self.rasp.data[self.tab4_rasp_view.currentIndex().row()][0]
+        self.idGroups = self.rasp.data[self.tab4_rasp_view.currentIndex().row()][self.IDGROUPS_POS]
+        ngrp = self.rasp.data[self.tab4_rasp_view.currentIndex().row()][1].split()[0]
+        self.tab4_curr_grp.setText(ngrp)
+        self.journ.set_filter(f'j.idGroups = {self.idGroups}')
+        self.journ_update()
+#        self.tab4_journ_view.model().endResetModel()
 
     def rasp_set_filter(self):
         """
@@ -185,10 +226,13 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
             if self.flt_kab.currentIndex() > 0:
                 id = self.flt_kab.currentIndex() - 1
                 filters.append(f'r.idKabs = {id}')
+            self.tab4_rasp_view.model().beginResetModel()
             if filters:
                 self.rasp.set_filter(' and '.join(filters))
             else:
                 self.rasp.set_filter()
+            self.rasp.update()
+            self.tab4_rasp_view.model().endResetModel()
             self.activate()
 
     def group_clicked(self):
@@ -249,15 +293,6 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
 
         self.rasp.update()
         self.tab4_count_lcd.display(self.rasp.rows())
-        if self.con.in_transaction:
-            self.tab4_commit_frame.show()
-            self.tab4_commit_btn.setDisabled(False)
-            self.tab4_rollback_btn.setDisabled(False)
-        else:
-            self.tab4_commit_frame.hide()
-            self.tab4_commit_btn.setDisabled(True)
-            self.tab4_rollback_btn.setDisabled(True)
-
         self.tab4_rasp_view.setModel(self.rasp.model())
         self.tab4_rasp_view.resizeColumnsToContents()
         self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(0, 0))
@@ -464,7 +499,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                     le.setInputMask('99:99')
                     le.setObjectName(val[0][:])
                     if val[0][:] == 'end':
-                        le.installEventFilter(self)
+                        # le.installEventFilter(self)
                         le.returnPressed.connect(self.calculate)
                     else:
                         le.returnPressed.connect(self.selected_edit)
@@ -477,12 +512,14 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         pbS.setSizePolicy(sP)
         pbS.setObjectName('Save')
         pbS.clicked.connect(self.edit_buttons)
+        self.clicked_enter.connect(pbS.click)
         curLayout.addWidget(pbS, 4, 2)
         self.edit_widgets.append(pbS)
         pbC = QPushButton('Отменить')
         pbC.setSizePolicy(sP)
         pbC.setObjectName('Cancel')
         pbC.clicked.connect(self.edit_buttons)
+        self.clicked_cancel.connect(pbC.click)
         curLayout.addWidget(pbC, 5, 2)
         curLayout.addWidget(QFrame(), 0, 3, lrow, 3)
         self.edit_widgets.append(pbC)
@@ -549,6 +586,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         """
         self.delete_edit_form(self.tab4_edit_layout)
         self.map_table()
+        self.change_current_journ()
         self.show()
 
     # def eventFilter(self, object: 'QObject', event: 'QEvent') -> bool:
@@ -567,6 +605,6 @@ if __name__ == '__main__':
     sys.excepthook = except_hook
     con =  sqlite3.connect('../db/database_J.db')
     # con = sqlite3.connect('O:/Журналы/db/database_J.db')
-    wnd = Tab4FormWindow(con)
+    wnd = Tab4FormWindow(con, 15)
     wnd.show()
     sys.exit(app.exec())

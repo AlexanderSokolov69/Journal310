@@ -30,8 +30,6 @@ class MyTableModel(QtCore.QAbstractTableModel):
         self.date_col = date_col
         self.current_index = (-1, -1)
 
-
-
     def headerData(self, section: int, orientation: Qt.Orientation, role=None):
         if role == QtCore.Qt.DisplayRole:
             if orientation == Qt.Horizontal:
