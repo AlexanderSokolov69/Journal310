@@ -1,10 +1,24 @@
 import datetime
 import sqlite3
+import pyodbc
 import sys
+from datetime import datetime
 from configparser import ConfigParser
 
 from classes.cl_const import Const
 from classes.qt__classes import LogWriter
+
+
+class Sql:
+    def __init__(self, database, server="SRV003-CUBE4303,1433"):
+        self.cnxn = pyodbc.connect("Driver={SQL Server};"
+                                   "Server="+server+";"
+                                   "Database="+database+";"
+                                   "Trusted_Connection=yes;")
+        self.query = "-- {}\n\n-- Made in Python".format(datetime.now()
+                                                         .strftime("%d/%m/%Y"))
+    def get_connect(self):
+        return self.cnxn
 
 
 class ConnectDb:
@@ -27,7 +41,8 @@ class ConnectDb:
             flog.to_log(f"""Не найден файл [settings.ini]""")
             # print('settings.ini where?')
         try:
-            self.con = sqlite3.connect(self.path)
+            self.con = Sql('Journal4303').get_connect()
+            # self.con = sqlite3.connect(self.path)
             flog.to_log(f""" ----------------> Подключена БД: {self.path}""")
             # print('Подключена БД:',  path)
         except (sqlite3.Error, sqlite3.Warning) as err:

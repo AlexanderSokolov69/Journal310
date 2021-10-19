@@ -859,3 +859,69 @@ select idGroups, idDays, idKabs, start, end, comment from journ where id = 70
 <===
 2021-10-18 16:49:22.400790 ==> 15, Соколов А.Л, Успешный вход
 <===
+2021-10-19 13:00:07.583336 ==> Старт программы
+<===
+2021-10-19 13:00:07.621527 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-19 13:00:16.344000 ==> ('42S22', '[42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Недопустимое имя столбца "sal". (207) (SQLExecDirectW)') | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_syslogin.py", line 26, in accept
+    self.loggedUser = self.user.get_user_login(self.login.text())
+
+<===
+2021-10-19 13:01:08.296749 ==> ('42S22', '[42S22] [Microsoft][ODBC SQL Server Driver][SQL Server]Недопустимое имя столбца "ng". (207) (SQLExecDirectW)') | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_syslogin.py", line 26, in accept
+    self.loggedUser = self.user.get_user_login(self.login.text())
+
+<===
+2021-10-19 13:03:37.330528 ==> Старт программы
+<===
+2021-10-19 13:03:37.382433 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-19 13:07:53.408630 ==> Старт программы
+<===
+2021-10-19 13:07:53.447559 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-19 13:08:03.006319 ==> 15, Соколов А.Л                                       , Успешный вход
+<===
+2021-10-19 13:08:03.088325 ==> 'pyodbc.Connection' object has no attribute 'in_transaction' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_mainwindow.py", line 285, in tab1_change_table
+    self.tab1_refresh_table()
+
+<===
+2021-10-19 13:08:03.222987 ==> ('42000', '[42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Неправильный синтаксис около конструкции ")". (102) (SQLExecDirectW)') | 
+  File "C:\Tools\Python\Journal310\Journal.py", line 27, in <module>
+    wnd = MWindow(con, login_user.loggedUser['id'])
+
+<===
+2021-10-19 13:11:15.063464 ==> Старт программы
+<===
+2021-10-19 13:11:15.106254 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-19 13:11:23.141144 ==> 15, Соколов А.Л                                       , Успешный вход
+<===
+2021-10-19 13:11:23.194413 ==> 'pyodbc.Connection' object has no attribute 'in_transaction' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_mainwindow.py", line 285, in tab1_change_table
+    self.tab1_refresh_table()
+
+<===
+2021-10-19 13:11:23.259898 ==> ('42000', '[42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Неправильный синтаксис около конструкции ")". (102) (SQLExecDirectW)') | 
+  File "C:\Tools\Python\Journal310\Journal.py", line 27, in <module>
+    wnd = MWindow(con, login_user.loggedUser['id'])
+
+<===
+2021-10-19 13:17:50.069658 ==> Старт программы
+<===
+2021-10-19 13:17:50.111545 ==>  ----------------> Подключена БД: db/database_J.db
+<===
+2021-10-19 13:17:55.941346 ==> 15, Соколов А.Л                                       , Успешный вход
+<===
+2021-10-19 13:17:55.995076 ==> 'pyodbc.Connection' object has no attribute 'in_transaction' | 
+  File "C:\Tools\Python\Journal310\widgets_journal\j_mainwindow.py", line 285, in tab1_change_table
+    self.tab1_refresh_table()
+
+<===
+2021-10-19 13:17:56.639354 ==> ('42000', '[42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Неправильный синтаксис около конструкции "|". (102) (SQLExecDirectW); [42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Неправильный синтаксис около конструкции "ju". (102); [42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Неправильный синтаксис около конструкции "jc". (102)') | 
+  File "C:\Tools\Python\Journal310\Journal.py", line 27, in <module>
+    wnd = MWindow(con, login_user.loggedUser['id'])
+
+<===

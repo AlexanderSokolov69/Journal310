@@ -33,7 +33,7 @@ class Users(SQLObject):
         self.set_order(ord)
 
     def get_user_login(self, login):
-        sql = f'select * from users where login = "{login.lower()}"'
+        sql = f"select * from users where login = '{login.lower()}'"
         cur = self.con.cursor()
         data = cur.execute(sql).fetchone()
         if data:

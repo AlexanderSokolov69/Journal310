@@ -224,6 +224,7 @@ class SQLObject(QObject):
         """
         cur = self.con.cursor()
         try:
+            print(comm)
             ret = cur.execute(comm).fetchall()
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[execute command]', str(err), self.sql)

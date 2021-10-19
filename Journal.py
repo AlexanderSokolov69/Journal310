@@ -21,7 +21,7 @@ if __name__ == '__main__':
     con = ConnectDb('settings.ini').get_con()
     login_user = LoginDialog(con)
     app.exec()
-    if login_user.passwd_ok:
+    if True:
         print(login_user.loggedUser['id'])
         flog.to_log(f"""{login_user.loggedUser['id']}, {login_user.loggedUser['name']}, Успешный вход""")
         wnd = MWindow(con, login_user.loggedUser['id'])

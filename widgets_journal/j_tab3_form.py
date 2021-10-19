@@ -93,7 +93,7 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
         self.tab3_sostav_table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tab3_counter_lcd.display(self.grp_tbl.rows())
         self.tab3_sostav_table.selectRow(0)
-        sql = f"""select count(*) from (select count(idUsers) from group_table group by idUsers)"""
+        sql = f"""select count(*) from group_table group by idUsers"""
         cnt = self.grp_tbl.execute_command(sql)
         if cnt:
             self.tab3_volume_lcd.display(cnt[0][0])

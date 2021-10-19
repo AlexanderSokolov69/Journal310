@@ -356,3 +356,5 @@ select g.id, g.name as "Группа", c.name as "Учебный курс", c.vo
 	unable to open database file 
 	None
 <===
+2021-10-19 12:59:59.211773 ==>  ----------------> Подключена БД: db/database_J.db
+<===
