@@ -1,0 +1,3 @@
+select u.id, rtrim((u.name) as 'Фамилия И.О.'
+<===          4
+select u.id, rtrim(u.name) as 'Фамилия И.О.'

@@ -67,7 +67,7 @@
        <enum>QTabWidget::North</enum>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
       <property name="documentMode">
        <bool>true</bool>
@@ -393,12 +393,12 @@
                 </size>
                </property>
                <property name="text">
-                <string>TextLabel</string>
+                <string>ФИО наставника:</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="fltCombo1"/>
+              <widget class="QComboBox" name="flt_fio"/>
              </item>
              <item>
               <widget class="QLabel" name="fltLabel2">
@@ -997,7 +997,7 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonMainGroup"/>
   <buttongroup name="tab2_buttonGroup"/>
+  <buttongroup name="buttonMainGroup"/>
  </buttongroups>
 </ui>

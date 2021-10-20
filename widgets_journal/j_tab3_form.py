@@ -3,6 +3,8 @@ import sqlite3
 
 from PyQt5.QtCore import QModelIndex
 from PyQt5.QtWidgets import QWidget, QApplication, QAbstractItemView
+
+from classes.cl_const import Const
 from classes.cl_courses import Courses
 from classes.cl_group_table import GroupTable
 from classes.cl_groups import Groups
@@ -51,7 +53,7 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
     def tab3_change_users(self):
         sql = ''
         if self.tab3_only_free.isChecked():
-            sql = f"""select distinct u.id as "ID", u.name as "Фамилия И.О.", u.sertificate as "серт.ПФДО",
+            sql = f"""select distinct u.id as 'ID', u.name as 'Фамилия И.О.', u.sertificate as 'серт.ПФДО',
                    p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.', 
                    u.phone as 'Телефон', u.birthday as 'Д.рожд',  
                    u.comment as 'Доп.информация'
@@ -60,9 +62,9 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
                     left join group_table g on g.idUsers = u.id
                   where idRoles = 2 and g.id is NULL"""
         else:
-            sql = f"""select distinct u.id as "ID", 
+            sql = f"""select distinct u.id as 'ID', 
                    (select count(*) from group_table gt where gt.idUsers = u.id) as '!', 
-                   u.name as "Фамилия И.О.", u.sertificate as "серт.ПФДО",
+                   u.name as 'Фамилия И.О.', u.sertificate as 'серт.ПФДО',
                    p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.', 
                    u.phone as 'Телефон', u.birthday as 'Д.рожд',  
                    u.comment as 'Доп.информация'
@@ -79,9 +81,9 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
 
     def tab3_change_group(self):
         idGroups = self.grp.data[self.tab3_group_list.currentIndex().row()][0]
-        sql = f"""select t.id as 'id', u.name as "Фамилия И.О.", u.sertificate as "серт.ПФДО",
-                    t.comment as "Комментарий", p.comment as "Класс",
-                    p.name as "Уч.заведение"
+        sql = f"""select t.id as 'id', u.name as 'Фамилия И.О.', u.sertificate as 'серт.ПФДО',
+                    t.comment as 'Комментарий', p.comment as 'Класс',
+                    p.name as 'Уч.заведение'
                 from group_table t
                 join users u on u.id = t.idUsers
                 join places p on p.id = u.idPlaces
@@ -111,7 +113,7 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
     def tab3_change_program(self):
         tst  = self.tab3_program_box.currentText()
         idCourses = int(tst[:tst.find(':')])
-        sql = f"""select g.id, g.name as "Группа", c.year as "Уч.год", u.name as "ФИО наставника",
+        sql = f"""select g.id, g.name as 'Группа', c.year as 'Уч.год', u.name as 'ФИО наставника',
                 (select count(*) from group_table gt where gt.idGroups = g.id) as 'Кол-во детей'
                 from groups g
                 join users u on g.idUsers = u.id
@@ -136,7 +138,8 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
         """
         Диалог для COMMIT - ROLLBACK изменений
         """
-        if self.con.in_transaction:
+        if Const.IN_TRANSACTION:
+            Const().to_commit(self.con)
             self.tab3_commit_button.setDisabled(False)
             self.tab3_cancel_button.setDisabled(False)
         else:

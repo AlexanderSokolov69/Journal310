@@ -1,9 +1,9 @@
 from classes.cl_users import Users
-from classes.db_session import connectdb
+from classes.db_session import ConnectDb
 import datetime
 
 if __name__ == '__main__':
-    con = connectdb('db\\database_J.db')
+    con = ConnectDb('../settings.ini').get_con()
     us = Users(con)
     for user in us.data:
         # if len(user[8].strip()) > 0:

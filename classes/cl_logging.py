@@ -1,4 +1,6 @@
 import sqlite3
+from classes.cl_const import Const
+
 
 class Logger:
     def __init__(self, con):

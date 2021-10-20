@@ -37,7 +37,7 @@ class T6Window(QWidget, Ui_tab6Form):  # tab5 формы
 
         self.stat = Statistics(con, 15)
         self.struct = self.stat.get_full_structure()
-        self.prn_struct(self.struct, 0)
+        # self.prn_struct(self.struct, 0)
 
     def prn_struct(self, struct: dict, tab=0):
         for el in struct.keys():

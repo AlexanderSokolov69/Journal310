@@ -10,9 +10,10 @@ from classes.qt__classes import LogWriter
 
 
 class Sql:
-    def __init__(self, database, server="SRV003-CUBE4303,1433"):
+    def __init__(self, database, srv_name, srv_port):
+        self.server = f"{srv_name},{srv_port}"
         self.cnxn = pyodbc.connect("Driver={SQL Server};"
-                                   "Server="+server+";"
+                                   "Server="+self.server+";"
                                    "Database="+database+";"
                                    "Trusted_Connection=yes;")
         self.query = "-- {}\n\n-- Made in Python".format(datetime.now()
@@ -29,28 +30,36 @@ class ConnectDb:
         try:
             cfg = ConfigParser()
             if path:
-                cfg.read(path)
+                cfg.read(path, encoding='utf8')
             else:
-                cfg.read('../settings.ini')
-            self.path = cfg.get("Settings", "db_path")
+                cfg.read('settings.ini')
+            self.DB_name = cfg.get("Settings", "db_name")
+            self.srv_name = cfg.get("Settings", "srv_name")
+            self.srv_port = cfg.get("Settings", "srv_port")
             Const.YEAR = int(cfg.get("Settings", "l_year"))
             Const.D_START = cfg.get("Settings", "otch_start")
             Const.D_END = cfg.get("Settings", "otch_end")
-            print(Const.D_START)
-        except:
+
+        except FileNotFoundError:
             flog.to_log(f"""Не найден файл [settings.ini]""")
-            # print('settings.ini where?')
+            sys.exit()
+        except ConfigParser:
+            flog.to_log(f"""Нарушена структура файла [settings.ini]""")
+            sys.exit()
+
         try:
-            self.con = Sql('Journal4303').get_connect()
+            flog.to_log(f""" Старт подключения БД: {self.srv_name}:{self.srv_port}/{self.DB_name}""")
+            self.con = Sql(self.DB_name, self.srv_name, self.srv_port).get_connect()
             # self.con = sqlite3.connect(self.path)
-            flog.to_log(f""" ----------------> Подключена БД: {self.path}""")
+            flog.to_log(f""" ----------------> Подключена БД: {self.srv_name}:{self.srv_port}/{self.DB_name}""")
             # print('Подключена БД:',  path)
-        except (sqlite3.Error, sqlite3.Warning) as err:
-            flog.to_log(f"""СТОП!!! \n\t{err} \n\t{self.path}""")
+        except Exception as err:
+            flog.to_log(f"""СТОП!!! \n\t{err} \n\tПодключение не удалось {self.srv_name}:{self.srv_port}/{self.DB_name}""")
             sys.exit()
 
     def get_con(self):
         return self.con
 
 if __name__ == '__main__':
-    print(ConnectDb().get_con())
+    con = ConnectDb().get_con()
+    print(con.autocommit)

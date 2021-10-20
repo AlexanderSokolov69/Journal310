@@ -1,5 +1,5 @@
-import sqlite3
 from .cl__main_sqlobject import SQLObject
+from classes.cl_const import Const
 
 
 class Roles(SQLObject):
@@ -11,8 +11,8 @@ class Roles(SQLObject):
         )
         self.dbname = 'roles'
         if sql is None:
-            self.sql = f"""select r.id as 'id', r.name as 'Наименование', p.name as "Привилегии", 
-               r.comment as "Коментарий"
+            self.sql = f"""select r.id as 'id', rtrim(r.name) as 'Наименование', p.name as 'Привилегии', 
+               r.comment as 'Коментарий'
                from roles r
                join priv p on p.id = r.idPriv"""
         else:

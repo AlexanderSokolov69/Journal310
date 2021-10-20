@@ -1,6 +1,7 @@
 from PyQt5 import Qt
 from PyQt5.QtGui import QBrush
 from PyQt5.QtWidgets import QItemDelegate
+from classes.cl_const import Const
 
 
 class Delegate(QItemDelegate):

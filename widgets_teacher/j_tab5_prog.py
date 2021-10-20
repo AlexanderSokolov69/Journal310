@@ -6,7 +6,7 @@ import datetime
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QTimer, QModelIndex, QEvent, pyqtSignal
 from PyQt5.QtWidgets import QMainWindow, QApplication, QAbstractItemView, QPushButton, QLineEdit, QLabel, QCheckBox, \
-    QWidget, QFrame, QInputDialog
+    QWidget, QFrame, QInputDialog, QTextEdit, QSizePolicy, QPlainTextEdit
 
 from classes.bb_converts import date_us_ru, date_ru_us
 from classes.cl_statistics import Statistics
@@ -27,6 +27,7 @@ def except_hook(cls, exception, traceback):
 class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
     clicked_cancel = pyqtSignal()
     clicked_enter = pyqtSignal()
+
     def __init__(self, con, user_id):
         super(T5Window, self).__init__()
         self.setupUi(self)
@@ -34,6 +35,7 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.user_id_preset = user_id
         self.user_id = self.user_id_preset
         self.edit_spisok = []
+        self.txt_comment.hide()
 
         self.logfile = LogWriter()
         self.user = TUsers(con)
@@ -79,13 +81,13 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.groupBox.clear()
         self.groupBox.setCurrentIndex(-1)
         if self.groups.rows() > 0:
-            self.groupBox.insertItems(0, [val[1] for val in self.groups.data])
+            self.groupBox.insertItems(0, [f"{val[1]} : {val[7]}" for val in self.groups.data])
         else:
             self.journ.set_filter(f"j.idGroups = -1 and jc.year = {Const.YEAR}")
         self.tableView.model().endResetModel()
         self.change_current_group()
         self.count_statistics()
-        self.show()
+        # self.show()
 
     def commit_action(self):
         self.record_cursor = self.tableView.currentIndex().row()
@@ -103,13 +105,15 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.tableView.setFocus()
 
     def eventFilter(self, object, event):
-        if self.con.in_transaction and self.tableView.isEnabled():
+        if Const.IN_TRANSACTION and self.tableView.isEnabled():
+            Const().to_commit(self.con)
             self.commitButton.show()
             self.rollbackButton.show()
         else:
             self.commitButton.hide()
             self.rollbackButton.hide()
-        if self.con.in_transaction:
+        if Const.IN_TRANSACTION:
+            Const().to_commit(self.con)
             self.frame_3.setStyleSheet("background-color: rgb(240, 212, 212);")
         else:
             self.frame_3.setStyleSheet("background-color: rgb(240, 240, 240);")
@@ -129,11 +133,13 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
                 res = True
                 for n in dir(QtCore.Qt):
                     if eval(f'QtCore.Qt.{n}') == event.key():
-                        self.logfile.to_log(f""" Key pressed: {f'QtCore.Qt.{n}'} - {object}""")
+                        if Const.TEST_MODE:
+                            self.logfile.to_log(f""" Key pressed: {f'QtCore.Qt.{n}'} - {object}""")
                         res = False
                 else:
                     if res:
-                        self.logfile.to_log(f""" Key pressed: {event.key()} - {object}""")
+                        if Const.TEST_MODE:
+                            self.logfile.to_log(f""" Key pressed: {event.key()} - {object}""")
         return False
 
     def start_edit_day(self):
@@ -145,9 +151,12 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
             return
         layoutCorr = self.letter_place.layout()
         layoutShape = self.shape_frame.layout()
+        self.shape_frame.setSizePolicy(QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum))
 
         layoutCorr.setContentsMargins(20, 20, 20, 20)
         layoutCorr.setAlignment(QtCore.Qt.AlignCenter)
+        self.txt_comment.show()
+        self.txt_comment.setPlainText(self.journ.data[self.record_cursor][8])
         pos = 1
 
         preset = {'present': [], 'estim': [], 'shtraf': []}
@@ -156,8 +165,9 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         preset['shtraf'] = {val.split('=')[0]: val.split('=')[1] for val in (self.journ.data[self.record_cursor][Const.JRN_SHTRAF]).split()}
 
         posSh = 0
-        le1 = QLineEdit(self.journ.data[self.record_cursor][2])
+        le1 = QPlainTextEdit(self.journ.data[self.record_cursor][2])
         le1.setObjectName('lesson Name')
+        le1.setMaximumHeight(50)
         self.edit_spisok.append(le1)
         layoutShape.addWidget(le1, posSh, 0, posSh + 1, 9)
         posSh += 1
@@ -169,7 +179,7 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         le = QLineEdit(self.journ.data[self.record_cursor][3])
         le.setMaximumWidth(100)
         le.setInputMask('00:00')
-        le.setObjectName('lesson Start')
+        le.setObjectName('lesson tStart')
         self.edit_spisok.append(le)
         layoutShape.addWidget(le, posSh, 3)
         le = QLineEdit(date_us_ru(self.journ.data[self.record_cursor][1]))
@@ -187,7 +197,7 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         le = QLineEdit(self.journ.data[self.record_cursor][4])
         le.setMaximumWidth(100)
         le.setInputMask('00:00')
-        le.setObjectName('lesson End')
+        le.setObjectName('lesson tEnd')
         self.edit_spisok.append(le)
         layoutShape.addWidget(le, posSh, 3)
         lb = QLabel(' ')
@@ -293,14 +303,19 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.frame_2.setDisabled(False)
         self.tableView.setDisabled(False)
         result_head = {'present': [], 'estim': [], 'shtraf': []}
+        result_head['comment'] = self.txt_comment.toPlainText()
+        self.txt_comment.hide()
         for wid in self.edit_spisok:
             if to_save:
                 if 'lesson' in wid.objectName():
                     args = wid.objectName().split()
-                    print(args)
+                    if Const.TEST_MODE:
+                        print(args)
                     if len(args) == 2:
                         if args[1] == 'Date':
                             result_head[args[1]] = date_ru_us(wid.text())
+                        elif args[1] == 'Name':
+                            result_head[args[1]] = f'{wid.toPlainText()}'
                         else:
                             result_head[args[1]] = f'{wid.text()}'
                     elif len(args) == 3:

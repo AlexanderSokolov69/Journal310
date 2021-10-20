@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import Qt, pyqtSignal, QObject, QEvent
 from PyQt5.QtWidgets import QTableView, QLabel
-
+from classes.cl_const import Const
 from classes.bb_converts import *
 import datetime
 
@@ -65,6 +65,8 @@ class MyTableModel(QtCore.QAbstractTableModel):
             row = index.row()
             col = index.column()
             ret = self.data[row][col]
+            if isinstance(ret, str):
+                ret = ret.strip()
             if col == self.date_col:
                 ret = date_us_ru(ret)
         else:

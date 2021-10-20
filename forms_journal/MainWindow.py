@@ -171,9 +171,9 @@ class Ui_MainWindow(object):
         self.fltLabel1.setMaximumSize(QtCore.QSize(16777215, 20))
         self.fltLabel1.setObjectName("fltLabel1")
         self.verticalLayout_4.addWidget(self.fltLabel1)
-        self.fltCombo1 = QtWidgets.QComboBox(self.frame_2)
-        self.fltCombo1.setObjectName("fltCombo1")
-        self.verticalLayout_4.addWidget(self.fltCombo1)
+        self.flt_fio = QtWidgets.QComboBox(self.frame_2)
+        self.flt_fio.setObjectName("flt_fio")
+        self.verticalLayout_4.addWidget(self.flt_fio)
         self.fltLabel2 = QtWidgets.QLabel(self.frame_2)
         self.fltLabel2.setMaximumSize(QtCore.QSize(16777215, 20))
         self.fltLabel2.setObjectName("fltLabel2")
@@ -475,7 +475,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu_2.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.MainTab.setCurrentIndex(5)
+        self.MainTab.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -489,7 +489,7 @@ class Ui_MainWindow(object):
         self.commit_Button.setText(_translate("MainWindow", "Сохранить изменения"))
         self.rollback_Button.setText(_translate("MainWindow", "Отменить изменения"))
         self.fltCheck.setText(_translate("MainWindow", "Фильтр"))
-        self.fltLabel1.setText(_translate("MainWindow", "TextLabel"))
+        self.fltLabel1.setText(_translate("MainWindow", "ФИО наставника:"))
         self.fltLabel2.setText(_translate("MainWindow", "TextLabel"))
         self.fltLabel3.setText(_translate("MainWindow", "TextLabel"))
         self.tableLabel.setText(_translate("MainWindow", "TextLabel"))

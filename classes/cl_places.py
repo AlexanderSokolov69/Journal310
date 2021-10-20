@@ -1,5 +1,6 @@
 import sqlite3
 from .cl__main_sqlobject import SQLObject
+from classes.cl_const import Const
 
 
 class Places(SQLObject):
@@ -10,7 +11,7 @@ class Places(SQLObject):
         )
         self.dbname = 'places'
         if sql is None:
-            self.sql = f"""select id, name as 'Наименование', comment as "Доп.инфо"
+            self.sql = f"""select id, name as 'Наименование', comment as 'Доп.инфо'
                from places"""
         else:
             self.sql = f"""{sql}"""

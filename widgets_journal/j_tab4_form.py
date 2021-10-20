@@ -1,12 +1,13 @@
 import sys
 import sqlite3
 
-from PyQt5.QtCore import pyqtSignal, Qt, QEvent, QObject
+from PyQt5.QtCore import pyqtSignal, Qt, QEvent, QObject, QRect
 from PyQt5.QtWidgets import QWidget, QApplication, QAbstractItemView, QGridLayout, QLabel, \
     QFrame, QButtonGroup, QSizePolicy, QPushButton, QComboBox, QLineEdit
 from PyQt5 import QtCore
 
 from classes.bb_converts import get_day_list, get_kab_list, get_time_list, get_short_day_list, get_days_list
+from classes.cl_const import Const
 from classes.cl_journals import Journals
 from classes.cl_rasp import Rasp
 from classes.qt__classes import QLabelClk
@@ -20,8 +21,8 @@ def except_hook(cls, exception, traceback):
 class Tab4FormWindow(QWidget, Ui_tab4Form):
     FONT_SIZE = 9
     collisium = pyqtSignal()
-    LABEL_OK = '[  ]'
-    LABEL_FREE = ' ' * 4
+    LABEL_OK = '[   ]'
+    LABEL_FREE = ' ' * 3
     LABEL_COLL = 'XXX'
     IDGROUPS_POS = 9
     IDDAY_POS = 10
@@ -60,16 +61,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
             self.h_layout_table.addLayout(calend[-1])
 
         self.rasp = Rasp(self.con)
-        self.tab4_rasp_view.setModel(self.rasp.model())
-        self.tab4_rasp_view.resizeColumnsToContents()
-        self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(0, 0))
-        self.tab4_rasp_view.setSelectionBehavior(QAbstractItemView.SelectRows)
-
         self.journ = Journals(self.con, date_col=1)
-        self.tab4_journ_view.setModel(self.journ.model())
-        self.rasp_curent_row = -1
-        self.tab4_rasp_view.installEventFilter(self)
-#        self.tab4_journ_view.installEventFilter(self)
 
         self.tab4_add_btn.clicked.connect(self.group_clicked)
         self.tab4_edit_btn.clicked.connect(self.group_clicked)
@@ -78,11 +70,12 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_rollback_btn.clicked.connect(self.group_clicked)
 
         self.tab4_lmonts.clear()
-        sql = f"""select num || " : " || name from monts order by id"""
+        sql = f"""select num, name from monts order by id"""
         cur = self.con.cursor()
         spis = cur.execute(sql).fetchall()
+        spis = [f"""{val[0]} : {val[1]}""" for val in spis]
         self.tab4_lmonts.insertItem(0, '')
-        self.tab4_lmonts.addItems([val[:][0] for val in spis])
+        self.tab4_lmonts.addItems(spis)
         self.tab4_lmonts.setCurrentIndex(0)
 
         self.flt_user.currentIndexChanged.connect(self.rasp_set_filter)
@@ -91,13 +84,16 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
 
         self.flt_user.clear()
         self.flt_user.insertItem(0, '')
-        sql = f"""select distinct u.id, u.name 
-            from groups g
-            join users u on g.idUsers = u.id
-            order by u.name"""
+        sql = f"""select distinct u.id, u.name, p.access
+            from users u
+            join roles r on u.idRoles = r.id
+			join priv p on r.idPriv = p.id
+			order by u.name"""
         cur = self.con.cursor()
         spis = cur.execute(sql).fetchall()
+        spis = [val for val in spis  if val[2][0] == '1']
         keys = [val[:][0] for val in spis]
+        # print(keys)
         id = keys.index(self.user_id)
         self.flt_user.addItems([f"{val[:][0]:4} : {val[:][1]}" for val in spis])
         self.flt_user.setCurrentIndex(id + 1)
@@ -107,6 +103,16 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         self.flt_kab.insertItem(0, '')
         self.flt_kab.addItems([s[0] for s in self.kab_lst])
         self.flt_kab.setCurrentIndex(0)
+
+        self.tab4_rasp_view.setModel(self.rasp.model())
+        self.tab4_rasp_view.resizeColumnsToContents()
+        self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(0, 0))
+        self.tab4_rasp_view.setSelectionBehavior(QAbstractItemView.SelectRows)
+
+        self.tab4_journ_view.setModel(self.journ.model())
+        self.rasp_curent_row = -1
+        self.tab4_rasp_view.installEventFilter(self)
+        #        self.tab4_journ_view.installEventFilter(self)
 
         self.activate()
 
@@ -130,21 +136,22 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                 month = int(self.tab4_lmonts.currentText().split()[0])
 
                 list_days = dict()
-                for item in self.rasp.data:
-                    if item[self.IDGROUPS_POS] == self.idGroups:
-                        list_days[item[self.IDDAY_POS]] = [item[self.START_POS], item[self.END_POS]]
-                list_days = get_days_list(list_days, month)
-                test = [] if self.journ.rows() == 0 else [day[1] for day in self.journ.data]
-                for rec in list_days:
-                    if rec[0] not in test:
-                        arg = dict()
-                        arg['idGroups'] = str(self.idGroups)
-                        arg['date'] = rec[0]
-                        arg['name'] = 'Тема...'
-                        arg['start'] = rec[1]
-                        arg['end'] = rec[2]
-                        self.journ.rec_append(arg)
-                self.journ_update()
+                if self.rasp.rows() > 0:
+                    for item in self.rasp.data:
+                        if item[self.IDGROUPS_POS] == self.idGroups:
+                            list_days[item[self.IDDAY_POS]] = [item[self.START_POS], item[self.END_POS]]
+                    list_days = get_days_list(list_days, month)
+                    test = [] if self.journ.rows() == 0 else [day[1] for day in self.journ.data]
+                    for rec in list_days:
+                        if rec[0] not in test:
+                            arg = dict()
+                            arg['idGroups'] = str(self.idGroups)
+                            arg['date'] = rec[0]
+                            arg['name'] = 'Тема...'
+                            arg['tstart'] = rec[1]
+                            arg['tend'] = rec[2]
+                            self.journ.rec_append(arg)
+                    self.journ_update()
 
     def journ_update(self):
         self.journ.update()
@@ -156,7 +163,8 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_journ_view.update()
 
     def restate_commit(self):
-        if self.con.in_transaction:
+        if Const.IN_TRANSACTION:
+            Const().to_commit(self.con)
             self.tab4_commit_frame.show()
             self.tab4_commit_btn.setDisabled(False)
             self.tab4_rollback_btn.setDisabled(False)
@@ -167,10 +175,11 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
 
     def eventFilter(self, object: 'QObject', event: 'QEvent') -> bool:
         if self.tab4_rasp_view.isEnabled():
-            if self.con.in_transaction:
-                    self.tab4_commit_frame.show()
-                    self.tab4_commit_btn.setDisabled(False)
-                    self.tab4_rollback_btn.setDisabled(False)
+            if Const.IN_TRANSACTION:
+                Const().to_commit(self.con)
+                self.tab4_commit_frame.show()
+                self.tab4_commit_btn.setDisabled(False)
+                self.tab4_rollback_btn.setDisabled(False)
             else:
                 self.tab4_commit_frame.hide()
                 self.tab4_commit_btn.setDisabled(True)
@@ -186,7 +195,6 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                     self.rasp_curent_row = row
                     self.change_current_journ()
         else:
-# -----------------------
             if event.type() == QEvent.KeyPress:
                 if event.key() == QtCore.Qt.Key_Escape:
                     print('esc')
@@ -195,16 +203,23 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                     print('enter')
                     self.clicked_enter.emit()
                 elif event.key() == QtCore.Qt.Key_F2:
-                    if self.con.in_transaction:
+                    if Const.IN_TRANSACTION:
+                        Const().to_commit(self.con)
                         self.tab4_commit_btn.click()
         # -----------------------
         return False
 
     def change_current_journ(self):
 #        self.tab4_journ_view.model().beginResetModel()
-        self.id = self.rasp.data[self.tab4_rasp_view.currentIndex().row()][0]
-        self.idGroups = self.rasp.data[self.tab4_rasp_view.currentIndex().row()][self.IDGROUPS_POS]
-        ngrp = self.rasp.data[self.tab4_rasp_view.currentIndex().row()][1].split()[0]
+#        print(self.tab4_rasp_view.model().rowCount())
+        try:
+            self.id = self.rasp.data[self.tab4_rasp_view.currentIndex().row()][0]
+            self.idGroups = self.rasp.data[self.tab4_rasp_view.currentIndex().row()][self.IDGROUPS_POS]
+            ngrp = self.rasp.data[self.tab4_rasp_view.currentIndex().row()][1].split()[0]
+        except IndexError:
+            self.id = -1
+            self.idGroups = -1
+            ngrp = ''
         self.tab4_curr_grp.setText(ngrp)
         self.journ.set_filter(f'j.idGroups = {self.idGroups}')
         self.journ_update()
@@ -226,13 +241,13 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
             if self.flt_kab.currentIndex() > 0:
                 id = self.flt_kab.currentIndex() - 1
                 filters.append(f'r.idKabs = {id}')
-            self.tab4_rasp_view.model().beginResetModel()
+#            self.tab4_rasp_view.model().beginResetModel()
             if filters:
                 self.rasp.set_filter(' and '.join(filters))
             else:
                 self.rasp.set_filter()
             self.rasp.update()
-            self.tab4_rasp_view.model().endResetModel()
+#            self.tab4_rasp_view.model().endResetModel()
             self.activate()
 
     def group_clicked(self):
@@ -371,8 +386,8 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
             self.new_preset.clear()
             self.new_preset['idDays'] = int(day)
             self.new_preset['idKabs'] = int(kab)
-            self.new_preset['start'] = self.time_lst[int(tim)]
-            self.new_preset['end'] = self.add1_5hours(self.time_lst[int(tim)])
+            self.new_preset['tstart'] = self.time_lst[int(tim)]
+            self.new_preset['tend'] = self.add1_5hours(self.time_lst[int(tim)])
 
             self.tab4_add_btn.click()
         # print('dbl', lbl.objectName())
@@ -407,36 +422,47 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         :param day: Номер дня
         :return: заполненный Layout
         """
+        MAX_F = 20
+        MAX_T = 35
         obj = QGridLayout()
         obj.setAlignment(QtCore.Qt.AlignCenter)
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        head = QLabel(self.short_days_lst[day])
-        head.setAlignment(QtCore.Qt.AlignCenter)
+        head = QLabel(self.short_days_lst[day] + ' ')
+        head.setAlignment(QtCore.Qt.AlignLeft)
         head.setStyleSheet(f"""font: {self.FONT_SIZE + 2}pt "MS Shell Dlg 2";""")
+        head.setMinimumWidth(MAX_T)
+        head.setMaximumWidth(MAX_T)
+        head.setSizePolicy(QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding))
         obj.addWidget(head, 0, 0)
+        obj.setAlignment(QtCore.Qt.AlignLeft)
         for i, num in enumerate(self.kab_lst):
             lbl = QLabel(f" {num[0]} ")
             lbl.setAlignment(QtCore.Qt.AlignCenter)
             lbl.setSizePolicy(sizePolicy)
             lbl.setStyleSheet(f"""font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
+            lbl.setMaximumWidth(MAX_F)
             obj.addWidget(lbl, 0, i + 1)
         for i in range(len(self.time_lst)):
-            lbl = QLabel(f"{self.time_lst[i]} ")
-            lbl.setSizePolicy(sizePolicy)
+            lbl = QLabel(f"{self.time_lst[i]}")
+            lbl.setMinimumWidth(MAX_T)
+            lbl.setMaximumWidth(MAX_T)
+            lbl.setSizePolicy(QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding))
             lbl.setStyleSheet(f"""font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
-            lbl.setAlignment(QtCore.Qt.AlignCenter)
+            lbl.setAlignment(QtCore.Qt.AlignLeft)
             obj.addWidget(lbl, i + 1, 0)
             for j, num in enumerate(self.kab_lst):
                 ch_b = QLabelClk('')
+                ch_b.setText('')
+                ch_b.setMaximumWidth(MAX_F)
                 ch_b.clicked.connect(self.color_table_click)
                 ch_b.dblClicked.connect(self.color_table_dbl_click)
                 ch_b.setAlignment(QtCore.Qt.AlignCenter)
                 ch_b.setObjectName(f"{day} {j} {i}")
                 ch_b.setStyleSheet(f"""background-color: rgb(255, 255, 255);  font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
                 sizePolicy.setHeightForWidth(ch_b.sizePolicy().hasHeightForWidth())
-                ch_b.setSizePolicy(sizePolicy)
+                ch_b.setSizePolicy(QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum))
                 self.slots_dic[ch_b.objectName()] = ch_b
                 obj.addWidget(ch_b, i + 1, j + 1)
         v_line = QFrame()
@@ -465,8 +491,8 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         if not self.current_data[0][2] and self.new_preset:
             self.current_data[1][2] = self.new_preset['idDays']
             self.current_data[2][2] = self.new_preset['idKabs']
-            self.current_data[3][2] = self.new_preset['start']
-            self.current_data[4][2] = self.new_preset['end']
+            self.current_data[3][2] = self.new_preset['tstart']
+            self.current_data[4][2] = self.new_preset['tend']
             self.new_preset.clear()
         lrow = 0
         sP = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
@@ -482,12 +508,13 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                 self.edit_widgets[-1].setFocusPolicy(Qt.StrongFocus)
                 curLayout.addWidget(self.edit_widgets[-1], i, 1)
                 if val[0][2:] == 'Groups':
-                    sql = f"""select id || " : " || name from {val[0][2:]} order by name"""
+                    sql = f"""select id,trim(name) from {val[0][2:]} order by name"""
                 else:
-                    sql = f"""select id || " : " || name from {val[0][2:]}"""
+                    sql = f"""select id, trim(name) from {val[0][2:]}"""
                 cur = self.con.cursor()
                 spis = cur.execute(sql).fetchall()
-                self.edit_widgets[-1].addItems([val[:][0] for val in spis])
+                spis = [f"{v[0]:4} : {v[1]}" for v in spis]
+                self.edit_widgets[-1].addItems(spis)
                 for i in range(self.edit_widgets[-1].count()):
                     fnd = self.edit_widgets[-1].itemText(i)
                     id = fnd[:fnd.find(':') - 1]
@@ -495,10 +522,10 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                         self.edit_widgets[-1].setCurrentIndex(i)
             else:
                 le = QLineEdit(str(val[2]), self)
-                if val[0][:] in ['start', 'end']:
+                if val[0][:] in ['tstart', 'tend']:
                     le.setInputMask('99:99')
                     le.setObjectName(val[0][:])
-                    if val[0][:] == 'end':
+                    if val[0][:] == 'tend':
                         # le.installEventFilter(self)
                         le.returnPressed.connect(self.calculate)
                     else:
@@ -526,13 +553,13 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
 
     def calculate(self, object):
         """
-        Вычисляем +1,5 часа к записи 'start'
+        Вычисляем +1,5 часа к записи 'tstart'
         :param object: Куба положить результат
         :return:
         """
         new = ''
         for key, _, val in self.current_data:
-            if key == 'start':
+            if key == 'tstart':
                 new = self.add1_5hours(val)
                 break
         object.setText(new)
@@ -543,7 +570,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         Выделение поля ввода виджета sender()
         :return:
         """
-        if self.sender().objectName() in ['start', 'end']:
+        if self.sender().objectName() in ['tstart', 'tend']:
             self.sender().selectAll()
 
 
@@ -587,14 +614,14 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         self.delete_edit_form(self.tab4_edit_layout)
         self.map_table()
         self.change_current_journ()
-        self.show()
+        # self.show()
 
     # def eventFilter(self, object: 'QObject', event: 'QEvent') -> bool:
     """ 
     Обрабатываем события формы
     """
     #     # # print(object.objectName(), event.type())
-    #     # if object.objectName() == 'end':
+    #     # if object.objectName() == 'tend':
     #     #     if event.type() == 12:
     #     #         self.calculate(object)
     #     return super().eventFilter(object, event)

@@ -1,9 +1,6 @@
-import sqlite3
-from pprint import pprint
 import sys
 import traceback as tb
 import datetime
-
 from classes.cl_const import Const
 from classes.qt__classes import LogWriter
 
@@ -112,8 +109,8 @@ class Statistics:
                 rec = {'name': r[Const.RSP_NAME],           # Уч.группа - наставник
                        'weekday': r[Const.RSP_WEEKNAME],    # День недели
                        'kabname': r[Const.RSP_KABNAME],     # Номер кабинета
-                       'start': r[Const.RSP_START],         # Начало занятия
-                       'end': r[Const.RSP_END],             # Окончание занятий
+                       'tstart': r[Const.RSP_START],         # Начало занятия
+                       'tend': r[Const.RSP_END],             # Окончание занятий
                        'academh': r[Const.RSP_ACCH],        # Длит. академ. часа
                        'countless': r[Const.RSP_CNTLESS],   # Длительность урока, часов
                        'comment': r[Const.RSP_COMMENT],     # Доп. информация
@@ -148,16 +145,16 @@ class Statistics:
         self.d_journal = {}
         if self.user_id:
             self.journal.set_filter(f"""g.idUsers = {self.user_id} and jc.year = {Const.YEAR}
-                                    and j.date between "{Const.D_START}" and "{Const.D_END}" """)
+                                    and j.date between '{Const.D_START}' and '{Const.D_END}' """)
         else:
             self.journal.set_filter(f"""jc.year = {Const.YEAR}
-                                    and j.date between "{Const.D_START}" and "{Const.D_END}" """)
+                                    and j.date between '{Const.D_START}' and '{Const.D_END}' """)
         if self.journal.rows() > 0:                         # Journals - Журнал занятий
             for j in self.journal.data:
                 rec = {'date': j[Const.JRN_DATE],           # Дата занятия
                        'theme': j[Const.JRN_THEME],         # Тема занятия
-                       'start': j[Const.JRN_START],         # Начало занятия
-                       'end': j[Const.JRN_END],             # Окончание занятия
+                       'tstart': j[Const.JRN_START],         # Начало занятия
+                       'tend': j[Const.JRN_END],             # Окончание занятия
                        'present': j[Const.JRN_PRESENT],     # Список присутствовавших
                        'estim': j[Const.JRN_ESTIM],         # Оценки
                        'shtraf': j[Const.JRN_SHTRAF],       # Штрафы
@@ -264,6 +261,8 @@ class StatModel(QAbstractTableModel):
                 ret = len(self.sql_obj.data[row][col].split())
             else:
                 ret = self.sql_obj.data[row][col]
+                if isinstance(ret, str):
+                    ret = ret.strip()
             if col in self.date_col:
                 ret = date_us_ru(ret)
         else:

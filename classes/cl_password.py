@@ -1,5 +1,6 @@
 import os
 import hashlib
+from classes.cl_const import Const
 
 
 class Password:
@@ -26,7 +27,9 @@ class Password:
     def check_passwd(self, passwd):
         salt = self.storage[:self.N]
         psw = self.storage[self.N:]
-        return psw == self.make_key(passwd, salt)
+        chk = self.make_key(passwd, salt)
+        psw = psw[:len(chk): 1]
+        return psw == chk
 
 
 if __name__ == '__main__':

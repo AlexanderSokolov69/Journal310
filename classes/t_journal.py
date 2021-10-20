@@ -57,6 +57,8 @@ class TJournalModel(QAbstractTableModel):
                 ret = len(self.sql_obj.data[row][col].split())
             else:
                 ret = self.sql_obj.data[row][col]
+                if isinstance(ret, str):
+                    ret = ret.strip()
             if col in self.date_col:
                 ret = date_us_ru(ret)
         else:

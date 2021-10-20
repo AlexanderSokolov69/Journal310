@@ -1,5 +1,6 @@
 import sqlite3
 from sqlite3 import connect
+from classes.cl_const import Const
 from .qt__classes import MyTableModel, LogWriter
 from PyQt5.QtCore import pyqtSignal, QObject
 
@@ -67,6 +68,7 @@ class SQLObject(QObject):
             self.filter = f"where {flt}"
         else:
             self.filter = ''
+        self.update()
 
     def set_sql(self, sql=None, flt=None):
         """
@@ -85,6 +87,8 @@ class SQLObject(QObject):
         if self.sql is not None:
             try:
                 sql = f"""{self.sql} {self.filter} {self.order}"""
+                if Const.TEST_MODE:
+                    self.logfile.to_log(f"""start try [update class] \n{sql}""")
                 ret = self.cur.execute(sql).fetchall()
             except (sqlite3.Error, sqlite3.Warning) as err:
                 self.logfile.to_log(f"""{err} [update class] \n{sql}""")
@@ -126,6 +130,7 @@ class SQLObject(QObject):
         """
         try:
             self.con.commit()
+            Const.IN_TRANSACTION = False
         except (sqlite3.Error, sqlite3.Warning) as err:
             self.logfile.to_log(f"""{err} [commit]""")
             # self.log.out(str(datetime.date), str(datetime.time), '[commit]', str(err), '')
@@ -138,6 +143,7 @@ class SQLObject(QObject):
         """
         try:
             self.con.rollback()
+            Const.IN_TRANSACTION = False
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[rollback]', str(err), '')
             self.logfile.to_log(f"""{err} [rollback]""")
@@ -150,10 +156,13 @@ class SQLObject(QObject):
         :param arg: список кортежей для корректировки
         :return:
         """
-        args = ', '.join([f'{item[0]} = "{item[1]}"' for item in arg.items()])
+        args = ', '.join([f"{item[0]} = '{item[1]}'" for item in arg.items()])
         sql = f"update {self.dbname} set {args} where id = {id}"
         try:
+            if Const.TEST_MODE:
+                self.logfile.to_log(f"""Start try [update record] \n{sql}""")
             self.cur.execute(sql)
+            Const.IN_TRANSACTION = True
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[update record]', str(err), self.sql)
             self.logfile.to_log(f"""{err} [update record] \n{sql}""")
@@ -167,10 +176,13 @@ class SQLObject(QObject):
         :return:
         """
         key = ', '.join(arg.keys())
-        val = '"' + '", "'.join(arg.values()) +'"'
+        val = f""" '{"', '".join(arg.values())}' """
         sql = f"""insert into {self.dbname} ({key}) values ({val})"""
         try:
+            if Const.TEST_MODE:
+                self.logfile.to_log(f"""Start try [update record] \n{sql}""")
             self.cur.execute(sql)
+            Const.IN_TRANSACTION = True
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[append record]', str(err), self.sql)
             self.logfile.to_log(f"""{err} [append record] \n{sql}""")
@@ -186,6 +198,7 @@ class SQLObject(QObject):
         sql = f"delete from {self.dbname} where id = {id}"
         try:
             self.cur.execute(sql)
+            Const.IN_TRANSACTION = True
         except (sqlite3.Error, sqlite3.Warning) as err:
             self.logfile.to_log(f"""{err} [delete record] \n{sql}""")
             # print(err, '[delete record]', sql)
@@ -224,7 +237,8 @@ class SQLObject(QObject):
         """
         cur = self.con.cursor()
         try:
-            print(comm)
+            if Const.TEST_MODE:
+                self.logfile.to_log(f"""Start try [execute command] \n{comm}""")
             ret = cur.execute(comm).fetchall()
         except (sqlite3.Error, sqlite3.Warning) as err:
             # self.log.out(str(datetime.date), str(datetime.time), '[execute command]', str(err), self.sql)

@@ -1,5 +1,4 @@
 import datetime
-
 from classes.cl_const import Const
 
 
@@ -9,7 +8,7 @@ def date_us_ru(data):
     :param data:
     :return:
     """
-    data = str(data)
+    data = str(data).strip()
     ret = data
     if len(data) == 10:
         try:
@@ -26,7 +25,7 @@ def date_ru_us(data):
     :param data:
     :return:
     """
-    tst = str(data)
+    tst = str(data).strip()
     ret = '1900-01-01'
     if len(tst) > 0:
         try:

@@ -10,6 +10,7 @@ from widgets_journal.j_tab4_form import Tab4FormWindow
 from widgets_journal.j_tab3_form import Tab3FormWindow
 from widgets_teacher.j_tab5_prog import T5Window
 from widgets_teacher.j_tab6_prog import T6Window
+from classes.cl_const import Const
 
 
 class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно приложения
@@ -129,11 +130,12 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
                 self.edit_widgets.append(QComboBox(self))
                 self.edit_widgets[-1].setFocusPolicy(Qt.StrongFocus)
                 curLayout.addWidget(self.edit_widgets[-1], i + 2, 1)
-                sql = f"""select id || " : " || name || " : " ||  comment from {val[0][2:]}"""
+                sql = f"""select id, trim(name), trim(comment) from {val[0][2:]}"""
                 # sql = f"select name from {val[0][2:]}"
                 cur = self.con.cursor()
                 spis = cur.execute(sql).fetchall()
-                self.edit_widgets[-1].addItems([val[:][0] for val in spis])
+                spis = [f"{val[0]:4} : {val[1]} : {val[2]}" for val in spis]
+                self.edit_widgets[-1].addItems(spis)
                 for i in range(self.edit_widgets[-1].count()):
                     fnd = self.edit_widgets[-1].itemText(i)
                     id = fnd[:fnd.find(':') - 1]
@@ -142,7 +144,7 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
             else:
                 if val[0] == 'birthday':
                     val[2] = date_us_ru(val[2])
-                self.edit_widgets.append(QLineEdit(str(val[2]), self))
+                self.edit_widgets.append(QLineEdit(str(val[2]).strip(), self))
                 curLayout.addWidget(self.edit_widgets[-1], i + 2, 1)
             self.edit_widgets[1].setFocus()
 
@@ -191,7 +193,7 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         """
         Диалог для COMMIT - ROLLBACK изменений
         """
-        if self.currTable.con.in_transaction:
+        if Const.IN_TRANSACTION:
             buttonReply = QMessageBox.question(self, 'Редактор', "Остались несохранённые изменения, сохранить?",
                                                QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             if buttonReply == QMessageBox.Yes:
@@ -226,6 +228,7 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         for button in self.buttonMainGroup.buttons():
             button.setDisabled(True)
         self.listBox.setDisabled(True)
+        self.tableView.setDisabled(True)
 
     def tab1_refresh_table(self):
         """
@@ -236,8 +239,10 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         self.tableView.setModel(self.currTable.model())
         self.tableView.resizeColumnsToContents()
         self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tableView.setDisabled(False)
 
-        if self.currTable.con.in_transaction:
+        if Const.IN_TRANSACTION:
+            Const().to_commit(self.con)
             self.transLabel.setText('')
             self.commit_Button.setFlat(False)
             self.rollback_Button.setFlat(False)
@@ -261,24 +266,50 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         Работа с фильтром данных
         """
         if self.fltCheck.isChecked():
-            self.fltLabel1.show()
-            self.fltCombo1.show()
-            self.fltLabel2.show()
-            self.fltCombo2.show()
-            self.fltLabel3.show()
-            self.fltCombo3.show()
+            # fio = list(filter(lambda x: x[0] == 'idUsers', self.currTable.keys))
+            # print(fio)
+            fio = self.currTable.dbname == 'groups'
+
+            if fio:
+                sql = f"""select distinct u.id, trim(u.name) from users u
+                        join groups g on g.idUsers = u.id"""
+                spis = self.currTable.execute_command(sql)
+                spis = [f"{v[0]:4} : {v[1]}" for v in spis]
+                self.flt_fio.insertItem(0, ' ')
+                self.flt_fio.insertItems(1, spis)
+                self.flt_fio.setCurrentIndex(0)
+                self.flt_fio.currentIndexChanged.connect(self.add_user_filter)
+                self.fltLabel1.show()
+                self.flt_fio.show()
+            # self.fltLabel2.show()
+            # self.fltCombo2.show()
+            # self.fltLabel3.show()
+            # self.fltCombo3.show()
         else:
             self.fltLabel1.hide()
-            self.fltCombo1.hide()
+            self.flt_fio.hide()
+            self.flt_fio.clear()
+            if self.flt_fio.currentIndexChanged == self.add_user_filter:
+                self.flt_fio.currentIndexChanged.disconnect()
+
             self.fltLabel2.hide()
             self.fltCombo2.hide()
             self.fltLabel3.hide()
             self.fltCombo3.hide()
 
+    def add_user_filter(self):
+        if self.flt_fio.currentText().strip():
+            id = self.flt_fio.currentText().split()[0]
+            self.currTable.set_filter(f'g.idUsers = {id}')
+        else:
+            self.currTable.set_filter()
+        self.tab1_refresh_table()
+
     def tab1_change_table(self):
         """
         Переключаем текущую таблицу
         """
+        self.fltCheck.setChecked(False)
         self.tableLabel.setText(self.listBox.currentText())
         self.currTable = self.table_list[self.listBox.currentIndex()][1]
         self.currTable.update()
@@ -291,6 +322,7 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         for button in self.buttonMainGroup.buttons():
             button.setDisabled(False)
         self.listBox.setDisabled(False)
+        self.tableView.setDisabled(False)
         self.tab1_refresh_table()
 
     def tab1_save_edit_frame(self):
@@ -298,7 +330,8 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         self.tab1_deactivateEditFrame()
 
     def tab2_refresh_form(self):
-        if self.currTable.con.in_transaction:
+        if Const.IN_TRANSACTION:
+            Const().to_commit(self.con)
             self.tab2_commit.setFlat(False)
             self.tab2_rollback.setFlat(False)
             self.tab2_commit.setDisabled(False)

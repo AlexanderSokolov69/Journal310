@@ -1,3 +1,4 @@
+from classes.cl_const import Const
 from .cl__main_sqlobject import SQLObject
 
 

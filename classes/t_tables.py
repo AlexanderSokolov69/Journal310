@@ -1,5 +1,5 @@
 from classes.t__sqlobject import TSQLObject
-
+from classes.cl_const import Const
 
 class TRasp(TSQLObject):
     def set_sql(self, sql=None, ord='g.id'):
@@ -7,23 +7,23 @@ class TRasp(TSQLObject):
             ('idGroups', 'Учебная группа:'),
             ('idDays', 'День недели'),
             ('idKabs', 'Кабинет:'),
-            ('start', 'Начало занятий:'),
-            ('end', 'Окончание занятий:'),
+            ('tstart', 'Начало занятий:'),
+            ('tend', 'Окончание занятий:'),
             ('comment', 'Доп. информация')
         )
         self.dbname = 'rasp'
         if sql is None:
-            self.sql = f"""select r.id, g.name || " - " || ju.name as "Группа - наставник", d.name as "День недели" , 
-                    k.name as "Кабинет", r.start as "Начало", r.end as "Окончание", 
-                    jc.acchour as "Акк. час", jc.hday as "Занятий в день", r.comment as "Доп. информация", 
-                    r.idGroups as "Группа", d.id as "День", jc.year as "Уч.год"
+            self.sql = f"""select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День', jc.year as 'Уч.год'
                 from rasp r
                 join kabs k on r.idKabs = k.id
                 join days d on r.idDays = d.id
                 join groups g on r.idGroups = g.id
                 join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
                 join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses"""
-            self.set_order('d.id, k.id, r.start')
+            self.set_order('d.id, k.id, r.tstart')
         else:
             self.sql = f"""{sql}"""
             self.set_order(ord)
@@ -35,8 +35,8 @@ class TJournals(TSQLObject):
             ('idGroups', 'Учебная группа:'),
             ('Date', 'Дата занятия'),
             ('name', 'Тема занятия:'),
-            ('start', 'Начало занятий:'),
-            ('end', 'Окончание занятий:'),
+            ('tstart', 'Начало занятий:'),
+            ('tend', 'Окончание занятий:'),
             ('present', 'Отметки о посещении'),
             ('estim', 'Отметки'),
             ('shtraf', 'Штрафы'),
@@ -44,13 +44,13 @@ class TJournals(TSQLObject):
         )
         self.dbname = 'journals'
         if sql is None:
-            self.sql = f"""select j.id, j.date as "Дата", j.name as "Тема занятия", j.start as "Время нач.", 
-                    j.end as "Время оконч.", j.present as "Посещаемость", j.estim as "Оценки",
-                     j.shtraf as "Штрафы", j.comment as "Доп. информация"
+            self.sql = f"""select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация'
                 from journals j
                 join groups g on g.id = j.idGroups
                 join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses"""
-            self.set_order('j.date, j.start')
+            self.set_order('j.date, j.tstart')
         else:
             self.sql = f"""{sql}"""
             self.set_order(ord)
@@ -74,11 +74,11 @@ class TUsers(TSQLObject):
         )
         self.dbname = 'users'
         if sql is None:
-            self.sql = f"""select u.id, u.name as 'Фамилия И.О.', u.fam as "Фамилия", u.ima as 'Имя', 
+            self.sql = f"""select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
                 u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
                 u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
                 r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
-                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as "priv"
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
                from users u
                join roles r on u.idRoles = r.id
                join places p on u.idPlaces = p.id"""
@@ -89,7 +89,7 @@ class TUsers(TSQLObject):
 
 
     def get_user_login(self, login):
-        sql = f'select * from users where login = "{login.lower()}"'
+        sql = f"""select * from users where login = '{login.lower()}'"""
         cur = self.con.cursor()
         data = cur.execute(sql).fetchone()
         if data:
@@ -112,12 +112,14 @@ class TGroups(TSQLObject):
         self.keys = (
             ('name', 'Кодовое название учебной группы:'),
             ('idCourses', 'Учебная программа:'),
-            ('idUsers', 'Фамилия И.О. наставника:')
+            ('idUsers', 'Фамилия И.О. наставника:'),
+            ('comment', 'Доп. информация')
         )
         self.dbname = 'groups'
         if sql is None:
-            self.sql = f"""select g.id, g.name as "Группа", c.name as "Учебный курс", c.volume as "Объем", 
-                    c.lesson as "Занятие", c.year as "Уч.год", u.name as "ФИО наставника" 
+            self.sql = f"""select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
                 from groups g
                 join users u on g.idUsers = u.id
                 join courses c on g.idCourses = c.id"""
@@ -135,8 +137,8 @@ class TGroupTable(TSQLObject):
         )
         self.dbname = 'group_table'
         if sql is None:
-            self.sql = f"""select t.id as 'id', g.name as "Группа", u.name as "Фамилия И.О.", 
-                    t.comment as "Комментарий", t.idUsers as "UID"
+            self.sql = f"""select t.id as 'id', g.name as 'Группа', u.name as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий', t.idUsers as 'UID'
                 from group_table t
                 join groups g on g.id = t.idGroups
                 join users u on u.id = t.idUsers

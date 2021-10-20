@@ -1,4 +1,6 @@
 class Const:
+    TEST_MODE = True
+    IN_TRANSACTION = False
     YEAR = 2021
     D_START = '2021-10-01'
     D_END = '2022-01-01'
@@ -79,6 +81,12 @@ class Const:
     CRS_HDAY = 6
     CRS_URL = 7
     CRS_YEAR = 8
+    def __init__(self):
+        pass
+
+    def to_commit(self, con):
+        con.commit()
+        Const.IN_TRANSACTION = False
 
 
 

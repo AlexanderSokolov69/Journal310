@@ -1,6 +1,7 @@
 import sqlite3
 from sqlite3 import connect
 
+from classes.cl_const import Const
 from classes.err_classes import SQLUpdateError
 from .qt__classes import LogWriter
 from PyQt5.QtCore import pyqtSignal, QObject
@@ -81,6 +82,8 @@ class TSQLObject(QObject):
         if self.sql is not None:
             try:
                 sql = f"""{self.sql} {self.filter} {self.order}"""
+                if Const.TEST_MODE:
+                    self.logfile.to_log(f"""Start try [update class] \n{sql}""")
                 ret = self.cur.execute(sql).fetchall()
                 self.need_to_refresh.emit()
             except (sqlite3.Error, sqlite3.Warning) as err:
@@ -120,6 +123,7 @@ class TSQLObject(QObject):
         """
         try:
             self.con.commit()
+            Const.IN_TRANSACTION = False
         except (sqlite3.Error, sqlite3.Warning) as err:
             self.logfile.to_log(f"""{err} [commit]""")
 
@@ -131,6 +135,7 @@ class TSQLObject(QObject):
         try:
             self.con.rollback()
             self.need_to_refresh.emit()
+            Const.IN_TRANSACTION = False
         except (sqlite3.Error, sqlite3.Warning) as err:
             self.logfile.to_log(f"""{err} [rollback]""")
 
@@ -141,10 +146,13 @@ class TSQLObject(QObject):
         :param arg: список кортежей для корректировки
         :return:
         """
-        args = ', '.join([f"""{item[0]} = "{item[1]}" """ for item in arg.items()])
+        args = ', '.join([f"""{item[0]} = '{item[1]}' """ for item in arg.items()])
         sql = f"update {self.dbname} set {args} where id = {id}"
+        if Const.TEST_MODE:
+            self.logfile.to_log(f"""Start try [update record] \n{sql}""")
         try:
             self.cur.execute(sql)
+            Const.IN_TRANSACTION = True
         except (sqlite3.Error, sqlite3.Warning) as err:
             self.logfile.to_log(f"""{err} [update record] \n{sql}""")
         return True
@@ -161,6 +169,7 @@ class TSQLObject(QObject):
         try:
             self.cur.execute(sql)
             self.need_to_refresh.emit()
+            Const.IN_TRANSACTION = True
         except (sqlite3.Error, sqlite3.Warning) as err:
             self.logfile.to_log(f"""{err} [append record] \n{sql}""")
         return True
@@ -175,6 +184,7 @@ class TSQLObject(QObject):
         try:
             self.cur.execute(sql)
             self.need_to_refresh.emit()
+            Const.IN_TRANSACTION = True
         except (sqlite3.Error, sqlite3.Warning) as err:
             self.logfile.to_log(f"""{err} [delete record] \n{sql}""")
         return True

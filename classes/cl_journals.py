@@ -1,4 +1,5 @@
 from .cl__main_sqlobject import SQLObject
+from classes.cl_const import Const
 
 
 class Journals(SQLObject):
@@ -7,8 +8,8 @@ class Journals(SQLObject):
             ('idGroups', 'Учебная группа:'),
             ('Date', 'Дата занятия'),
             ('name', 'Тема занятия:'),
-            ('start', 'Начало занятий:'),
-            ('end', 'Окончание занятий:'),
+            ('tstart', 'Начало занятий:'),
+            ('tend', 'Окончание занятий:'),
             ('present', 'Отметки о посещении'),
             ('estim', 'Отметки'),
             ('shtraf', 'Штрафы'),
@@ -16,10 +17,10 @@ class Journals(SQLObject):
         )
         self.dbname = 'journals'
         if sql is None:
-            self.sql = f"""select j.id, j.date as "Дата", j.name as "Тема занятия", j.start as "Время нач.", 
-                    j.end as "Время оконч.", j.comment as "Доп. информация"
+            self.sql = f"""select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
                 from journals j"""
-            self.set_order('j.date, j.start')
+            self.set_order('j.date, j.tstart')
         else:
             self.sql = f"""{sql}"""
             self.set_order(ord)

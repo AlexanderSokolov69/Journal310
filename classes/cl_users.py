@@ -1,4 +1,4 @@
-import sqlite3
+from classes.cl_const import Const
 from .cl__main_sqlobject import SQLObject
 
 
@@ -20,7 +20,7 @@ class Users(SQLObject):
         )
         self.dbname = 'users'
         if sql is None:
-            self.sql = f"""select u.id, u.name as 'Фамилия И.О.', u.fam as "Фамилия", u.ima as 'Имя', 
+            self.sql = f"""select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
                 u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
                 u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
                 r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',

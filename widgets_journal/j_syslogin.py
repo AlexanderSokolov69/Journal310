@@ -1,9 +1,11 @@
-import sqlite3
+import traceback as tb
 import sys
 from PyQt5.QtWidgets import QWidget, QApplication
-
+from classes.cl_const import Const
 from classes.cl_password import Password
 from classes.cl_users import Users
+from classes.db_session import ConnectDb
+from classes.qt__classes import LogWriter
 from forms_journal.loginDlg import Ui_Dialog
 
 
@@ -50,9 +52,18 @@ class LoginDialog(QWidget, Ui_Dialog):
     def reject(self):
         self.close()
 
+def except_hook(cls, exception, traceback):
+    global flog
+    flog.to_log(f"""{exception} | \n{tb.format_tb(traceback)[0]}""")
+    sys.__excepthook__(cls, exception, traceback)
+
 
 if __name__ == '__main__':
+    flog = LogWriter()
+    sys.excepthook = except_hook
+    flog.to_log('Старт программы')
     app = QApplication(sys.argv)
-    con = sqlite3.connect('..\\db\\database_J.db')
+    con = ConnectDb('../settings.ini').get_con()
+    #con = sqlite3.connect('..\\db\\database_J.db')
     wnd = LoginDialog(con)
     sys.exit(app.exec())
