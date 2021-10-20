@@ -51,6 +51,6 @@ class Users(SQLObject):
         self.con.commit()
 
 if __name__ == '__main__':
-    con = sqlite3.connect('..\\db\\database_J.db')
-    us = Users(con)
-    print(us.get_user_login('falcon'))
+    # us = Users(con)
+    # print(us.get_user_login('falcon'))
+    pass

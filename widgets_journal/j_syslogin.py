@@ -2,10 +2,10 @@ import traceback as tb
 import sys
 from PyQt5.QtWidgets import QWidget, QApplication
 from classes.cl_const import Const
+from classes.cl_logwriter import LogWriter
 from classes.cl_password import Password
 from classes.cl_users import Users
 from classes.db_session import ConnectDb
-from classes.qt__classes import LogWriter
 from forms_journal.loginDlg import Ui_Dialog
 
 

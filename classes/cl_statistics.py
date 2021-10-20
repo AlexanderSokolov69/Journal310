@@ -2,7 +2,7 @@ import sys
 import traceback as tb
 import datetime
 from classes.cl_const import Const
-from classes.qt__classes import LogWriter
+from classes.cl_logwriter import LogWriter
 
 from classes.t_stat_tables import STUsers, STGroups, STRasp, STJournals, STGroupTable, STCourses
 from PyQt5 import QtGui

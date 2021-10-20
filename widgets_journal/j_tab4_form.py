@@ -71,8 +71,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
 
         self.tab4_lmonts.clear()
         sql = f"""select num, name from monts order by id"""
-        cur = self.con.cursor()
-        spis = cur.execute(sql).fetchall()
+        spis = self.rasp.execute_command(sql)
         spis = [f"""{val[0]} : {val[1]}""" for val in spis]
         self.tab4_lmonts.insertItem(0, '')
         self.tab4_lmonts.addItems(spis)
@@ -84,14 +83,12 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
 
         self.flt_user.clear()
         self.flt_user.insertItem(0, '')
-        sql = f"""select distinct u.id, u.name, p.access
-            from users u
-            join roles r on u.idRoles = r.id
-			join priv p on r.idPriv = p.id
-			order by u.name"""
-        cur = self.con.cursor()
-        spis = cur.execute(sql).fetchall()
-        spis = [val for val in spis  if val[2][0] == '1']
+        sql = f"""select distinct u.id, u.name, p.access from users u
+                join roles r on u.idRoles = r.id
+			    join priv p on r.idPriv = p.id
+			    order by u.name """
+        spis = self.rasp.execute_command(sql)
+        spis = [val for val in spis if val[2][0] == '1']
         keys = [val[:][0] for val in spis]
         # print(keys)
         id = keys.index(self.user_id)
@@ -210,8 +207,8 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         return False
 
     def change_current_journ(self):
-#        self.tab4_journ_view.model().beginResetModel()
-#        print(self.tab4_rasp_view.model().rowCount())
+        #        self.tab4_journ_view.model().beginResetModel()
+        #        print(self.tab4_rasp_view.model().rowCount())
         try:
             self.id = self.rasp.data[self.tab4_rasp_view.currentIndex().row()][0]
             self.idGroups = self.rasp.data[self.tab4_rasp_view.currentIndex().row()][self.IDGROUPS_POS]
@@ -223,7 +220,8 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_curr_grp.setText(ngrp)
         self.journ.set_filter(f'j.idGroups = {self.idGroups}')
         self.journ_update()
-#        self.tab4_journ_view.model().endResetModel()
+
+    #        self.tab4_journ_view.model().endResetModel()
 
     def rasp_set_filter(self):
         """
@@ -241,13 +239,13 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
             if self.flt_kab.currentIndex() > 0:
                 id = self.flt_kab.currentIndex() - 1
                 filters.append(f'r.idKabs = {id}')
-#            self.tab4_rasp_view.model().beginResetModel()
+            #            self.tab4_rasp_view.model().beginResetModel()
             if filters:
                 self.rasp.set_filter(' and '.join(filters))
             else:
                 self.rasp.set_filter()
             self.rasp.update()
-#            self.tab4_rasp_view.model().endResetModel()
+            #            self.tab4_rasp_view.model().endResetModel()
             self.activate()
 
     def group_clicked(self):
@@ -255,7 +253,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         Обработка кнопок редактора расписания
         :return:
         """
-        btn= self.sender()
+        btn = self.sender()
         name_btn = btn.objectName()
         if 'commit' in name_btn:
             self.rasp.commit()
@@ -284,7 +282,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         """
         self.current_data = []
         self.create_edit_widgets()
-#        self.map_table()
+        #        self.map_table()
         self.tab4_rasp_view.setDisabled(True)
         for btn in self.tab4_btn_group.buttons():
             btn.setDisabled(True)
@@ -315,7 +313,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         for d, day in enumerate(self.days_lst):
             for k, kab in enumerate(self.kab_lst):
                 for t, time in enumerate(self.time_lst):
-                    widg : QLabelClk = self.slots_dic.get(f"{d} {k} {t}", None)
+                    widg: QLabelClk = self.slots_dic.get(f"{d} {k} {t}", None)
                     if widg:
                         widg.setText(self.LABEL_FREE)
                         widg.setStyleSheet(
@@ -330,7 +328,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                     nkab = i
             for i, t in enumerate(self.time_lst):
                 if rec[4] <= t < rec[5]:
-                    widg : QLabel = self.slots_dic.get(f"{nday} {nkab} {i}", None)
+                    widg: QLabel = self.slots_dic.get(f"{nday} {nkab} {i}", None)
                     if widg:
                         if widg.text() == self.LABEL_OK:
                             self.collisium.emit()
@@ -353,8 +351,8 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
             if self.tab4_rasp_view.model().itemData(self.tab4_rasp_view.model().index(i, 0))[0] == id:
                 self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(i, 0))
                 self.tab4_rasp_view.update()
-#        print(self.tab4_rasp_view.model().itemData(self.tab4_rasp_view.model().index(i, 1))[0].split()[0])
 
+    #        print(self.tab4_rasp_view.model().itemData(self.tab4_rasp_view.model().index(i, 1))[0].split()[0])
 
     def color_table_click(self):
         """
@@ -364,7 +362,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         if len(self.edit_widgets):
             return
         lbl = self.sender()
-#        print(lbl.objectName())
+        #        print(lbl.objectName())
         if lbl.toolTip():
             self.set_current_record(lbl.toolTip().split()[0])
             self.tab4_rasp_view.setFocus()
@@ -377,7 +375,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         if len(self.edit_widgets):
             return
         lbl = self.sender()
-#        print(lbl.toolTip())
+        #        print(lbl.toolTip())
         if lbl.toolTip():
             self.set_current_record(lbl.toolTip().split()[0])
             self.tab4_edit_btn.click()
@@ -392,7 +390,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
             self.tab4_add_btn.click()
         # print('dbl', lbl.objectName())
 
-    def add1_5hours(self, time0 : str):
+    def add1_5hours(self, time0: str):
         """
         Увеличение временной метки на 1,5 часа
         :param time0: метка времени '08:30'
@@ -405,7 +403,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         except Exception:
             m2 = 0
             h2 = 0
-        return(f"{h2:02}:{m2:02}")
+        return (f"{h2:02}:{m2:02}")
 
     # def click(self):
     #     btn = self.sender()
@@ -460,7 +458,8 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                 ch_b.dblClicked.connect(self.color_table_dbl_click)
                 ch_b.setAlignment(QtCore.Qt.AlignCenter)
                 ch_b.setObjectName(f"{day} {j} {i}")
-                ch_b.setStyleSheet(f"""background-color: rgb(255, 255, 255);  font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
+                ch_b.setStyleSheet(
+                    f"""background-color: rgb(255, 255, 255);  font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
                 sizePolicy.setHeightForWidth(ch_b.sizePolicy().hasHeightForWidth())
                 ch_b.setSizePolicy(QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum))
                 self.slots_dic[ch_b.objectName()] = ch_b
@@ -511,8 +510,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                     sql = f"""select id,trim(name) from {val[0][2:]} order by name"""
                 else:
                     sql = f"""select id, trim(name) from {val[0][2:]}"""
-                cur = self.con.cursor()
-                spis = cur.execute(sql).fetchall()
+                spis = self.rasp.execute_command(sql)
                 spis = [f"{v[0]:4} : {v[1]}" for v in spis]
                 self.edit_widgets[-1].addItems(spis)
                 for i in range(self.edit_widgets[-1].count()):
@@ -564,7 +562,6 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                 break
         object.setText(new)
 
-
     def selected_edit(self):
         """
         Выделение поля ввода виджета sender()
@@ -572,7 +569,6 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         """
         if self.sender().objectName() in ['tstart', 'tend']:
             self.sender().selectAll()
-
 
     def edit_buttons(self):
         """
@@ -630,7 +626,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     sys.excepthook = except_hook
-    con =  sqlite3.connect('../db/database_J.db')
+    con = sqlite3.connect('../db/database_J.db')
     # con = sqlite3.connect('O:/Журналы/db/database_J.db')
     wnd = Tab4FormWindow(con, 15)
     wnd.show()

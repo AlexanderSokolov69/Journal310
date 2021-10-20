@@ -128,19 +128,18 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
             curLayout.addWidget(self.edit_widgets[-1], i + 2, 0)
             if val[0][:2] == 'id':
                 self.edit_widgets.append(QComboBox(self))
+                c = QComboBox()
                 self.edit_widgets[-1].setFocusPolicy(Qt.StrongFocus)
                 curLayout.addWidget(self.edit_widgets[-1], i + 2, 1)
                 sql = f"""select id, trim(name), trim(comment) from {val[0][2:]}"""
-                # sql = f"select name from {val[0][2:]}"
-                cur = self.con.cursor()
-                spis = cur.execute(sql).fetchall()
-                spis = [f"{val[0]:4} : {val[1]} : {val[2]}" for val in spis]
-                self.edit_widgets[-1].addItems(spis)
-                for i in range(self.edit_widgets[-1].count()):
-                    fnd = self.edit_widgets[-1].itemText(i)
-                    id = fnd[:fnd.find(':') - 1]
-                    if id == str(val[2]):
-                        self.edit_widgets[-1].setCurrentIndex(i)
+                spis = self.currTable.execute_command(sql)
+                # spis = [f"{val[0]:4} : {val[1]} : {val[2]}" for val in spis]
+                idx = -1
+                for i, spr in enumerate(spis):
+                    self.edit_widgets[-1].addItem(f"{spr[0]:4} : {spr[1]} : {spr[2]}")
+                    if spr[0] == val[2]:
+                        idx = i
+                self.edit_widgets[-1].setCurrentIndex(idx)
             else:
                 if val[0] == 'birthday':
                     val[2] = date_us_ru(val[2])

@@ -3,8 +3,9 @@ import traceback as tb
 from PyQt5.QtWidgets import QApplication
 
 from classes.cl_const import Const
+from classes.cl_logwriter import LogWriter
 from classes.db_session import ConnectDb
-from classes.qt__classes import LogWriter
+
 from widgets_journal.j_mainwindow import MWindow
 from widgets_journal.j_syslogin import LoginDialog
 

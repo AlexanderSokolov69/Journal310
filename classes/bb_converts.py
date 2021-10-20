@@ -1,5 +1,7 @@
 import datetime
+
 from classes.cl_const import Const
+from classes.t__sqlobject import TSQLObject
 
 
 def date_us_ru(data):
@@ -41,30 +43,26 @@ def date_ru_us(data):
 
 
 def get_day_list(con):
-    cur = con.cursor()
     sql = "select name from days order by id"
-    res = cur.execute(sql).fetchall()
+    res = TSQLObject(con).execute_command(sql)
     return [s[0] for s in res]
 
 
 def get_short_day_list(con):
-    cur = con.cursor()
     sql = "select cname from days order by id"
-    res = cur.execute(sql).fetchall()
+    res = TSQLObject(con).execute_command(sql)
     return [s[0] for s in res]
 
 
 def get_time_list(con):
-    cur = con.cursor()
     sql = "select name from times order by id"
-    res = cur.execute(sql).fetchall()
+    res = TSQLObject(con).execute_command(sql)
     return [s[0].strip() for s in res]
 
 
 def get_kab_list(con):
-    cur = con.cursor()
     sql = "select name, color from kabs order by id"
-    res = cur.execute(sql).fetchall()
+    res = TSQLObject(con).execute_command(sql)
     return [s[:2] for s in res]
 
     # return [['21', (85, 85, 255)],

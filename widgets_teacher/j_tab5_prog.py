@@ -6,12 +6,12 @@ import datetime
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QTimer, QModelIndex, QEvent, pyqtSignal
 from PyQt5.QtWidgets import QMainWindow, QApplication, QAbstractItemView, QPushButton, QLineEdit, QLabel, QCheckBox, \
-    QWidget, QFrame, QInputDialog, QTextEdit, QSizePolicy, QPlainTextEdit
+    QWidget, QFrame, QInputDialog, QTextEdit, QSizePolicy, QPlainTextEdit, QComboBox
 
 from classes.bb_converts import date_us_ru, date_ru_us
+from classes.cl_logwriter import LogWriter
 from classes.cl_statistics import Statistics
 from classes.db_session import ConnectDb
-from classes.qt__classes import LogWriter
 from classes.t_journal import TJournalModel
 from classes.cl_const import Const
 from classes.t_tables import TRasp, TJournals, TUsers, TGroups, TGroupTable
@@ -41,7 +41,6 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.user = TUsers(con)
         self.groups = TGroups(con)
         self.user.set_filter( f'u.id = {self.user_id}')
-        self.teachName.setText(self.user.data[0][1])
         self.groups.set_filter( f"g.idUsers = {self.user_id} and c.year = {Const.YEAR}")
         # print(self.groups.data)
         self.group_table = TGroupTable(con)
@@ -55,28 +54,30 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.tableView.doubleClicked.connect(self.start_edit_day)
         self.commitButton.clicked.connect(self.commit_action)
         self.rollbackButton.clicked.connect(self.commit_action)
-        self.teachButton.clicked.connect(self.change_teacher)
         self.installEventFilter(self)
+        us = TUsers(self.con)
+        spis = [(u[Const.USR_ID], u[Const.USR_NAME]) for u in us.data if u[Const.USR_PRIV][0] == '1']
+        idx = -1
+        for i, val in enumerate(spis):
+            self.teach_spisok.addItem(f"{val[0]:4} : {val[1]}")
+            if int(val[0]) == self.user_id:
+                idx = i
+        self.teach_spisok.currentIndexChanged.connect(self.change_teacher)
+        self.teach_spisok.setCurrentIndex(idx)
 
     def change_teacher(self):
-        us = TUsers(self.con)
-        # self.test_label.setText(self.user.data[0][-1])
-        spis = [(u[Const.USR_ID], u[Const.USR_NAME]) for u in us.data if u[Const.USR_PRIV][0] == '1']
-        res = QInputDialog.getItem(self, 'Наставник', 'Выберите из списка', [f"{x[0]:4}  :  {x[1]}" for x in spis], 0, False)
-        if res[1]:
-            self.tableView.model().beginResetModel()
-            self.user_id = int(res[0].split()[0])
-            self.stat = Statistics(self.con, self.user_id)
-            # self.stat.update()
-            self.tableView.model().endResetModel()
-            # self.count_statistics()
-            self.activate()
-            # print(self.user_id)
+        self.tableView.model().beginResetModel()
+        self.user_id = int(self.teach_spisok.currentText().split()[0])
+        self.stat = Statistics(self.con, self.user_id)
+        # self.stat.update()
+        self.tableView.model().endResetModel()
+        # self.count_statistics()
+        self.activate()
+        # print(self.user_id)
 
     def activate(self):
         self.tableView.model().beginResetModel()
         self.user.set_filter( f'u.id = {self.user_id}')
-        self.teachName.setText(self.user.data[0][1])
         self.groups.set_filter( f"g.idUsers = {self.user_id} and c.year = {Const.YEAR}")
         self.groupBox.clear()
         self.groupBox.setCurrentIndex(-1)
@@ -309,8 +310,8 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
             if to_save:
                 if 'lesson' in wid.objectName():
                     args = wid.objectName().split()
-                    if Const.TEST_MODE:
-                        print(args)
+                    # if Const.TEST_MODE:
+                    #     print(args)
                     if len(args) == 2:
                         if args[1] == 'Date':
                             result_head[args[1]] = date_ru_us(wid.text())

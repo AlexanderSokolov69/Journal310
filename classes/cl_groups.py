@@ -13,7 +13,7 @@ class Groups(SQLObject):
         self.dbname = 'groups'
         if sql is None:
             self.sql = f"""select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
-                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', c.comment as 'Доп. информация'
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', g.comment as 'Доп. информация'
                 from groups g
                 join users u on g.idUsers = u.id
                 join courses c on g.idCourses = c.id"""

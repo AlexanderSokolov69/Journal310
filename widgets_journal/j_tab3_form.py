@@ -43,6 +43,8 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
         self.tab3_group_list.clicked.connect(self.tab3_change_group)  # Смена учебной группы
         self.tab3_add_button.clicked.connect(self.tab3_add_to_group)
         self.tab3_del_button.clicked.connect(self.tab3_erase_from_group)
+        self.tab3_commit_button.hide()
+        self.tab3_cancel_button.hide()
         self.tab3_commit_button.clicked.connect(self.tab3_commit_base)
         self.tab3_cancel_button.clicked.connect(self.tab3_rollback_base)
 

@@ -9,9 +9,9 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QAbstractItemView, QPushB
     QWidget, QFrame, QInputDialog
 
 from classes.bb_converts import date_us_ru, date_ru_us
+from classes.cl_logwriter import LogWriter
 from classes.cl_statistics import Statistics
 from classes.db_session import ConnectDb
-from classes.qt__classes import LogWriter
 from classes.t_journal import TJournalModel
 from classes.cl_const import Const
 from classes.t_tables import TRasp, TJournals, TUsers, TGroups, TGroupTable

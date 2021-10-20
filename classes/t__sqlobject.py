@@ -1,9 +1,12 @@
 import sqlite3
+import sys
 from sqlite3 import connect
 
+import pyodbc
+
 from classes.cl_const import Const
+from classes.cl_logwriter import LogWriter
 from classes.err_classes import SQLUpdateError
-from .qt__classes import LogWriter
 from PyQt5.QtCore import pyqtSignal, QObject
 
 
@@ -86,6 +89,9 @@ class TSQLObject(QObject):
                     self.logfile.to_log(f"""Start try [update class] \n{sql}""")
                 ret = self.cur.execute(sql).fetchall()
                 self.need_to_refresh.emit()
+            except pyodbc.OperationalError:
+                self.logfile.to_log(f"""\n{'-' * 20}\nРазрыв связи\n{'-' * 20}""")
+                sys.exit()
             except (sqlite3.Error, sqlite3.Warning) as err:
                 self.logfile.to_log(f"""{err} [update class] \n{sql}""")
                 ret = None
@@ -98,24 +104,6 @@ class TSQLObject(QObject):
         else:
             return 0
 
-    # def update_model(self):
-    #     """
-    #     Обновление модели для визуальных виджетов
-    #     :return:
-    #     """
-    #     self.rec_update(self.data[self.tmodel.current_index[0]][0],
-    #                     {self.keys[self.tmodel.current_index[1] - 1][0]:
-    #                          self.data[self.tmodel.current_index[0]][self.tmodel.current_index[1]]}
-    #                     )
-    #     self.need_to_save.emit()
-
-    # def model(self):
-    #     """
-    #     Вернуть созданную модель
-    #     :return:
-    #     """
-    #     return self.tmodel
-    #
     def commit(self):
         """
         COMMIT изменений в БД
@@ -124,6 +112,9 @@ class TSQLObject(QObject):
         try:
             self.con.commit()
             Const.IN_TRANSACTION = False
+        except pyodbc.OperationalError:
+            self.logfile.to_log(f"""\n{'-' * 20}\nРазрыв связи\n{'-' * 20}""")
+            sys.exit()
         except (sqlite3.Error, sqlite3.Warning) as err:
             self.logfile.to_log(f"""{err} [commit]""")
 
@@ -136,6 +127,9 @@ class TSQLObject(QObject):
             self.con.rollback()
             self.need_to_refresh.emit()
             Const.IN_TRANSACTION = False
+        except pyodbc.OperationalError:
+            self.logfile.to_log(f"""\n{'-' * 20}\nРазрыв связи\n{'-' * 20}""")
+            sys.exit()
         except (sqlite3.Error, sqlite3.Warning) as err:
             self.logfile.to_log(f"""{err} [rollback]""")
 
@@ -153,6 +147,9 @@ class TSQLObject(QObject):
         try:
             self.cur.execute(sql)
             Const.IN_TRANSACTION = True
+        except pyodbc.OperationalError:
+            self.logfile.to_log(f"""\n{'-' * 20}\nРазрыв связи\n{'-' * 20}""")
+            sys.exit()
         except (sqlite3.Error, sqlite3.Warning) as err:
             self.logfile.to_log(f"""{err} [update record] \n{sql}""")
         return True
@@ -167,9 +164,14 @@ class TSQLObject(QObject):
         val = '"' + '", "'.join(arg.values()) +'"'
         sql = f"""insert into {self.dbname} ({key}) values ({val})"""
         try:
+            if Const.TEST_MODE:
+                self.logfile.to_log(f"""Start try [append rec] \n{sql}""")
             self.cur.execute(sql)
             self.need_to_refresh.emit()
             Const.IN_TRANSACTION = True
+        except pyodbc.OperationalError:
+            self.logfile.to_log(f"""\n{'-' * 20}\nРазрыв связи\n{'-' * 20}""")
+            sys.exit()
         except (sqlite3.Error, sqlite3.Warning) as err:
             self.logfile.to_log(f"""{err} [append record] \n{sql}""")
         return True
@@ -182,9 +184,14 @@ class TSQLObject(QObject):
         """
         sql = f"delete from {self.dbname} where id = {id}"
         try:
+            if Const.TEST_MODE:
+                self.logfile.to_log(f"""Start try [delete rec] \n{sql}""")
             self.cur.execute(sql)
             self.need_to_refresh.emit()
             Const.IN_TRANSACTION = True
+        except pyodbc.OperationalError:
+            self.logfile.to_log(f"""\n{'-' * 20}\nРазрыв связи\n{'-' * 20}""")
+            sys.exit()
         except (sqlite3.Error, sqlite3.Warning) as err:
             self.logfile.to_log(f"""{err} [delete record] \n{sql}""")
         return True
@@ -200,7 +207,12 @@ class TSQLObject(QObject):
         cur = self.con.cursor()
         data = None
         try:
+            if Const.TEST_MODE:
+                self.logfile.to_log(f"""Start try [get one record] \n{sql}""")
             data = cur.execute(sql).fetchone()
+        except pyodbc.OperationalError:
+            self.logfile.to_log(f"""\n{'-' * 20}\nРазрыв связи\n{'-' * 20}""")
+            sys.exit()
         except (sqlite3.Error, sqlite3.Warning) as err:
             self.logfile.to_log(f"""{err} [get record] \n{sql}""")
         if not data:
@@ -212,17 +224,22 @@ class TSQLObject(QObject):
             ret.append(key)
         return ret
 
-    def execute_command(self, comm):
+    def execute_command(self, sql):
         """
         Исполнение произвольной команды SQL
-        :param comm: SQL команда
+        :param sql: SQL команда
         :return:
         """
         cur = self.con.cursor()
         try:
-            ret = cur.execute(comm).fetchall()
+            if Const.TEST_MODE:
+                self.logfile.to_log(f"""Start try [execute command] \n{sql}""")
+            ret = cur.execute(sql).fetchall()
+        except pyodbc.OperationalError:
+            self.logfile.to_log(f"""\n{'-' * 20}\nРазрыв связи\n{'-' * 20}""")
+            sys.exit()
         except (sqlite3.Error, sqlite3.Warning) as err:
-            self.logfile.to_log(f"""{err} [execute command] \n{comm}""")
+            self.logfile.to_log(f"""{err} [execute command] \n{sql}""")
             ret = [[]]
         return ret
 
