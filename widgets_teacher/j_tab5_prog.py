@@ -241,7 +241,7 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         lb.setAlignment(QtCore.Qt.AlignCenter)
         self.edit_spisok.append(lb)
         layoutCorr.addWidget(lb, pos, 4)
-        lb = QLabel('Штраф')
+        lb = QLabel('Рейтинг')
         lb.setAlignment(QtCore.Qt.AlignCenter)
         self.edit_spisok.append(lb)
         layoutCorr.addWidget(lb, pos, 5)
