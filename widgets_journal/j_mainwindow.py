@@ -2,6 +2,8 @@ from PyQt5.QtWidgets import QLabel, QMainWindow, QAbstractItemView, QMessageBox,
     QComboBox, QDialogButtonBox, QHBoxLayout
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
+
+from classes.cl_logwriter import LogWriter
 from classes.cl_users import Users
 from classes.db__classes import Privileges, Roles, Places, Courses, Groups
 from classes.bb_converts import *
@@ -26,6 +28,7 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         :param con:
         :return:
         """
+        self.logfile = LogWriter()
         self.setWindowTitle('IT-куб. Белая Холуница. Журналы. v.1.0')
         self.con = con
         self.login_id = login_id
