@@ -58,7 +58,7 @@ class ConnectDb:
         try:
             flog.to_log(f""" Старт подключения БД: {connect_str}""")
             self.con = Sql(connect_str).get_connect()
-            flog.to_log(f""" ----------------> Подключена БД: {connect_str}""")
+            flog.to_log(f"""Подключена БД: {connect_str}""")
             # print('Подключена БД:',  path)
         except Exception as err:
             flog.to_log(f"""СТОП!!! \n\t{err} \n\tПодключение не удалось {connect_str}""")

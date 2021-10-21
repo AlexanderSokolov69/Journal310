@@ -6,8 +6,8 @@ from classes.cl_const import Const
 from classes.cl_logwriter import LogWriter
 from classes.db_session import ConnectDb
 
-from widgets_journal.j_mainwindow import MWindow
-from widgets_journal.j_syslogin import LoginDialog
+from widgets_func.j_tab1_2_prog import MWindow
+from widgets_func.j_syslogin import LoginDialog
 
 
 def except_hook(cls, exception, traceback):
