@@ -10,6 +10,7 @@ from classes.bb_converts import get_day_list, get_kab_list, get_time_list, get_s
 from classes.cl_const import Const
 from classes.cl_journals import Journals
 from classes.cl_rasp import Rasp
+from classes.cl_users import Users
 from classes.qt__classes import QLabelClk
 from forms_journal.checkTable import Ui_tab4Form
 
@@ -83,12 +84,7 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
 
         self.flt_user.clear()
         self.flt_user.insertItem(0, '')
-        sql = f"""select distinct u.id, u.name, p.access from users u
-                join roles r on u.idRoles = r.id
-			    join priv p on r.idPriv = p.id
-			    order by u.name """
-        spis = self.rasp.execute_command(sql)
-        spis = [val for val in spis if val[2][0] == '1']
+        spis = Users(self.con).priv_users()
         keys = [val[:][0] for val in spis]
         # print(keys)
         id = keys.index(self.user_id)
@@ -184,7 +180,8 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
             self.restate_commit()
             if object.objectName() == 'tab4_journ_view':
                 if event.type() == QEvent.MouseButtonDblClick:
-                    print('dbl')
+                    if Const.TEST_MODE:
+                        print('dbl')
             elif object.objectName() == 'tab4_rasp_view':
                 row = object.currentIndex().row()
                 col = 1
@@ -194,10 +191,12 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
         else:
             if event.type() == QEvent.KeyPress:
                 if event.key() == QtCore.Qt.Key_Escape:
-                    print('esc')
+                    if Const.TEST_MODE:
+                        print('esc')
                     self.clicked_cancel.emit()
                 elif event.key() == QtCore.Qt.Key_Return:
-                    print('enter')
+                    if Const.TEST_MODE:
+                        print('enter')
                     self.clicked_enter.emit()
                 elif event.key() == QtCore.Qt.Key_F2:
                     if Const.IN_TRANSACTION:
@@ -506,18 +505,23 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                 self.edit_widgets[-1].setSizePolicy(sP)
                 self.edit_widgets[-1].setFocusPolicy(Qt.StrongFocus)
                 curLayout.addWidget(self.edit_widgets[-1], i, 1)
-                if val[0][2:] == 'Groups':
-                    sql = f"""select id,trim(name) from {val[0][2:]} order by name"""
-                else:
-                    sql = f"""select id, trim(name) from {val[0][2:]}"""
+                # if val[0][2:] == 'Groups':
+                #     sql = f"""select id,trim(name) as name from {val[0][2:]} order by name"""
+                # else:
+                #     sql = f"""select id, trim(name) from {val[0][2:]} order by name"""
+                sql = f"""select id, trim(name) as name from {val[0][2:]} order by name"""
                 spis = self.rasp.execute_command(sql)
                 spis = [f"{v[0]:4} : {v[1]}" for v in spis]
-                self.edit_widgets[-1].addItems(spis)
-                for i in range(self.edit_widgets[-1].count()):
-                    fnd = self.edit_widgets[-1].itemText(i)
-                    id = fnd[:fnd.find(':') - 1]
-                    if id == str(val[2]):
-                        self.edit_widgets[-1].setCurrentIndex(i)
+                idx = -1
+                for i, el in enumerate(spis):
+                    self.edit_widgets[-1].addItem(el)
+                    if int(el.split()[0]) == val[2]:
+                        idx = i
+                # for i in range(self.edit_widgets[-1].count()):
+                #     fnd = self.edit_widgets[-1].itemText(i)
+                #     id = fnd[:fnd.find(':') - 1]
+                #     if id == str(val[2]):
+                self.edit_widgets[-1].setCurrentIndex(idx)
             else:
                 le = QLineEdit(str(val[2]), self)
                 if val[0][:] in ['tstart', 'tend']:

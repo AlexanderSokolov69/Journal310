@@ -131,8 +131,11 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
                 c = QComboBox()
                 self.edit_widgets[-1].setFocusPolicy(Qt.StrongFocus)
                 curLayout.addWidget(self.edit_widgets[-1], i + 2, 1)
-                sql = f"""select id, trim(name), trim(comment) from {val[0][2:]}"""
-                spis = self.currTable.execute_command(sql)
+                if val[0][2:] == 'Users':
+                    spis = Users(self.con).priv_users()
+                else:
+                    sql = f"""select id, trim(name), trim(comment) from {val[0][2:]}"""
+                    spis = self.currTable.execute_command(sql)
                 # spis = [f"{val[0]:4} : {val[1]} : {val[2]}" for val in spis]
                 idx = -1
                 for i, spr in enumerate(spis):
@@ -186,6 +189,7 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         Проверка на сохранение данных при выходе из программы
         """
         self.check_for_commit()
+        self.logfile.to_log(f"""Завершение работы. [{self.login_id}]""")
         return QMainWindow.closeEvent(self, a0)
 
     def check_for_commit(self):

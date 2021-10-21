@@ -3,7 +3,7 @@ from .cl__main_sqlobject import SQLObject
 
 
 class Users(SQLObject):
-    def set_sql(self, sql=None, ord='Фамилия'):
+    def set_sql(self, sql=None, ord=None):
         self.keys = (
             ('name', 'Фамилия И.О.:'),
             ('fam', 'Фамилия:'),
@@ -49,6 +49,21 @@ class Users(SQLObject):
         cur = self.con.cursor()
         cur.execute(sql, [passwd])
         self.con.commit()
+
+    def priv_users(self, mask='1'):
+        def check(priv, mask):
+            for i, j in zip(mask, priv[:len(mask):1]):
+                if i == '1' and i != j:
+                    return False
+            return True
+
+        sql = f"""select distinct u.id, trim(u.name) as name, trim(u.comment), trim(p.access) from users u
+                        join roles r on u.idRoles = r.id
+        			    join priv p on r.idPriv = p.id
+        			    order by name """
+        spis = super().execute_command(sql)
+        spis = [val[:3] for val in spis if check(val[3], mask)]
+        return spis
 
 if __name__ == '__main__':
     # us = Users(con)
