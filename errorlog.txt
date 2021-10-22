@@ -888,3 +888,1735 @@ select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j
 <===
 2021-10-22 00:34:09.130792 ==> Завершение работы. [15]
 <===
+2021-10-22 08:03:36.597655 ==> Старт программы
+<===
+2021-10-22 08:03:36.597655 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-22 08:03:36.629568 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-22 08:03:36.636550 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:03:44.792059 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-22 08:03:44.816029 ==> start try [update class] 
+select id, name as 'Наименование', access as 'Привилегии'
+               from priv  order by id
+<===
+2021-10-22 08:03:44.818023 ==> start try [update class] 
+select r.id as 'id', rtrim(r.name) as 'Наименование', p.name as 'Привилегии', 
+               r.comment as 'Коментарий'
+               from roles r
+               join priv p on p.id = r.idPriv  order by id
+<===
+2021-10-22 08:03:44.819028 ==> start try [update class] 
+select id, name as 'Наименование', comment as 'Доп.инфо'
+               from places  order by Наименование
+<===
+2021-10-22 08:03:44.821037 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:03:44.823036 ==> start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', g.comment as 'Доп. информация'
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id  order by g.id
+<===
+2021-10-22 08:03:44.824550 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:03:44.826548 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:03:44.853386 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:03:44.855380 ==> start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', g.comment as 'Доп. информация'
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id  order by g.id
+<===
+2021-10-22 08:03:44.858377 ==> start try [update class] 
+select t.id as 'id', rtrim(g.name) as 'Группа', rtrim(u.name) as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий' 
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers  order by id
+<===
+2021-10-22 08:03:44.866072 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:03:44.882064 ==> start try [update class] 
+select g.id, g.name as 'Группа', c.year as 'Уч.год', u.name as 'ФИО наставника',
+                (select count(*) from group_table gt where gt.idGroups = g.id) as 'Кол-во детей'
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id
+              where g.idCourses = 3  order by g.name
+<===
+2021-10-22 08:03:44.903007 ==> Start try [execute command] 
+select count(*) from groups
+<===
+2021-10-22 08:03:44.904005 ==> start try [update class] 
+select t.id as 'id', u.name as 'Фамилия И.О.', u.sertificate as 'серт.ПФДО',
+                    t.comment as 'Комментарий', p.comment as 'Класс',
+                    p.name as 'Уч.заведение'
+                from group_table t
+                join users u on u.id = t.idUsers
+                join places p on p.id = u.idPlaces
+                where t.idGroups = 17  order by u.name
+<===
+2021-10-22 08:03:44.912220 ==> Start try [execute command] 
+select count(*) from group_table group by idUsers
+<===
+2021-10-22 08:03:44.914215 ==> Start try [execute command] 
+select sum(c.lesson) * 2 from courses c
+                left join groups g on g.idCourses = c.id
+                left join group_table gt on gt.idGroups = g.id
+<===
+2021-10-22 08:03:44.916585 ==> start try [update class] 
+select distinct u.id as 'ID', 
+                   (select count(*) from group_table gt where gt.idUsers = u.id) as '!', 
+                   u.name as 'Фамилия И.О.', u.sertificate as 'серт.ПФДО',
+                   p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.', 
+                   u.phone as 'Телефон', u.birthday as 'Д.рожд',  
+                   u.comment as 'Доп.информация'
+                    from users u
+                    join places p on u.idPlaces = p.id
+                    left join group_table g on g.idUsers = u.id
+                  where idRoles = 2   order by u.id
+<===
+2021-10-22 08:03:45.135481 ==> Start try [execute command] 
+select name from days order by id
+<===
+2021-10-22 08:03:45.137099 ==> Start try [execute command] 
+select cname from days order by id
+<===
+2021-10-22 08:03:45.138137 ==> Start try [execute command] 
+select name, color from kabs order by id
+<===
+2021-10-22 08:03:45.139215 ==> Start try [execute command] 
+select name from times order by id
+<===
+2021-10-22 08:03:45.439474 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.466045 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j  order by j.date, j.tstart
+<===
+2021-10-22 08:03:45.478021 ==> Start try [execute command] 
+select num, name from monts order by id
+<===
+2021-10-22 08:03:45.480999 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.486666 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.489784 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.549726 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:03:45.551506 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:03:45.561518 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:03:45.572828 ==> Start try [execute command] 
+select distinct u.id, trim(u.name) as name, trim(u.comment), trim(p.access) from users u
+                        join roles r on u.idRoles = r.id
+        			    join priv p on r.idPriv = p.id
+        			    order by name 
+<===
+2021-10-22 08:03:45.578864 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.580730 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.581731 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.589853 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:03:45.592459 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:03:45.603422 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.604419 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.607032 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.614318 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:03:45.616812 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:03:45.625264 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.627320 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.631134 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.639445 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:03:45.643295 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:03:45.655236 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:03:45.657232 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:03:45.659555 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:03:45.674552 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:03:45.676651 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:03:45.685680 ==> ======>  Tab5. Start __init__
+<===
+2021-10-22 08:03:45.691702 ==> name 'con' is not defined | 
+  File "C:\Tools\Python\Journal310\Journal.py", line 48, in <module>
+    wnd = MWindow(con, login_user.loggedUser['id'])
+
+<===
+2021-10-22 08:07:47.820259 ==> Старт программы
+<===
+2021-10-22 08:07:47.821257 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-22 08:07:47.860152 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-22 08:07:47.867133 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:08:00.496646 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-22 08:08:00.522919 ==> start try [update class] 
+select id, name as 'Наименование', access as 'Привилегии'
+               from priv  order by id
+<===
+2021-10-22 08:08:00.523921 ==> start try [update class] 
+select r.id as 'id', rtrim(r.name) as 'Наименование', p.name as 'Привилегии', 
+               r.comment as 'Коментарий'
+               from roles r
+               join priv p on p.id = r.idPriv  order by id
+<===
+2021-10-22 08:08:00.525912 ==> start try [update class] 
+select id, name as 'Наименование', comment as 'Доп.инфо'
+               from places  order by Наименование
+<===
+2021-10-22 08:08:00.527906 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:08:00.528904 ==> start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', g.comment as 'Доп. информация'
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id  order by g.id
+<===
+2021-10-22 08:08:00.531895 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:08:00.532892 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:08:00.561681 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:08:00.565545 ==> start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', g.comment as 'Доп. информация'
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id  order by g.id
+<===
+2021-10-22 08:08:00.571517 ==> start try [update class] 
+select t.id as 'id', rtrim(g.name) as 'Группа', rtrim(u.name) as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий' 
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers  order by id
+<===
+2021-10-22 08:08:00.582486 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:08:00.598417 ==> start try [update class] 
+select g.id, g.name as 'Группа', c.year as 'Уч.год', u.name as 'ФИО наставника',
+                (select count(*) from group_table gt where gt.idGroups = g.id) as 'Кол-во детей'
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id
+              where g.idCourses = 3  order by g.name
+<===
+2021-10-22 08:08:00.617048 ==> Start try [execute command] 
+select count(*) from groups
+<===
+2021-10-22 08:08:00.618045 ==> start try [update class] 
+select t.id as 'id', u.name as 'Фамилия И.О.', u.sertificate as 'серт.ПФДО',
+                    t.comment as 'Комментарий', p.comment as 'Класс',
+                    p.name as 'Уч.заведение'
+                from group_table t
+                join users u on u.id = t.idUsers
+                join places p on p.id = u.idPlaces
+                where t.idGroups = 17  order by u.name
+<===
+2021-10-22 08:08:00.626023 ==> Start try [execute command] 
+select count(*) from group_table group by idUsers
+<===
+2021-10-22 08:08:00.627722 ==> Start try [execute command] 
+select sum(c.lesson) * 2 from courses c
+                left join groups g on g.idCourses = c.id
+                left join group_table gt on gt.idGroups = g.id
+<===
+2021-10-22 08:08:00.630509 ==> start try [update class] 
+select distinct u.id as 'ID', 
+                   (select count(*) from group_table gt where gt.idUsers = u.id) as '!', 
+                   u.name as 'Фамилия И.О.', u.sertificate as 'серт.ПФДО',
+                   p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.', 
+                   u.phone as 'Телефон', u.birthday as 'Д.рожд',  
+                   u.comment as 'Доп.информация'
+                    from users u
+                    join places p on u.idPlaces = p.id
+                    left join group_table g on g.idUsers = u.id
+                  where idRoles = 2   order by u.id
+<===
+2021-10-22 08:08:00.855484 ==> Start try [execute command] 
+select name from days order by id
+<===
+2021-10-22 08:08:00.857485 ==> Start try [execute command] 
+select cname from days order by id
+<===
+2021-10-22 08:08:00.858514 ==> Start try [execute command] 
+select name, color from kabs order by id
+<===
+2021-10-22 08:08:00.859646 ==> Start try [execute command] 
+select name from times order by id
+<===
+2021-10-22 08:08:01.152700 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.180549 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j  order by j.date, j.tstart
+<===
+2021-10-22 08:08:01.193643 ==> Start try [execute command] 
+select num, name from monts order by id
+<===
+2021-10-22 08:08:01.196637 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.203342 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.207637 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.269889 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:01.272745 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:01.284059 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:08:01.295689 ==> Start try [execute command] 
+select distinct u.id, trim(u.name) as name, trim(u.comment), trim(p.access) from users u
+                        join roles r on u.idRoles = r.id
+        			    join priv p on r.idPriv = p.id
+        			    order by name 
+<===
+2021-10-22 08:08:01.303773 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.305981 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.307603 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.316310 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:01.318719 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:01.329855 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.331735 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.333034 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.340814 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:01.342542 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:01.351597 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.353234 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.355232 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.363551 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:01.366124 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:01.379083 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:01.381106 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:01.383591 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:01.399211 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:01.401383 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:01.410219 ==> ======>  Tab5. Start __init__
+<===
+2021-10-22 08:08:01.454263 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  order by u.name
+<===
+2021-10-22 08:08:01.474948 ==> Start try [update class] 
+select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id  order by g.id
+<===
+2021-10-22 08:08:01.477002 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id where u.id = 15 order by u.name
+<===
+2021-10-22 08:08:01.478067 ==> Start try [update class] 
+select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id where g.idUsers = 15 and c.year = 2021 order by g.id
+<===
+2021-10-22 08:08:01.480876 ==> name 'con' is not defined | 
+  File "C:\Tools\Python\Journal310\Journal.py", line 48, in <module>
+    wnd = MWindow(con, login_user.loggedUser['id'])
+
+<===
+2021-10-22 08:08:37.945380 ==> Старт программы
+<===
+2021-10-22 08:08:37.946378 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-22 08:08:37.978291 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-22 08:08:37.985273 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:08:41.933792 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-22 08:08:41.957730 ==> start try [update class] 
+select id, name as 'Наименование', access as 'Привилегии'
+               from priv  order by id
+<===
+2021-10-22 08:08:41.958727 ==> start try [update class] 
+select r.id as 'id', rtrim(r.name) as 'Наименование', p.name as 'Привилегии', 
+               r.comment as 'Коментарий'
+               from roles r
+               join priv p on p.id = r.idPriv  order by id
+<===
+2021-10-22 08:08:41.959724 ==> start try [update class] 
+select id, name as 'Наименование', comment as 'Доп.инфо'
+               from places  order by Наименование
+<===
+2021-10-22 08:08:41.961969 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:08:41.963100 ==> start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', g.comment as 'Доп. информация'
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id  order by g.id
+<===
+2021-10-22 08:08:41.965098 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:08:41.971080 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:08:41.999157 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:08:42.003147 ==> start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', g.comment as 'Доп. информация'
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id  order by g.id
+<===
+2021-10-22 08:08:42.005178 ==> start try [update class] 
+select t.id as 'id', rtrim(g.name) as 'Группа', rtrim(u.name) as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий' 
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers  order by id
+<===
+2021-10-22 08:08:42.014226 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:08:42.030205 ==> start try [update class] 
+select g.id, g.name as 'Группа', c.year as 'Уч.год', u.name as 'ФИО наставника',
+                (select count(*) from group_table gt where gt.idGroups = g.id) as 'Кол-во детей'
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id
+              where g.idCourses = 3  order by g.name
+<===
+2021-10-22 08:08:42.049157 ==> Start try [execute command] 
+select count(*) from groups
+<===
+2021-10-22 08:08:42.050107 ==> start try [update class] 
+select t.id as 'id', u.name as 'Фамилия И.О.', u.sertificate as 'серт.ПФДО',
+                    t.comment as 'Комментарий', p.comment as 'Класс',
+                    p.name as 'Уч.заведение'
+                from group_table t
+                join users u on u.id = t.idUsers
+                join places p on p.id = u.idPlaces
+                where t.idGroups = 17  order by u.name
+<===
+2021-10-22 08:08:42.057229 ==> Start try [execute command] 
+select count(*) from group_table group by idUsers
+<===
+2021-10-22 08:08:42.060074 ==> Start try [execute command] 
+select sum(c.lesson) * 2 from courses c
+                left join groups g on g.idCourses = c.id
+                left join group_table gt on gt.idGroups = g.id
+<===
+2021-10-22 08:08:42.063154 ==> start try [update class] 
+select distinct u.id as 'ID', 
+                   (select count(*) from group_table gt where gt.idUsers = u.id) as '!', 
+                   u.name as 'Фамилия И.О.', u.sertificate as 'серт.ПФДО',
+                   p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.', 
+                   u.phone as 'Телефон', u.birthday as 'Д.рожд',  
+                   u.comment as 'Доп.информация'
+                    from users u
+                    join places p on u.idPlaces = p.id
+                    left join group_table g on g.idUsers = u.id
+                  where idRoles = 2   order by u.id
+<===
+2021-10-22 08:08:42.298184 ==> Start try [execute command] 
+select name from days order by id
+<===
+2021-10-22 08:08:42.299186 ==> Start try [execute command] 
+select cname from days order by id
+<===
+2021-10-22 08:08:42.300183 ==> Start try [execute command] 
+select name, color from kabs order by id
+<===
+2021-10-22 08:08:42.301365 ==> Start try [execute command] 
+select name from times order by id
+<===
+2021-10-22 08:08:42.591684 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.617727 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j  order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.625720 ==> Start try [execute command] 
+select num, name from monts order by id
+<===
+2021-10-22 08:08:42.627343 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.630337 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.633126 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.692072 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.695083 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.704175 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:08:42.715082 ==> Start try [execute command] 
+select distinct u.id, trim(u.name) as name, trim(u.comment), trim(p.access) from users u
+                        join roles r on u.idRoles = r.id
+        			    join priv p on r.idPriv = p.id
+        			    order by name 
+<===
+2021-10-22 08:08:42.720846 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.721867 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.723858 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.731878 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.733882 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.744496 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.745679 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.747097 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.754929 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.756962 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.766067 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.767131 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.769288 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.776801 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.778954 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.790796 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.793752 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.795591 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.809632 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.811627 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.820133 ==> ======>  Tab5. Start __init__
+<===
+2021-10-22 08:08:42.824684 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  order by u.name
+<===
+2021-10-22 08:08:42.838809 ==> Start try [update class] 
+select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id  order by g.id
+<===
+2021-10-22 08:08:42.841026 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id where u.id = 15 order by u.name
+<===
+2021-10-22 08:08:42.842833 ==> Start try [update class] 
+select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id where g.idUsers = 15 and c.year = 2021 order by g.id
+<===
+2021-10-22 08:08:42.843810 ==> Start try [update class] 
+select t.id as 'id', g.name as 'Группа', u.name as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий', t.idUsers as 'UID'
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses  order by u.name
+<===
+2021-10-22 08:08:42.851639 ==> Start try [update class] 
+select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses  order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.921838 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:08:42.932383 ==> Start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', rtrim(u.name) as 'ФИО наставника',
+                    g.idUsers, g.idCourses
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id  order by g.id
+<===
+2021-10-22 08:08:42.933872 ==> Start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'ID Группа', d.id as 'ID День', jc.year as 'Уч.год',
+                    ju.id as 'ID User', jc.id as 'ID Courses'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.936704 ==> Start try [update class] 
+select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация', j.idGroups as 'idGroups'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses  order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.962774 ==> Start try [update class] 
+select t.id as 'id', rtrim(g.name) as 'Группа', rtrim(u.name) as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий', t.idGroups, jc.acchour, jc.hday, t.idUsers
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses  order by u.name
+<===
+2021-10-22 08:08:42.970716 ==> Start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', 
+                   url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:08:42.972079 ==> Start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', 
+                   url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses where year = 2021 order by id
+<===
+2021-10-22 08:08:42.972828 ==> Start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', rtrim(u.name) as 'ФИО наставника',
+                    g.idUsers, g.idCourses
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id where g.idUsers=15 and c.year=2021 order by g.id
+<===
+2021-10-22 08:08:42.974314 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id where u.id=15 
+<===
+2021-10-22 08:08:42.975400 ==> Start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'ID Группа', d.id as 'ID День', jc.year as 'Уч.год',
+                    ju.id as 'ID User', jc.id as 'ID Courses'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 and jc.year = 2021 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:42.977455 ==> Start try [update class] 
+select t.id as 'id', rtrim(g.name) as 'Группа', rtrim(u.name) as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий', t.idGroups, jc.acchour, jc.hday, t.idUsers
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 and jc.year = 2021 order by u.name
+<===
+2021-10-22 08:08:42.979479 ==> Start try [update class] 
+select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация', j.idGroups as 'idGroups'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 and jc.year = 2021
+                                    and j.date between '2021-10-01' and '2022-01-01'  order by j.date, j.tstart
+<===
+2021-10-22 08:08:42.984336 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  order by u.name
+<===
+2021-10-22 08:08:43.004987 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:08:43.015155 ==> Start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', rtrim(u.name) as 'ФИО наставника',
+                    g.idUsers, g.idCourses
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id  order by g.id
+<===
+2021-10-22 08:08:43.016913 ==> Start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'ID Группа', d.id as 'ID День', jc.year as 'Уч.год',
+                    ju.id as 'ID User', jc.id as 'ID Courses'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:43.019908 ==> Start try [update class] 
+select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация', j.idGroups as 'idGroups'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses  order by j.date, j.tstart
+<===
+2021-10-22 08:08:43.036723 ==> Start try [update class] 
+select t.id as 'id', rtrim(g.name) as 'Группа', rtrim(u.name) as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий', t.idGroups, jc.acchour, jc.hday, t.idUsers
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses  order by u.name
+<===
+2021-10-22 08:08:43.044760 ==> Start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', 
+                   url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:08:43.045757 ==> Start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', 
+                   url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses where year = 2021 order by id
+<===
+2021-10-22 08:08:43.047753 ==> Start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', rtrim(u.name) as 'ФИО наставника',
+                    g.idUsers, g.idCourses
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id where g.idUsers=15 and c.year=2021 order by g.id
+<===
+2021-10-22 08:08:43.048839 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id where u.id=15 
+<===
+2021-10-22 08:08:43.049788 ==> Start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'ID Группа', d.id as 'ID День', jc.year as 'Уч.год',
+                    ju.id as 'ID User', jc.id as 'ID Courses'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 and jc.year = 2021 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:43.051771 ==> Start try [update class] 
+select t.id as 'id', rtrim(g.name) as 'Группа', rtrim(u.name) as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий', t.idGroups, jc.acchour, jc.hday, t.idUsers
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 and jc.year = 2021 order by u.name
+<===
+2021-10-22 08:08:43.053732 ==> Start try [update class] 
+select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация', j.idGroups as 'idGroups'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 and jc.year = 2021
+                                    and j.date between '2021-10-01' and '2022-01-01'  order by j.date, j.tstart
+<===
+2021-10-22 08:08:43.362954 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id where u.id = 15 order by u.name
+<===
+2021-10-22 08:08:43.363985 ==> Start try [update class] 
+select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id where g.idUsers = 15 and c.year = 2021 order by g.id
+<===
+2021-10-22 08:08:43.675769 ==> Start try [update class] 
+select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses where j.idGroups = 1 and jc.year = 2021 order by j.date, j.tstart
+<===
+2021-10-22 08:08:43.763088 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-22 08:08:43.770497 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:08:43.781378 ==> Start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', rtrim(u.name) as 'ФИО наставника',
+                    g.idUsers, g.idCourses
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id  order by g.id
+<===
+2021-10-22 08:08:43.783916 ==> Start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'ID Группа', d.id as 'ID День', jc.year as 'Уч.год',
+                    ju.id as 'ID User', jc.id as 'ID Courses'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:43.787770 ==> Start try [update class] 
+select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация', j.idGroups as 'idGroups'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses  order by j.date, j.tstart
+<===
+2021-10-22 08:08:43.809275 ==> Start try [update class] 
+select t.id as 'id', rtrim(g.name) as 'Группа', rtrim(u.name) as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий', t.idGroups, jc.acchour, jc.hday, t.idUsers
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses  order by u.name
+<===
+2021-10-22 08:08:43.817704 ==> Start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', 
+                   url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:08:43.819407 ==> Start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', 
+                   url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses where year = 2021 order by id
+<===
+2021-10-22 08:08:43.820441 ==> Start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', rtrim(u.name) as 'ФИО наставника',
+                    g.idUsers, g.idCourses
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id where g.idUsers=15 and c.year=2021 order by g.id
+<===
+2021-10-22 08:08:43.821809 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id where u.id=15 
+<===
+2021-10-22 08:08:43.822706 ==> Start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'ID Группа', d.id as 'ID День', jc.year as 'Уч.год',
+                    ju.id as 'ID User', jc.id as 'ID Courses'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 and jc.year = 2021 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:43.824703 ==> Start try [update class] 
+select t.id as 'id', rtrim(g.name) as 'Группа', rtrim(u.name) as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий', t.idGroups, jc.acchour, jc.hday, t.idUsers
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 and jc.year = 2021 order by u.name
+<===
+2021-10-22 08:08:43.827034 ==> Start try [update class] 
+select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация', j.idGroups as 'idGroups'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 and jc.year = 2021
+                                    and j.date between '2021-10-01' and '2022-01-01'  order by j.date, j.tstart
+<===
+2021-10-22 08:08:43.849597 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id where u.id = 15 order by u.name
+<===
+2021-10-22 08:08:43.850595 ==> Start try [update class] 
+select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id where g.idUsers = 15 and c.year = 2021 order by g.id
+<===
+2021-10-22 08:08:43.851592 ==> Start try [update class] 
+select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses where j.idGroups = 45 and jc.year = 2021 order by j.date, j.tstart
+<===
+2021-10-22 08:08:43.891726 ==> Start try [update class] 
+select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses where j.idGroups = 1 and jc.year = 2021 order by j.date, j.tstart
+<===
+2021-10-22 08:08:43.958614 ==> Start try [update class] 
+select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses where j.idGroups = 1 and jc.year = 2021 order by j.date, j.tstart
+<===
+2021-10-22 08:08:49.192120 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:49.328132 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2021-10-22 08:08:49.462768 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:49.487418 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 45 order by j.date, j.tstart
+<===
+2021-10-22 08:08:53.673704 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:08:53.985536 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2021-10-22 08:08:54.792926 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:08:54.793899 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from courses  order by id
+<===
+2021-10-22 08:08:56.114805 ==> Завершение работы. [15]
+<===
