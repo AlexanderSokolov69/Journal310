@@ -1,0 +1,540 @@
+2021-10-23 12:37:26.200288 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 12:37:26.231205 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 12:37:26.231205 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 12:37:44.403462 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 12:37:44.428866 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 12:37:44.428866 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 12:39:25.804210 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 12:39:25.836022 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 12:39:25.836022 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 12:39:25.849985 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 12:54:30.016211 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 12:54:30.054109 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 12:54:30.054109 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 12:54:30.069069 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 13:10:27.814988 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 13:10:27.851889 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 13:10:27.851889 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 13:10:27.866850 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 13:12:56.708900 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 13:12:56.715881 ==> СТОП!!! 
+	__init__() should return None, not 'QSqlDatabase' 
+	Подключение не удалось Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 13:14:41.504005 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 13:14:41.505999 ==> СТОП!!! 
+	__init__() should return None, not 'QSqlDatabase' 
+	Подключение не удалось Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 15:55:40.148582 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 15:55:40.150577 ==> СТОП!!! 
+	__init__() should return None, not 'QSqlDatabase' 
+	Подключение не удалось Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 15:57:05.445356 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 15:57:05.447351 ==> СТОП!!! 
+	'QtSql' object has no attribute 'get_connect' 
+	Подключение не удалось Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 15:57:35.931082 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 15:57:35.964990 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 15:57:35.964990 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 15:57:35.979951 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 15:57:47.999507 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 15:57:48.026566 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 15:57:48.026566 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 15:57:48.040530 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 16:07:30.616833 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 16:07:30.648032 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 16:07:30.649028 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 16:07:30.921728 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 16:07:36.252185 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 16:07:36.285999 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 16:07:36.285999 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 16:07:36.542024 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 16:07:55.071770 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 16:07:55.102638 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 16:07:55.103634 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 16:07:55.124976 ==> print() argument after * must be an iterable, not builtin_function_or_method | 
+  File "C:\Tools\Python\Journal310\widgets_prg\t_tab5_prog.py", line 59, in <module>
+    wnd = T5Window(None, 19)
+
+<===
+2021-10-23 17:03:33.462830 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:03:33.490185 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:03:33.490185 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:03:33.522136 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:09:07.371602 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:09:07.402182 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:09:07.403184 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:09:07.418144 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               where priv like ?
+               order by ?
+        select 
+<===
+2021-10-23 17:09:07.418144 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:09:15.217298 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:09:15.243541 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:09:15.244538 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:09:15.261493 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               where priv like ?
+               order by ?
+        select 
+<===
+2021-10-23 17:09:15.261493 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:10:20.857632 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:10:20.885558 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:10:20.885558 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:11:38.343213 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               where priv like ?
+               order by ?
+        select 
+<===
+2021-10-23 17:11:38.346160 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:13:15.523816 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:13:15.555419 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:13:15.556420 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:13:15.571381 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               where priv like ?
+               order by ?
+        select  
+ {':a': '1%', ':bb': 'u.name'}
+<===
+2021-10-23 17:13:15.572379 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:14:27.036366 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:14:27.067290 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:14:27.068286 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:14:27.086238 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               where priv like ?
+               order by ?
+        select  
+ {':a': "'1%'", ':bb': 'u.name'}
+<===
+2021-10-23 17:14:27.087235 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:15:36.943552 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:15:36.974007 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:15:36.974007 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:15:36.990962 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               where priv like ?
+               order by ?
+        select  
+ {':a': "'1%'", ':bb': 'u.name'}
+<===
+2021-10-23 17:15:36.990962 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:17:38.919197 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:17:38.948994 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:17:38.949987 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:17:38.963951 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               where priv like ?
+               order by ?
+        select  
+ {':a': "'1%'", ':bb': 'u.name'}
+<===
+2021-10-23 17:17:38.963951 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:18:00.048936 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:18:00.071875 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:18:00.072872 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:18:00.086835 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               where priv like ?
+               order by ?
+        select  
+ {':a': '1%', ':bb': 'u.name'}
+<===
+2021-10-23 17:18:00.086835 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:18:49.241089 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:18:49.275995 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:18:49.276994 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:18:49.290999 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               where priv like ?
+               order by ?
+         
+ {':a': '1%', ':bb': 'u.name'}
+<===
+2021-10-23 17:18:49.290999 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:19:23.019286 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:19:23.050223 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:19:23.050223 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:19:23.065183 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+         
+ {':a': '1%', ':bb': 'u.name'}
+<===
+2021-10-23 17:19:23.065183 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:21:23.753674 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:21:23.785726 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:21:23.785726 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:21:23.799694 ==> 'QSqlQuery' object has no attribute 'BindValue' | 
+  File "C:\Tools\Python\Journal310\widgets_prg\t_tab5_prog.py", line 80, in <module>
+    wnd = T5Window(None, 19)
+
+<===
+2021-10-23 17:21:45.715844 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:21:45.745921 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:21:45.745921 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:21:45.757893 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               where priv like ?
+               order by ?
+         
+ {':a': '1%', ':bb': 'u.name'}
+<===
+2021-10-23 17:21:45.757893 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:24:15.975145 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:24:16.014213 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:24:16.015211 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:24:16.030172 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               where priv like ?
+               order by ?
+         
+ {':a': '1%', ':bb': 'u.name'}
+<===
+2021-10-23 17:24:16.031170 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:24:59.734968 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:24:59.765885 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:24:59.766884 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:24:59.780877 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               where priv like ?
+               order by ?
+         
+ {':a': '1%', ':bb': 'u.name'}
+<===
+2021-10-23 17:24:59.781871 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:27:01.458374 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:27:01.484308 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:27:01.485303 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:27:01.516274 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+ {}
+<===
+2021-10-23 17:27:01.516274 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:40:52.204228 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:40:52.232423 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:40:52.233455 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:40:52.262485 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', pr.access as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+			   left join priv pr on pr.id = r.idPriv 
+ {}
+<===
+2021-10-23 17:40:52.262485 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:44:58.017589 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:44:58.048013 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:44:58.049011 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:44:58.073553 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', pr.access as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+			   left join priv pr on pr.id = r.idPriv 
+ {}
+<===
+2021-10-23 17:44:58.073553 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:45:58.628284 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:45:58.665865 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:45:58.666863 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:45:58.693385 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', pr.access as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+			   left join priv pr on pr.id = r.idPriv 
+ {}
+<===
+2021-10-23 17:45:58.695381 ==> True
+<===
+2021-10-23 17:45:58.695381 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:47:03.753567 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:47:03.784820 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:47:03.785817 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:47:03.800778 ==> select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', pr.access as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+			   left join priv pr on pr.id = r.idPriv
+ 
+ {':a': '1%', ':bb': 'u.name'}
+<===
+2021-10-23 17:47:03.800778 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:50:19.693316 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:50:19.722250 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:50:19.723247 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:50:19.746184 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:50:49.989366 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:50:50.018229 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:50:50.019223 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:50:50.043935 ==> arguments did not match any overloaded call:
+  value(self, int): not enough arguments
+  value(self, str): not enough arguments | 
+  File "C:\Tools\Python\Journal310\widgets_prg\t_tab5_prog.py", line 85, in <module>
+    wnd = T5Window(None, 19)
+
+<===
+2021-10-23 17:50:55.468167 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:50:55.492637 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:50:55.492637 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:50:55.513581 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:51:05.383546 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:51:05.407480 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:51:05.408478 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:51:05.437477 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:51:15.664566 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:51:15.692202 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:51:15.692202 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:51:15.720828 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-23 17:51:28.596581 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:51:28.625298 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-23 17:51:28.626295 ==> ======>  Tab5. Start __init__
+<===
+2021-10-23 17:51:28.649368 ==> ======>  Tab5. Finish __init__
+<===
