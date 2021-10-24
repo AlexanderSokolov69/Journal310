@@ -35,6 +35,7 @@ class Const:
     GRP_FIO = 6
     GRP_IDU = 7
     GRP_IDC = 8
+    GRP_COMMENT = 7
 
     # rasp
     RSP_ID = 0
