@@ -16,7 +16,8 @@ class TSqlQuery(QSqlQuery):
         self.prepare_str = self.prepare_str_def
         self.param_str = []
         self.sort_str = ''
-        self.cashe = []
+        self.data = []
+        self.keys = dict()
         if params:
             self.set_param_str(params)
         if dsort:
@@ -31,6 +32,8 @@ class TSqlQuery(QSqlQuery):
 
     def refresh_select(self):
         super().finish()
+        self.data.clear()
+        self.keys.clear()
         if self.sort_str:
             prep = f"{self.prepare_str} order by {', '.join(self.sort_str)}"
         else:
@@ -38,6 +41,7 @@ class TSqlQuery(QSqlQuery):
         super().prepare(prep)
         for prm in self.param_str:
             super().addBindValue(prm)
+        super().setForwardOnly(True)
         ret = super().exec()
         if Const.TEST_MODE:
             self.flog.to_log(f"""SQL exec: {super().lastQuery()}""")
@@ -45,6 +49,11 @@ class TSqlQuery(QSqlQuery):
                 self.flog.to_log(f"""Params: {self.param_str}\nResult: Ok""")
             else:
                 self.flog.to_log(f"""Params: {self.param_str}\nResult: WRONG!!!""")
+        if ret:
+            self.first()
+            while self.isValid():
+                self.data.append(self.record())
+                self.next()
         return ret
 
 

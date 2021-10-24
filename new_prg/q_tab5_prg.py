@@ -86,11 +86,20 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.tableView.setDisabled(True)
         if self.groupBox.currentIndex() >= 0:
             grp = int(self.groupBox.currentText().split()[0])
+            print('==> ', grp)
             self.journ.set_param_str((grp, ))
             self.journ.refresh_select()
-            # model =  QSqlQueryModel()
-            # model.setQuery(self.journ)
-            # self.tableView.setModel(model)
+            val : QtSql.QSqlRecord = None
+            print('select: ok')
+            for i, val in enumerate(self.journ.data):
+                s = []
+                for j in range(val.count()):
+                    s.append(str(val.value(j)))
+                print(', '.join(s))
+            model =  QSqlQueryModel()
+            model.setQuery(self.journ.data)
+            self.tableView.setModel(model)
+            self.tableView.resizeColumnsToContents()
         else:
             self.tableView.setModel(None)
 #        self.groupBox.clear()
