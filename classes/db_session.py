@@ -36,7 +36,7 @@ class ConnectDb:
             else:
                 cfg.read('settings.ini')
             self.connect_type = cfg.get("Settings", "connect_type")
-            if self.connect_type.lower() in ('odbc', 'qodbc'):
+            if self.connect_type.lower() in ('odbc', ):
                 connect_str = cfg.get("Settings", "odbc")
             else:
                 db_name = cfg.get("Settings", "db_name")
