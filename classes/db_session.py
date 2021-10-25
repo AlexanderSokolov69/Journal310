@@ -36,7 +36,7 @@ class ConnectDb:
             else:
                 cfg.read('settings.ini')
             self.connect_type = cfg.get("Settings", "connect_type")
-            if self.connect_type == 'odbc':
+            if self.connect_type.lower() in ('odbc', 'qodbc'):
                 connect_str = cfg.get("Settings", "odbc")
             else:
                 db_name = cfg.get("Settings", "db_name")
@@ -57,12 +57,15 @@ class ConnectDb:
 
         try:
             flog.to_log(f""" Старт подключения БД: {connect_str}""")
-            self.con = Sql(connect_str).get_connect()
+            self.con = self.toSql(connect_str).get_connect()
             flog.to_log(f"""Подключена БД: {connect_str}""")
             # print('Подключена БД:',  path)
         except Exception as err:
             flog.to_log(f"""СТОП!!! \n\t{err} \n\tПодключение не удалось {connect_str}""")
             sys.exit()
+
+    def toSql(self, connect_str):
+        return Sql(connect_str)
 
     def get_con(self):
         return self.con

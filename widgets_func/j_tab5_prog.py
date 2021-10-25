@@ -4,8 +4,9 @@ import datetime
 
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QTimer, QModelIndex, QEvent, pyqtSignal
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QMainWindow, QApplication, QAbstractItemView, QPushButton, QLineEdit, QLabel, QCheckBox, \
-    QWidget, QFrame, QInputDialog, QTextEdit, QSizePolicy, QPlainTextEdit, QComboBox
+    QWidget, QFrame, QInputDialog, QTextEdit, QSizePolicy, QPlainTextEdit, QComboBox, QSplashScreen
 
 from classes.bb_converts import date_us_ru, date_ru_us
 from classes.cl_logwriter import LogWriter
@@ -386,6 +387,8 @@ if __name__ == '__main__':
     sys.excepthook = except_hook
     app = QApplication(sys.argv)
     flog = LogWriter()
+
+
     con = ConnectDb('../settings.ini').get_con()
     wnd = T5Window(con, 19)
     wnd.showMaximized()

@@ -5,8 +5,10 @@ class Const:
     D_START = '2021-10-01'
     D_END = '2022-01-01'
 
-    ACC_PREPOD = '1%'
-    ACC_CUBIST = '0%'
+    # Access items
+    ACC_TEACHER = '1%'
+    ACC_CUBIST = "'0%'"
+
 
     # Users
     USR_ID = 0
