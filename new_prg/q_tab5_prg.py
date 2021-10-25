@@ -13,7 +13,7 @@ from classes.bb_converts import date_us_ru, date_ru_us
 from classes.cl_logwriter import LogWriter
 from classes.cl_const import Const
 from forms_journ.t_tab5 import Ui_tab5Form
-from new_prg.db_connect import QUsers, QGroups, QJournals, QGroupTables
+from new_prg.db_connect import QUsers, QGroups, QJournals, QGroupTables, TSqlQuery
 from new_prg.q_models import QTableModel
 from widgets_prg.t_db_session import QtConnectDb
 
@@ -40,6 +40,9 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.edit_spisok = []
         self.groupBox.hide()
         self.txt_comment.hide()
+        self.edited_record = None
+        self.commitButton.hide()
+        self.rollbackButton.hide()
 
         self.teach = QUsers(params=(Const.ACC_PREPOD, ), dsort=('u.name', ))
         self.groups = QGroups(dsort=('g.name',))
@@ -49,17 +52,17 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.teach_spisok.currentIndexChanged.connect(self.groupsf_refresh_sql)
         self.groupBox.currentIndexChanged.connect(self.journf_refresh_sql)
         self.tableView.doubleClicked.connect(self.journf_start_edit_day)
+        self.commitButton.clicked.connect(TSqlQuery.commit_table)
+        self.rollbackButton.clicked.connect(TSqlQuery.rollback_table)
         if Const.TEST_MODE:
             self.logfile.to_log(f"""======>  Tab5. Finish __init__""")
             print("======>  Tab5. Finish __init__")
 
     def journf_start_edit_day(self):
-#        print('click', self.tableView.currentIndex().row())
-        data : QTableModel = self.tableView.model()
-        # print(data.index(self.tableView.currentIndex().row(), 0).data())
-        # print(data.sql_obj.at())
-        # print(data.sql_obj.record().value(1))
-#
+        data: QTableModel = self.tableView.model()
+        record = data.sql_obj.cache[self.tableView.currentIndex().row()]
+        self.edited_record = record[Const.JRN_ID]
+
         self.labelHead.setDisabled(False)
         self.frame_2.setDisabled(True)
         self.tableView.setDisabled(True)
@@ -70,23 +73,23 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.shape_frame.setSizePolicy(QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum))
         layoutCorr.setContentsMargins(20, 20, 20, 20)
         layoutCorr.setAlignment(QtCore.Qt.AlignCenter)
-        # self.shape_frame.setMaximumWidth(MaxWidth)
-        # self.letter_place.setMaximumWidth(MaxWidth)
-        # self.txt_comment.setMaximumWidth(MaxWidth)
         self.txt_comment.show()
-        self.txt_comment.setPlainText(data.sql_obj.record().value(Const.JRN_COMMENT))
+        self.txt_comment.setPlainText(record[Const.JRN_COMMENT])
         self.txt_comment.setMinimumWidth(MaxWidth)
         pos = 1
 #
-        preset = {'present': [], 'estim': [], 'shtraf': []}
-        preset['present'] = list(map(int, (data.sql_obj.record().value(Const.JRN_PRESENT).split())))
-        preset['estim'] = {val.split('=')[0]: val.split('=')[1] for val in
-                           data.sql_obj.record().value(Const.JRN_ESTIM).split()}
-        preset['shtraf'] = {val.split('=')[0]: val.split('=')[1] for val in
-                            data.sql_obj.record().value(Const.JRN_SHTRAF).split()}
-#
+        preset = {'present': list(map(int, (record[Const.JRN_PRESENT].split()))),
+                  'estim': {val.split('=')[0]: val.split('=')[1].strip() for val in
+                            record[Const.JRN_ESTIM].split()},
+                  'shtraf': {val.split('=')[0]: val.split('=')[1].strip() for val in
+                             record[Const.JRN_SHTRAF].split()},
+                  'usercomm': {val.split('=')[0]: val.split('=')[1].strip() for val in
+                             record[Const.JRN_USRCOMM].split()}
+                  }
+        # print(preset)
+        #
         posSh = 0
-        le1 = QPlainTextEdit(data.sql_obj.record().value(Const.JRN_THEME))
+        le1 = QPlainTextEdit(record[Const.JRN_THEME])
         le1.setObjectName('lesson Name')
         le1.setMaximumHeight(50)
         self.edit_spisok.append(le1)
@@ -97,13 +100,13 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         lb.setMaximumWidth(100)
         self.edit_spisok.append(lb)
         layoutShape.addWidget(lb, posSh, 2)
-        le = QLineEdit(data.sql_obj.record().value(Const.JRN_START))
+        le = QLineEdit(record[Const.JRN_START])
         le.setMaximumWidth(100)
         le.setInputMask('00:00')
         le.setObjectName('lesson tStart')
         self.edit_spisok.append(le)
         layoutShape.addWidget(le, posSh, 3)
-        le = QLineEdit(date_us_ru(data.sql_obj.record().value(Const.JRN_DATE)))
+        le = QLineEdit(date_us_ru(record[Const.JRN_DATE]))
         le.setObjectName('lesson Date')
         le.setInputMask('00.00.0000')
         le.setMaximumWidth(100)
@@ -115,7 +118,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.edit_spisok.append(lb)
         lb.setMaximumWidth(100)
         layoutShape.addWidget(lb, posSh, 2)
-        le = QLineEdit(data.sql_obj.record().value(Const.JRN_END))
+        le = QLineEdit(record[Const.JRN_END])
         le.setMaximumWidth(100)
         le.setInputMask('00:00')
         le.setObjectName('lesson tEnd')
@@ -127,9 +130,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         layoutShape.addWidget(lb, posSh, 6)
         btn = QPushButton('Сохранить')
         btn.clicked.connect(self.journf_end_edit_day)
-        # btn.installEventFilter(self)
         btn.setObjectName('Save')
-        # self.clicked_enter.connect(btn.click)
         btn.setMinimumWidth(100)
         self.edit_spisok.append(btn)
         layoutShape.addWidget(btn, posSh, 7)
@@ -157,24 +158,33 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         lb.stateChanged.connect(self.click_in_table)
         self.edit_spisok.append(lb)
         layoutCorr.addWidget(lb, pos, 3)
+
         lb = QLabel('Оценка')
         lb.setAlignment(QtCore.Qt.AlignCenter)
         self.edit_spisok.append(lb)
         layoutCorr.addWidget(lb, pos, 4)
+
         lb = QLabel('Рейтинг')
         lb.setAlignment(QtCore.Qt.AlignCenter)
         self.edit_spisok.append(lb)
         layoutCorr.addWidget(lb, pos, 5)
+
+        lb = QLabel('Коммент.')
+        lb.setAlignment(QtCore.Qt.AlignCenter)
+        self.edit_spisok.append(lb)
+        layoutCorr.addWidget(lb, pos, 6)
+
         h_line = QFrame()
         h_line.setFrameShape(QFrame.HLine)
-        layoutCorr.addWidget(h_line, pos, 0, pos + 1, 6)
+        layoutCorr.addWidget(h_line, pos, 0, pos + 1, 7)
+
         pos += 1
         lb = QLabel('')
         self.edit_spisok.append(lb)
         layoutCorr.addWidget(lb, pos, 3)
         pos += 2
 
-        self.gtable.set_param_str((data.sql_obj.record().value(Const.JRN_IDG), ))
+        self.gtable.set_param_str((record[Const.JRN_IDG], ))
         self.gtable.refresh_select()
         self.gtable.first()
         i = 0
@@ -213,11 +223,17 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
             self.edit_spisok.append(oc)
             layoutCorr.addWidget(oc, pos, 4)
             oc = QLineEdit()
-            oc.setMaximumWidth(110)
+            oc.setMaximumWidth(100)
             oc.setObjectName(f"lesson {userId} shtraf")
             oc.setText(preset['shtraf'].get(str(userId), ''))
             self.edit_spisok.append(oc)
             layoutCorr.addWidget(oc, pos, 5)
+            oc = QLineEdit()
+            oc.setMaximumWidth(150)
+            oc.setObjectName(f"lesson {userId} usercomm")
+            oc.setText(preset['usercomm'].get(str(userId), ''))
+            self.edit_spisok.append(oc)
+            layoutCorr.addWidget(oc, pos, 6)
             pos += 2
             self.gtable.next()
             i += 1
@@ -225,7 +241,60 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         le1.setFocus()
 
     def journf_end_edit_day(self):
-        print('click')
+        to_save = self.sender().objectName() == 'Save'
+        self.labelHead.setDisabled(True)
+        self.frame_2.setDisabled(False)
+        self.tableView.setDisabled(False)
+        result_head = {'present': [],
+                       'estim': [],
+                       'shtraf': [],
+                       'usercomm': [],
+                       'comment': self.txt_comment.toPlainText().strip()}
+        self.txt_comment.hide()
+        for wid in self.edit_spisok:
+            if to_save:
+                if 'lesson' in wid.objectName():
+                    args = wid.objectName().split()
+                    # if Const.TEST_MODE:
+                    #     print(args)
+                    if len(args) == 2:
+                        if args[1] == 'Date':
+                            result_head[args[1]] = date_ru_us(wid.text())
+                        elif args[1] == 'Name':
+                            result_head[args[1]] = f'{wid.toPlainText()}'
+                        else:
+                            result_head[args[1]] = f'{wid.text()}'
+                    elif len(args) == 3:
+                        if args[2] == 'check':
+                            if wid.isChecked():
+                                result_head['present'].append(args[1])
+                        elif args[2] == 'estim':
+                            if wid.text():
+                                result_head['estim'].append(f'{args[1]}={wid.text().split()[0]}')
+                        elif args[2] == 'shtraf':
+                            if wid.text():
+                                result_head['shtraf'].append(f'{args[1]}={wid.text().split()[0]}')
+                        elif args[2] == 'usercomm':
+                            if wid.text():
+                                result_head['usercomm'].append(f'{args[1]}={wid.text().split()[0]}')
+            wid.deleteLater()
+        if to_save:
+            # id = self.journ.data[self.record_cursor][0]
+            result_head['present'] = (' '.join(result_head['present'])).strip()
+            result_head['estim'] = (' '.join(result_head['estim'])).strip()
+            result_head['shtraf'] = (' '.join(result_head['shtraf'])).strip()
+            result_head['usercomm'] = (' '.join(result_head['usercomm'])).strip()
+            if self.edited_record:
+                self.journ.rec_update(self.edited_record, result_head)
+            # self.journ.rec_update(id, result_head)
+            # self.journ.update()
+            # self.tableView.model().endResetModel()
+            # self.tableView.resizeColumnsToContents()
+            # self.tableView.setCurrentIndex(self.tableView.model().index(self.record_cursor, 0))
+            # self.count_statistics()
+            self.teachf_refresh_sql()
+        self.tableView.setFocus()
+        self.edit_spisok.clear()
 
     def click_in_table(self):
         pass
@@ -233,8 +302,11 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
     def showEvent(self, a0: QtGui.QShowEvent) -> None:
         self.teachf_refresh_sql()
 
+    def activate_window(self):
+        pass
+
     def groupsf_refresh_sql(self):
-        if self.groupBox.isVisible():
+        if self.teach_spisok.currentText().strip():
             self.in_user_id = int(self.teach_spisok.currentText().split()[0])
             self.groups.set_param_str((self.in_user_id, ))
             self.groupBox.clear()
@@ -242,9 +314,12 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
                 self.groups.first()
                 idx = -1
                 while self.groups.isValid():
-                    self.groupBox.addItem(f"{self.groups.value(Const.GRP_ID):4} : "
-                                          f"{self.groups.value(Const.GRP_NAME)} : "
-                                          f"{self.groups.value(Const.GRP_COMMENT)}")
+                    try:
+                        self.groupBox.addItem(f"{self.groups.value(Const.GRP_ID):4} : "
+                                              f"{self.groups.value(Const.GRP_NAME)} : "
+                                              f"{self.groups.value(Const.GRP_COMMENT)}")
+                    except IndexError:
+                        pass
                     self.groups.next()
                 self.groupBox.setCurrentIndex(0)
 
@@ -270,9 +345,10 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
             self.journ.refresh_select()
             model =  QTableModel(self.journ)
             self.tableView.setModel(model)
-
+            self.tableView.model().beginResetModel()
             self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
             # self.tableView.setMaximumWidth(800)
+            self.tableView.model().endResetModel()
             self.tableView.resizeColumnsToContents()
             self.tableView.setCurrentIndex(self.tableView.model().index(0, 0))
             self.tableView.setFocus()
@@ -300,5 +376,6 @@ if __name__ == '__main__':
             print('Connect: Ok')
         wnd = QT5Window(15)
         spl.finish(wnd)
-        wnd.showMaximized()
+#        wnd.activate_window()
+        wnd.show()
     sys.exit(app.exec())

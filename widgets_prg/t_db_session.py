@@ -15,6 +15,7 @@ class QtSql:
             print(str_con)
         self.db = QSqlDatabase().addDatabase('QODBC')
         self.db.setDatabaseName(str_con)
+        Const.DB = self.db
 
     def get_connect(self):
         return self.db.open()

@@ -1,6 +1,6 @@
 import sys
 from PyQt5 import QtSql
-from PyQt5.QtSql import QSqlQuery
+from PyQt5.QtSql import QSqlQuery, QSqlDatabase
 from PyQt5.QtWidgets import QApplication
 
 from classes.cl_const import Const
@@ -8,6 +8,7 @@ from classes.cl_logwriter import LogWriter
 
 
 class TSqlQuery(QSqlQuery):
+    table_name = ''
     prepare_str_def = ''
     date_col_def = []
 
@@ -18,6 +19,7 @@ class TSqlQuery(QSqlQuery):
         self.date_col = self.date_col_def.copy()
         self.param_str = []
         self.sort_str = ''
+        self.cache = []
         if params:
             self.set_param_str(params)
         if dsort:
@@ -41,6 +43,7 @@ class TSqlQuery(QSqlQuery):
             super().addBindValue(prm)
         super().setForwardOnly(True)
         ret = super().exec()
+        self.data_to_cache()
         if Const.TEST_MODE:
             self.flog.to_log(f"""SQL exec: {super().lastQuery()}""")
             if  ret:
@@ -49,8 +52,31 @@ class TSqlQuery(QSqlQuery):
                 self.flog.to_log(f"""Params: {self.param_str}\nResult: WRONG!!!""")
         return ret
 
+    def data_to_cache(self):
+        self.first()
+        self.cache.clear()
+        while self.isValid():
+            s = []
+            for i in range(self.record().count()):
+                s.append(self.record().value(i))
+            self.cache.append(s)
+            self.next()
+
+    def rec_update(self, id, arg):
+        args = ', '.join([f"""{item[0]} = '{item[1]}' """ for item in arg.items()])
+        sql = f"update {self.table_name} set {args} where id = {id}"
+        super().exec(sql)
+        return self.commit_table()
+
+    def commit_table(self):
+        return QSqlDatabase.commit(Const.DB)
+
+    def rollback_table(self):
+        return QSqlDatabase.rollback(Const.DB)
+
 
 class QUsers(TSqlQuery):
+        table_name = 'users'
         prepare_str_def = """select u.id, trim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
                 u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
                 u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
@@ -64,6 +90,7 @@ class QUsers(TSqlQuery):
         """
 
 class QGroups(TSqlQuery):
+    table_name = 'groups'
     prepare_str_def = """select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
                     c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
                     trim(g.comment) as 'Доп. информация' 
@@ -74,6 +101,7 @@ class QGroups(TSqlQuery):
 
 
 class QGroupTables(TSqlQuery):
+    table_name = 'group_table'
     prepare_str_def = f"""select t.id as 'id', g.name as 'Группа', u.name as 'Фамилия И.О.', 
                     t.comment as 'Комментарий', t.idUsers as 'UID', t.idGroups as 'GID'
                 from group_table t
@@ -84,9 +112,11 @@ class QGroupTables(TSqlQuery):
 
 
 class QJournals(TSqlQuery):
+    table_name = 'journals'
     prepare_str_def = f"""select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
                     j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
-                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация', j.idGroups as 'IDG'
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
                 from journals j
                 join groups g on g.id = j.idGroups
                 join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses

@@ -2,7 +2,6 @@ import sqlite3
 import sys
 from sqlite3 import connect
 
-import pyodbc
 
 from classes.cl_const import Const
 from classes.cl_logwriter import LogWriter

@@ -13,6 +13,7 @@ class QTableModel(QAbstractTableModel):
         self.sql_obj = sql_obj
         # self.sql_obj.last()
         self.sort_col = None
+        self.cache = []
 
     def sort(self, column: int, order: Qt.SortOrder = ...) -> None:
         pass
@@ -41,7 +42,7 @@ class QTableModel(QAbstractTableModel):
         return self.sql_obj.record().count()
 
     def rowCount(self, parent=None):
-        return self.sql_obj.numRowsAffected()  # .size()
+        return len(self.sql_obj.cache)
 
     # else:
     #     return 0
@@ -53,8 +54,12 @@ class QTableModel(QAbstractTableModel):
         # if col in self.date_col:
         #     ret = date_us_ru(ret)
         if role == Qt.DisplayRole or role == Qt.EditRole:
-            self.sql_obj.seek(row)
-            ret = self.sql_obj.record().value(col)
+#            self.sql_obj.seek(row)
+#            ret = self.sql_obj.record().value(col)
+            try:
+                ret = self.sql_obj.cache[row][col]
+            except IndexError:
+                pass
             if isinstance(ret, str):
                 ret = ret.strip()
             if ret is None:
@@ -75,3 +80,4 @@ class QTableModel(QAbstractTableModel):
 
     def endResetModel(self) -> None:
         self.refresh_visual.emit()
+

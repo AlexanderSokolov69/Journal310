@@ -1,4 +1,8 @@
+from PyQt5.QtSql import QSqlDatabase
+
+
 class Const:
+    DB: QSqlDatabase = None
     TEST_MODE = True
     IN_TRANSACTION = False
     YEAR = 2021
@@ -83,7 +87,8 @@ class Const:
     JRN_ESTIM = 6
     JRN_SHTRAF = 7
     JRN_COMMENT = 8
-    JRN_IDG = 9
+    JRN_USRCOMM = 9
+    JRN_IDG = 10
 
     # courses
     CRS_ID = 0
