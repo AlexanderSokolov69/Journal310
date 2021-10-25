@@ -9,6 +9,7 @@ class Const:
     ACC_TEACHER = '1%'
     ACC_CUBIST = "'0%'"
 
+
     # Users
     USR_ID = 0
     USR_NAME = 1
@@ -36,6 +37,7 @@ class Const:
     GRP_FIO = 6
     GRP_IDU = 7
     GRP_IDC = 8
+    GRP_COMMENT = 7
 
     # rasp
     RSP_ID = 0
