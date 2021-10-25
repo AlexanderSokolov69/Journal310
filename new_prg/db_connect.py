@@ -9,15 +9,15 @@ from classes.cl_logwriter import LogWriter
 
 class TSqlQuery(QSqlQuery):
     prepare_str_def = ''
+    date_col_def = []
 
     def __init__(self, params=None, dsort=None):
         super(TSqlQuery, self).__init__()
         self.flog = LogWriter()
-        self.prepare_str = self.prepare_str_def
+        self.prepare_str = self.prepare_str_def[:]
+        self.date_col = self.date_col_def.copy()
         self.param_str = []
         self.sort_str = ''
-        self.data = []
-        self.keys = dict()
         if params:
             self.set_param_str(params)
         if dsort:
@@ -32,8 +32,6 @@ class TSqlQuery(QSqlQuery):
 
     def refresh_select(self):
         super().finish()
-        self.data.clear()
-        self.keys.clear()
         if self.sort_str:
             prep = f"{self.prepare_str} order by {', '.join(self.sort_str)}"
         else:
@@ -49,11 +47,6 @@ class TSqlQuery(QSqlQuery):
                 self.flog.to_log(f"""Params: {self.param_str}\nResult: Ok""")
             else:
                 self.flog.to_log(f"""Params: {self.param_str}\nResult: WRONG!!!""")
-        if ret:
-            self.first()
-            while self.isValid():
-                self.data.append(self.record())
-                self.next()
         return ret
 
 
@@ -82,18 +75,18 @@ class QGroups(TSqlQuery):
 
 class QGroupTables(TSqlQuery):
     prepare_str_def = f"""select t.id as 'id', g.name as 'Группа', u.name as 'Фамилия И.О.', 
-                    t.comment as 'Комментарий'
+                    t.comment as 'Комментарий', t.idUsers as 'UID', t.idGroups as 'GID'
                 from group_table t
                 join groups g on g.id = t.idGroups
                 join users u on u.id = t.idUsers
                 join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
-                where t.idUsers = ?"""
+                where t.idGroups = ?"""
 
 
 class QJournals(TSqlQuery):
     prepare_str_def = f"""select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
                     j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
-                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация'
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация', j.idGroups as 'IDG'
                 from journals j
                 join groups g on g.id = j.idGroups
                 join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses

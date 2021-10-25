@@ -6,7 +6,7 @@ class Const:
     D_END = '2022-01-01'
 
     # Access items
-    ACC_TEACHER = '1%'
+    ACC_PREPOD = '1%'
     ACC_CUBIST = "'0%'"
 
 
@@ -64,6 +64,14 @@ class Const:
     GT_ACCH = 5
     GT_HDAY = 6
     GT_IDU = 7
+
+    # QGT Group Tables
+    QGT_ID = 0
+    QGT_GNAME = 1
+    QGT_STUDNAME = 2
+    QGT_COMMENT = 3
+    QGT_IDU = 4
+    QGT_IDG = 5
 
     # journals
     JRN_ID = 0
