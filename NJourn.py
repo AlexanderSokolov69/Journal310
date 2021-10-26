@@ -1,5 +1,6 @@
 import os
 import sys
+import traceback as tb
 
 from PyQt5 import QtCore
 from PyQt5.QtGui import QPixmap
