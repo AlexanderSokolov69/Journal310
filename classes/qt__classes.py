@@ -55,37 +55,38 @@ class MyTableModel(QtCore.QAbstractTableModel):
         if len(self.data[0]) > 0:
             row = index.row()
             col = index.column()
-            ret = self.data[row][col]
-            if isinstance(ret, str):
-                ret = ret.strip()
-            if col == self.date_col:
-                ret = date_us_ru(ret)
+
+            if role == QtCore.Qt.DisplayRole or role == QtCore.Qt.EditRole:
+                ret = self.data[row][col]
+                if isinstance(ret, str):
+                    ret = ret.strip()
+                if col == self.date_col:
+                    ret = date_us_ru(ret)
+                if ret is None:
+                    return ""
+                else:
+                    return str(ret)
+            elif role == Qt.TextAlignmentRole:
+                if isinstance(ret, int) or isinstance(ret, float):
+                    # Align right, vertical middle.
+                    return Qt.AlignVCenter + Qt.AlignRight
+            elif role == Qt.BackgroundRole and index.row() % 2:
+                # See below for the data structure.
+                return QtGui.QColor('#f0fcfc')
+            elif role == Qt.TextColorRole:
+                if len(self.data[row]) == 16 and \
+                        not str(self.data[row][Const.USR_NAVIGATOR]) == '1'\
+                        and self.data[row][Const.USR_IDPRIV] == 2:
+                    return QtGui.QColor('#ff3030')
+                elif len(self.data[row]) == 16 and \
+                        self.data[row][Const.USR_IDPRIV] != 2:
+                    return QtGui.QColor('#009900')
+            # elif role == Qt.BackgroundColorRole:
+            #     if len(self.data[row]) == 16 and \
+            #         self.data[row][Const.USR_IDPRIV] != 2:
+            #         return QtGui.QColor('#ff5599')
         else:
             ret = ' '
-        if role == QtCore.Qt.DisplayRole or role == QtCore.Qt.EditRole:
-            if ret is None:
-                return ""
-            else:
-                return str(ret)
-        elif role == Qt.TextAlignmentRole:
-            if isinstance(ret, int) or isinstance(ret, float):
-                # Align right, vertical middle.
-                return Qt.AlignVCenter + Qt.AlignRight
-        elif role == Qt.BackgroundRole and index.row() % 2:
-            # See below for the data structure.
-            return QtGui.QColor('#f0fcfc')
-        elif role == Qt.TextColorRole:
-            if len(self.data[row]) == 16 and \
-                    not str(self.data[row][Const.USR_NAVIGATOR]) == '1'\
-                    and self.data[row][Const.USR_IDPRIV] == 2:
-                return QtGui.QColor('#ff3030')
-            elif len(self.data[row]) == 16 and \
-                    self.data[row][Const.USR_IDPRIV] != 2:
-                return QtGui.QColor('#009900')
-        # elif role == Qt.BackgroundColorRole:
-        #     if len(self.data[row]) == 16 and \
-        #         self.data[row][Const.USR_IDPRIV] != 2:
-        #         return QtGui.QColor('#ff5599')
 
 
     def setData(self, index, value, role=None):  # !!!

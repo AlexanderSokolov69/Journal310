@@ -132,6 +132,9 @@
                 <pointsize>12</pointsize>
                </font>
               </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
               <property name="text">
                <string>Уч.группа:  </string>
               </property>
@@ -752,6 +755,12 @@
          </property>
          <property name="lineWidth">
           <number>2</number>
+         </property>
+         <property name="tabChangesFocus">
+          <bool>true</bool>
+         </property>
+         <property name="plainText">
+          <string notr="true"/>
          </property>
         </widget>
        </item>

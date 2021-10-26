@@ -1,0 +1,161 @@
+2021-10-26 11:44:13.879538 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 11:44:13.909490 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 11:51:57.873966 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 11:51:57.907876 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 11:56:06.042743 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 11:56:06.073274 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:05:42.197373 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:05:42.226295 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:06:27.115689 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:06:27.145609 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:07:09.810775 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:07:09.840729 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:07:51.298673 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:07:51.326471 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:09:12.676372 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:09:12.707402 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:11:01.636483 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:11:01.667436 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:11:29.683731 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:11:29.717641 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:12:19.775135 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:12:19.810041 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:12:51.233577 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:12:51.263792 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:14:17.345644 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:14:17.377060 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:14:54.827793 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:14:54.860703 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:15:12.071781 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:15:12.101090 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:17:02.454538 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:17:02.486237 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:17:35.042853 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:17:35.083781 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:19:04.124153 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:19:04.151854 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:26:18.121849 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:26:18.154053 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:26:56.534207 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:26:56.564466 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:29:44.985913 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:29:45.018855 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:37:03.398839 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:37:03.425848 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:38:01.799502 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:38:01.836521 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:40:56.946327 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:40:56.977389 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:40:58.345808 ==> '<' not supported between instances of 'str' and 'int' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab5_prg.py", line 367, in journf_refresh_sql
+    self.lb_date_min.setText(min(self.journ.cache[:][Const.JRN_DATE]))
+
+<===
+2021-10-26 12:40:58.392781 ==> '<' not supported between instances of 'str' and 'int' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab5_prg.py", line 367, in journf_refresh_sql
+    self.lb_date_min.setText(min(self.journ.cache[:][Const.JRN_DATE]))
+
+<===
+2021-10-26 12:42:20.346618 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:42:20.378532 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:44:38.203861 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:44:38.234779 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:46:01.595459 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:46:01.624728 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:48:43.130877 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:48:43.167632 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:55:46.625155 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 12:55:46.651086 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:02:44.041043 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:02:44.074871 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:02:44.075868 ==> arguments did not match any overloaded call:
+  exec(self, str): first argument of unbound method must have type 'QSqlQuery'
+  exec(self): first argument of unbound method must have type 'QSqlQuery' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab5_prg.py", line 428, in <module>
+    ret = QSqlQuery.exec(f"select id from users where winlogin = {os.getlogin()}")
+
+<===
+2021-10-26 13:05:06.896920 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:05:06.923342 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:05:39.616487 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:05:39.645167 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:06:17.019442 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:06:17.053275 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:07:04.291158 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:07:04.319133 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:07:33.071945 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:07:33.099680 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:18:40.037552 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-26 13:18:40.067739 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===

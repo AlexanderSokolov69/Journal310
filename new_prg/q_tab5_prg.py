@@ -1,11 +1,12 @@
 import sys
+import os
 import traceback as tb
 import datetime
 
 from PyQt5 import QtWidgets, QtCore, QtSql, QtGui
 from PyQt5.QtCore import QTimer, QModelIndex, QEvent, pyqtSignal
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtSql import QSqlQueryModel
+from PyQt5.QtSql import QSqlQueryModel, QSqlQuery
 from PyQt5.QtWidgets import QMainWindow, QApplication, QAbstractItemView, QPushButton, QLineEdit, QLabel, QCheckBox, \
     QWidget, QFrame, QInputDialog, QTextEdit, QSizePolicy, QPlainTextEdit, QComboBox, QSplashScreen
 
@@ -14,7 +15,7 @@ from classes.cl_logwriter import LogWriter
 from classes.cl_const import Const
 from forms_journ.t_tab5 import Ui_tab5Form
 from new_prg.db_connect import QUsers, QGroups, QJournals, QGroupTables, TSqlQuery
-from new_prg.q_models import QTableModel
+from new_prg.q_models import QTableModel, JournQTableModel
 from widgets_prg.t_db_session import QtConnectDb
 
 
@@ -25,6 +26,8 @@ def except_hook(cls, exception, traceback):
 
 
 class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
+    clicked_cancel = pyqtSignal()
+    clicked_enter = pyqtSignal()
     def __init__(self, user_id):
         self.logfile = LogWriter()
         if Const.TEST_MODE:
@@ -54,6 +57,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.tableView.doubleClicked.connect(self.journf_start_edit_day)
         self.commitButton.clicked.connect(TSqlQuery.commit_table)
         self.rollbackButton.clicked.connect(TSqlQuery.rollback_table)
+        self.installEventFilter(self)
         if Const.TEST_MODE:
             self.logfile.to_log(f"""======>  Tab5. Finish __init__""")
             print("======>  Tab5. Finish __init__")
@@ -92,6 +96,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         le1 = QPlainTextEdit(record[Const.JRN_THEME])
         le1.setObjectName('lesson Name')
         le1.setMaximumHeight(50)
+        le1.setTabChangesFocus(True)
         self.edit_spisok.append(le1)
         layoutShape.addWidget(le1, posSh, 0, posSh + 1, 9)
         posSh += 1
@@ -132,6 +137,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         btn.clicked.connect(self.journf_end_edit_day)
         btn.setObjectName('Save')
         btn.setMinimumWidth(100)
+        self.clicked_enter.connect(btn.click)
         self.edit_spisok.append(btn)
         layoutShape.addWidget(btn, posSh, 7)
         btn = QPushButton('Отменить')
@@ -140,6 +146,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         # btn.installEventFilter(self)
         btn.setObjectName('Cancel')
         btn.setMinimumWidth(100)
+        self.clicked_cancel.connect(btn.click)
         self.edit_spisok.append(btn)
         layoutShape.addWidget(btn, posSh, 8)
         posSh += 2
@@ -193,14 +200,22 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
             userId = val.value(Const.QGT_IDU)
             lb = QLineEdit(f"{i + 1}")
             lb.setReadOnly(True)
-            lb.setStyleSheet("background-color: rgb(240, 240, 240);font: 12pt \"MS Shell Dlg 2\";")
+            if val.value(Const.QGT_NAVIGATOR)[0] in '1':
+                lb.setStyleSheet("background-color: rgb(240, 240, 240);font: 12pt \"MS Shell Dlg 2\";")
+            else:
+                lb.setStyleSheet("color: rgb(170, 0, 0);background-color: rgb(240, 240, 240);"
+                                 "font: 12pt \"MS Shell Dlg 2\";")
             lb.setAlignment(QtCore.Qt.AlignCenter)
             lb.setMaximumWidth(30)
             self.edit_spisok.append(lb)
             layoutCorr.addWidget(lb, pos, 0)
             lb = QLineEdit(val.value(Const.QGT_STUDNAME).strip())
             lb.setReadOnly(True)
-            lb.setStyleSheet("background-color: rgb(240, 240, 240);font: 12pt \"MS Shell Dlg 2\";")
+            if val.value(Const.QGT_NAVIGATOR)[0] in '1':
+                lb.setStyleSheet("background-color: rgb(240, 240, 240);font: 12pt \"MS Shell Dlg 2\";")
+            else:
+                lb.setStyleSheet("color: rgb(170, 0, 0);background-color: rgb(240, 240, 240);"
+                                 "font: 12pt \"MS Shell Dlg 2\";")
             # lb.setMinimumWidth(300)
             lb.setAlignment(QtCore.Qt.AlignLeft)
             self.edit_spisok.append(lb)
@@ -306,9 +321,10 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         pass
 
     def groupsf_refresh_sql(self):
+        self.programName.setText('')
         if self.teach_spisok.currentText().strip():
             self.in_user_id = int(self.teach_spisok.currentText().split()[0])
-            self.groups.set_param_str((self.in_user_id, ))
+            self.groups.set_param_str((Const.YEAR, self.in_user_id))
             self.groupBox.clear()
             if self.groups.refresh_select():
                 self.groups.first()
@@ -340,10 +356,14 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
     def journf_refresh_sql(self):
         if self.groupBox.currentIndex() >= 0:
             grp = int(self.groupBox.currentText().split()[0])
+            for i in range(len(self.groups.cache)):
+                if self.groups.cache[i][Const.GRP_ID] == grp:
+                    self.programName.setText(self.groups.cache[i][Const.GRP_CNAME])
+                    break
 #            print('==> ', grp)
             self.journ.set_param_str((grp, ))
             self.journ.refresh_select()
-            model =  QTableModel(self.journ)
+            model =  JournQTableModel(self.journ)
             self.tableView.setModel(model)
             self.tableView.model().beginResetModel()
             self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -351,10 +371,41 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
             self.tableView.model().endResetModel()
             self.tableView.resizeColumnsToContents()
             self.tableView.setCurrentIndex(self.tableView.model().index(0, 0))
+            self.statf_refresh()
             self.tableView.setFocus()
 
         else:
             self.tableView.setModel(None)
+
+    def statf_refresh(self):
+        self.lb_date_min.setText(date_us_ru(min([str(val[Const.JRN_DATE]) for val in self.journ.cache])))
+        self.lb_date_max.setText(date_us_ru(max([str(val[Const.JRN_DATE]) for val in self.journ.cache])))
+        self.lcd_year.display(Const.YEAR)
+
+    def eventFilter(self, object, event):
+        if event.type() == QEvent.KeyPress:
+            if event.key() == QtCore.Qt.Key_Escape:
+                self.clicked_cancel.emit()
+            elif event.key() == QtCore.Qt.Key_Return:
+                if self.tableView.isEnabled():
+                    self.journf_start_edit_day()
+                else:
+                    self.clicked_enter.emit()
+            # elif event.key() == QtCore.Qt.Key_F2:
+            #     if self.commitButton.isVisible():
+            #         self.commitButton.click()
+            else:
+                res = True
+                for n in dir(QtCore.Qt):
+                    if eval(f'QtCore.Qt.{n}') == event.key():
+                        if Const.TEST_MODE:
+                            self.logfile.to_log(f""" Key pressed: {f'QtCore.Qt.{n}'} - {object}""")
+                        res = False
+                else:
+                    if res:
+                        if Const.TEST_MODE:
+                            self.logfile.to_log(f""" Key pressed: {event.key()} - {object}""")
+        return False
 
 
 if __name__ == '__main__':
@@ -374,8 +425,10 @@ if __name__ == '__main__':
     if QtConnectDb('../settings.ini').get_con():
         if Const.TEST_MODE:
             print('Connect: Ok')
-        wnd = QT5Window(15)
+        qsql = QSqlQuery()
+        qsql.exec(f"select id from users where winlogin = '{os.getlogin()}'")
+        qsql.first()
+        wnd = QT5Window(int(qsql.record().value(0)))
         spl.finish(wnd)
-#        wnd.activate_window()
         wnd.show()
     sys.exit(app.exec())

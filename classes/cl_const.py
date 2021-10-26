@@ -78,6 +78,7 @@ class Const:
     QGT_COMMENT = 3
     QGT_IDU = 4
     QGT_IDG = 5
+    QGT_NAVIGATOR = 6
 
     # journals
     JRN_ID = 0

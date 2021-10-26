@@ -2,6 +2,7 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import QAbstractTableModel, pyqtSignal, Qt, QModelIndex
 from PyQt5.QtGui import QColor
 
+from classes.bb_converts import date_us_ru
 from classes.cl_const import Const
 from new_prg.db_connect import TSqlQuery
 
@@ -80,4 +81,34 @@ class QTableModel(QAbstractTableModel):
 
     def endResetModel(self) -> None:
         self.refresh_visual.emit()
+
+class JournQTableModel(QTableModel):
+    def data(self, index: QModelIndex, role: Qt.ItemDataRole = None):
+        ret = None
+        row = index.row()
+        col = index.column()
+        if role == Qt.DisplayRole or role == Qt.EditRole:
+            try:
+                if col in (Const.JRN_SHTRAF, Const.JRN_ESTIM, Const.JRN_PRESENT, Const.JRN_USRCOMM):
+                    ret = len(self.sql_obj.cache[row][col].split())
+                elif col == Const.JRN_DATE:
+                    ret = date_us_ru(self.sql_obj.cache[row][col])
+                else:
+                    ret = self.sql_obj.cache[row][col]
+            except IndexError:
+                pass
+            if isinstance(ret, str):
+                ret = ret.strip()
+            if ret is None:
+                return "None"
+            else:
+                return str(ret)
+        if role == Qt.TextAlignmentRole:
+            if isinstance(ret, int) or isinstance(ret, float):
+                # Align right, vertical middle.
+                return Qt.AlignVCenter + Qt.AlignRight
+        if role == Qt.BackgroundRole and index.row() % 2:
+            # See below for the data structure.
+            return QtGui.QColor('#f0fcfc')
+        return ret
 

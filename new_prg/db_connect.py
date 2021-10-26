@@ -97,13 +97,14 @@ class QGroups(TSqlQuery):
                 from groups g
                 join users u on g.idUsers = u.id
                 join courses c on g.idCourses = c.id
-                where u.id = ?"""
+                where c.year = ? and u.id = ?"""
 
 
 class QGroupTables(TSqlQuery):
     table_name = 'group_table'
     prepare_str_def = f"""select t.id as 'id', g.name as 'Группа', u.name as 'Фамилия И.О.', 
-                    t.comment as 'Комментарий', t.idUsers as 'UID', t.idGroups as 'GID'
+                    t.comment as 'Комментарий', t.idUsers as 'UID', t.idGroups as 'GID',
+                    u.navigator
                 from group_table t
                 join groups g on g.id = t.idGroups
                 join users u on u.id = t.idUsers
