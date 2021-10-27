@@ -1,9 +1,9 @@
 import datetime
 import sqlite3
-import pyodbc
 import sys
 from datetime import datetime
 from configparser import ConfigParser
+import pyodbc
 
 from classes.cl_const import Const
 from classes.cl_logwriter import LogWriter
@@ -15,7 +15,7 @@ class Sql:
         password = 'Prestige2011!'
         str_con = f"""{conn};UID={user};PWD={password};"""
         if Const.TEST_MODE:
-            print(str_con)
+            print('pyodbc:', str_con)
         self.cnxn = pyodbc.connect(str_con)
         self.query = "-- {}\n\n-- Made in Python".format(datetime.now()
                                                          .strftime("%d/%m/%Y"))
@@ -71,8 +71,9 @@ class ConnectDb:
         return self.con
 
 if __name__ == '__main__':
+    pass
    #con = ConnectDb('../settings.ini').get_con()
     #print(con)
-    conn = pyodbc.connect('DSN=it-cube64;UID=sa;PWD=Prestige2011!')
+    # conn = pyodbc.connect('DSN=it-cube64;UID=sa;PWD=Prestige2011!')
 
        # = pyodbc.connect("Driver=SQL Server; Server=172.16.1.12,1433; Database=master; UID = 'sa'; PWD = 'Prestige2011!';")

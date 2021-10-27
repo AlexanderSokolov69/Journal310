@@ -124,6 +124,15 @@ class QJournals(TSqlQuery):
                 where j.idGroups = ? """
 
 
+class QStatisticsOne(TSqlQuery):
+    table_name = None
+    prepare_str_def = f"""select sum(c.hday) from groups g
+            join courses c on g.idCourses = c.id
+            join rasp r on r.idGroups = g.id
+            where c.year = ? and g.idUsers = ?"""
+
+
+
 if __name__ == '__main__':
     conn_str = 'Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303;UID=sa;PWD=Prestige2011!;'
     app = QApplication(sys.argv)

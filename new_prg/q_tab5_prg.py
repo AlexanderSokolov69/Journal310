@@ -14,7 +14,7 @@ from classes.bb_converts import date_us_ru, date_ru_us
 from classes.cl_logwriter import LogWriter
 from classes.cl_const import Const
 from forms_journ.t_tab5 import Ui_tab5Form
-from new_prg.db_connect import QUsers, QGroups, QJournals, QGroupTables, TSqlQuery
+from new_prg.db_connect import QUsers, QGroups, QJournals, QGroupTables, TSqlQuery, QStatisticsOne
 from new_prg.q_models import QTableModel, JournQTableModel
 from widgets_prg.t_db_session import QtConnectDb
 
@@ -38,6 +38,12 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.initUi(user_id)
 
     def initUi(self, user_id=None):
+        self.label_4.hide()
+        self.label_5.hide()
+        self.label_6.hide()
+        self.lcd_cnt_stud.hide()
+        self.lcd_cnt_grp.hide()
+        self.lcd_cnt_week.hide()
         self.user_id = user_id
         self.in_user_id = None
         self.edit_spisok = []
@@ -49,8 +55,9 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
 
         self.teach = QUsers(params=(Const.ACC_PREPOD, ), dsort=('u.name', ))
         self.groups = QGroups(dsort=('g.name',))
-        self.journ = QJournals(params=(-1, ), dsort=('j.date', 'j.tstart'))
+        self.journ = QJournals(params=(-1, ), dsort=('j.date',)) #  'j.tstart'))
         self.gtable =  QGroupTables(dsort=('u.name',))
+        self.stat_hours = QStatisticsOne()
 
         self.teach_spisok.currentIndexChanged.connect(self.groupsf_refresh_sql)
         self.groupBox.currentIndexChanged.connect(self.journf_refresh_sql)
@@ -311,8 +318,11 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.tableView.setFocus()
         self.edit_spisok.clear()
 
-    def click_in_table(self):
-        pass
+    def click_in_table(self, state):
+        for chb in self.edit_spisok:
+            head = chb.objectName().split()
+            if len(head) == 3 and head[2] == 'check':
+                chb.setChecked(state == 2)
 
     def showEvent(self, a0: QtGui.QShowEvent) -> None:
         self.teachf_refresh_sql()
@@ -338,6 +348,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
                         pass
                     self.groups.next()
                 self.groupBox.setCurrentIndex(0)
+        self.statf_teacher_refresh()
 
     def teachf_refresh_sql(self):
         self.teach_spisok.clear()
@@ -352,6 +363,14 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
                 self.teach.next()
             self.groupBox.show()
             self.teach_spisok.setCurrentIndex(idx)
+
+    def statf_teacher_refresh(self):
+        self.stat_hours.set_param_str((Const.YEAR, self.in_user_id))
+        self.stat_hours.refresh_select()
+        if Const.TEST_MODE:
+            print(self.in_user_id, self.stat_hours.cache)
+        self.lcd_h_to_week.display(0 if len(self.stat_hours.cache[0]) == 0 else
+                                   self.stat_hours.cache[0][0])
 
     def journf_refresh_sql(self):
         if self.groupBox.currentIndex() >= 0:
@@ -370,7 +389,11 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
             # self.tableView.setMaximumWidth(800)
             self.tableView.model().endResetModel()
             self.tableView.resizeColumnsToContents()
-            self.tableView.setCurrentIndex(self.tableView.model().index(0, 0))
+            dd = datetime.date.today()
+            for i in range(len(self.journ.cache)):
+                if dd <= datetime.date.fromisoformat(self.journ.cache[i][Const.JRN_DATE]):
+                    self.tableView.setCurrentIndex(self.tableView.model().index(i - 1, 0))
+                    break
             self.statf_refresh()
             self.tableView.setFocus()
 
