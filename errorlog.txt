@@ -5622,3 +5622,94 @@ Result: Ok
 <===
 2021-10-28 15:39:21.117883 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
 <===
+2021-10-28 16:50:21.851244 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 16:50:21.880627 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 16:50:28.075487 ==> name 'QAboutWindow' is not defined | 
+  File "C:\Tools\Python\Journal310\NJourn.py", line 55, in _show_about
+    QAboutWindow()
+
+<===
+2021-10-28 17:01:12.362583 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:01:12.391117 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:01:19.208544 ==> __init__() takes 1 positional argument but 2 were given | 
+  File "C:\Tools\Python\Journal310\NJourn.py", line 56, in _show_about
+    wnd = QAboutWnd(self)
+
+<===
+2021-10-28 17:02:06.101019 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:02:06.134098 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:02:11.768051 ==> [Errno 2] No such file or directory: 'readme.txt' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_about.py", line 13, in __init__
+    self.initUi()
+
+<===
+2021-10-28 17:02:14.498885 ==> [Errno 2] No such file or directory: 'readme.txt' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_about.py", line 13, in __init__
+    self.initUi()
+
+<===
+2021-10-28 17:02:38.499432 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:02:38.526756 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:03:31.256180 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:03:31.285053 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:04:49.351126 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:04:49.379090 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:06:49.133944 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:06:49.161959 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:14:18.819666 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:14:18.852669 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:16:02.316649 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:16:02.346123 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:16:20.207225 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:16:20.233664 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:16:25.196607 ==> show(self): too many arguments | 
+  File "C:\Tools\Python\Journal310\new_prg\q_about.py", line 13, in __init__
+    self.initUi()
+
+<===
+2021-10-28 17:16:26.910523 ==> show(self): too many arguments | 
+  File "C:\Tools\Python\Journal310\new_prg\q_about.py", line 13, in __init__
+    self.initUi()
+
+<===
+2021-10-28 17:17:04.310260 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:17:04.337815 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:17:21.313881 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:17:21.342414 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:17:21.355522 ==> __init__() takes 1 positional argument but 2 were given | 
+  File "C:\Tools\Python\Journal310\NJourn.py", line 96, in <module>
+    wnd =MainWindow(user[0])
+
+<===
+2021-10-28 17:17:30.856542 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:17:30.883507 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:23:22.619598 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 17:23:22.646342 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===

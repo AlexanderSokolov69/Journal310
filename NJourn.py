@@ -11,6 +11,7 @@ from classes.cl_const import Const
 from classes.cl_logwriter import LogWriter
 from new_prg.db_connect import TSqlQuery
 from new_prg.main_form import Ui_NMainWindow
+from new_prg.q_about import QAboutWnd
 from new_prg.q_converts import get_prepod_list
 from new_prg.q_tab4_prg import QTab4FormWindow
 from new_prg.q_tab5_prg import QT5Window
@@ -32,8 +33,10 @@ class MainWindow(QMainWindow, Ui_NMainWindow):
     def initUi(self, user_id=None):
         self.user_id = user_id
         self.setWindowTitle('Кубышка (it-куб. Белая Холуница)')
+        self.wnd = QAboutWnd()
         self.action_rasp.triggered.connect(self._change_to_rasp)
         self.action_journ.triggered.connect(self._change_to_journ)
+        self.action_help.triggered.connect(self.wnd.show)
         self.menu.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";")
         self.menu_users.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";")
         users = get_prepod_list()
@@ -49,6 +52,11 @@ class MainWindow(QMainWindow, Ui_NMainWindow):
             self.menu_users.addAction(act)
         self.menu_users.triggered.connect(self._change_current_user_id)
         self.setCentralWidget(QTab4FormWindow(int(self.user_id)))
+
+    # def _show_about(self):
+    #
+    #     self.wnd.show()
+
 
     def _change_current_user_id(self, action):
         new_user = action.objectName()
