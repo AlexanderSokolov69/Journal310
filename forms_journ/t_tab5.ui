@@ -507,7 +507,7 @@
                </font>
               </property>
               <property name="text">
-               <string>1</string>
+               <string/>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -555,7 +555,7 @@
                </font>
               </property>
               <property name="text">
-               <string>2</string>
+               <string/>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>

@@ -38,6 +38,7 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
     END_POS = 5
     clicked_cancel = pyqtSignal()
     clicked_enter = pyqtSignal()
+    message_out = pyqtSignal(str)
 
     def __init__(self, user_id=None):
         super(QTab4FormWindow, self).__init__()
@@ -117,8 +118,6 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_rasp_view.installEventFilter(self)
         #        self.tab4_journ_view.installEventFilter(self)
 
-        self.activate()
-
         self.tab4_add_journ.clicked.connect(self.journ_corrector)
         self.tab4_del_journ.clicked.connect(self.journ_corrector)
         self.tab4_journ_view.doubleClicked.connect(self.edit_journ_record)
@@ -131,12 +130,20 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
     def journ_corrector(self):
         object = self.sender().objectName()
         if object == 'tab4_del_journ':
+            del_cnt = 0
             id_select = []
             for index in self.tab4_journ_view.selectedIndexes():
-                if len(self.journ.cache[index.row()][Const.JRN_THEME].strip()) < 9:
-                    id = self.journ.cache[index.row()][Const.JRN_ID]
-                    self.journ.rec_delete(id)
-            self.journ_update()
+                if index.column() == 0:
+                    if len(self.journ.cache[index.row()][Const.JRN_THEME].strip()) < 9:
+                        id = self.journ.cache[index.row()][Const.JRN_ID]
+                        self.journ.rec_delete(id)
+                        del_cnt += 1
+                    else:
+                        self.message_out.emit(
+                            f"Невозможно удалить запись журнала: "
+                            f"'{self.journ.cache[index.row()][Const.JRN_THEME].strip()}'")
+            if del_cnt:
+                self.journ_update()
         elif object == 'tab4_add_journ':
             if self.tab4_lmonts.currentText():
                 month = int(self.tab4_lmonts.currentText().split()[0])
@@ -233,8 +240,6 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
         self.journ.set_param_str((self.idGroups, ))
         self.journ_update()
 
-    #        self.tab4_journ_view.model().endResetModel()
-
     def rasp_set_filter(self):
         """
         Подготовка комбобоксов для фильтров
@@ -294,7 +299,6 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
         """
         self.current_data = []
         self.create_edit_widgets()
-        #        self.map_table()
         self.tab4_rasp_view.setDisabled(True)
         for btn in self.tab4_btn_group.buttons():
             btn.setDisabled(True)
@@ -302,7 +306,8 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_journ_frame.setEnabled(False)
 
     def showEvent(self, a0):
-        self.map_table()
+        self.activate()
+        # self.map_table()
         return super().showEvent(a0)
 
     def map_table(self):
@@ -364,8 +369,6 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
                 self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(i, 0))
                 self.tab4_rasp_view.update()
 
-    #        print(self.tab4_rasp_view.model().itemData(self.tab4_rasp_view.model().index(i, 1))[0].split()[0])
-
     def color_table_click(self):
         """
         Обработка клика мыши в цветовом поле
@@ -416,15 +419,6 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
             m2 = 0
             h2 = 0
         return (f"{h2:02}:{m2:02}")
-
-    # def click(self):
-    #     btn = self.sender()
-    #     # print(btn.objectName(), type(btn))
-    #     num_day, num_kab, num_time = map(int, btn.objectName().split())
-    #     if btn.isChecked():
-    #         btn.setStyleSheet(f"background-color: rgb{self.kab_lst[num_kab][1]};")
-    #     else:
-    #         btn.setStyleSheet(f"background-color: rgb(255, 255, 255);")
 
     def create_day(self, day=0):
         """
@@ -658,14 +652,3 @@ if __name__ == '__main__':
         spl.finish(wnd)
         wnd.show()
     sys.exit(app.exec())
-
-
-"""
-    app = QApplication(sys.argv)
-    sys.excepthook = except_hook
-    con = sqlite3.connect('../db/database_J.db')
-    # con = sqlite3.connect('O:/Журналы/db/database_J.db')
-    wnd = Tab4FormWindow(con, 15)
-    wnd.show()
-    sys.exit(app.exec())
-"""

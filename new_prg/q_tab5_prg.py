@@ -28,6 +28,8 @@ def except_hook(cls, exception, traceback):
 class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
     clicked_cancel = pyqtSignal()
     clicked_enter = pyqtSignal()
+    message_out = pyqtSignal()
+
     def __init__(self, user_id):
         self.logfile = LogWriter()
         if Const.TEST_MODE:
@@ -45,7 +47,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.lcd_cnt_grp.hide()
         self.lcd_cnt_week.hide()
         self.user_id = user_id
-        self.in_user_id = None
+        self.in_user_id = user_id
         self.edit_spisok = []
         self.groupBox.hide()
         self.txt_comment.hide()
@@ -56,16 +58,17 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
 
         self.teach = QUsers(params=(Const.ACC_PREPOD, ), dsort=('u.name', ))
         self.groups = QGroups(dsort=('g.name',))
-        self.journ = QJournals(params=(-1, ), dsort=('j.date',)) #  'j.tstart'))
+        self.journ = QJournals(params=(-1, ), dsort=('j.date',))
         self.gtable =  QGroupTables(dsort=('u.name',))
         self.stat_hours = QStatisticsOne()
 
-        self.teach_spisok.currentIndexChanged.connect(self.groupsf_refresh_sql)
+        self.installEventFilter(self)
         self.groupBox.currentIndexChanged.connect(self.journf_refresh_sql)
         self.tableView.doubleClicked.connect(self.journf_start_edit_day)
         self.commitButton.clicked.connect(TSqlQuery.commit_table)
         self.rollbackButton.clicked.connect(TSqlQuery.rollback_table)
-        self.installEventFilter(self)
+
+        self.teach_spisok.currentIndexChanged.connect(self.groupsf_refresh_sql)
         if Const.TEST_MODE:
             self.logfile.to_log(f"""======>  Tab5. Finish __init__""")
             print("======>  Tab5. Finish __init__")
@@ -320,8 +323,16 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
 
     def groupsf_refresh_sql(self):
         self.programName.setText('')
-        if self.teach_spisok.currentText().strip():
-            self.in_user_id = int(self.teach_spisok.currentText().split()[0])
+        if self.teach_spisok:  # self.teach_spisok.currentIndex() > 0:
+            if Const.TEST_MODE:
+                print(f"self.teach_spisok.count: {self.teach_spisok.count()}")
+            try:
+                pre_id = int(self.teach_spisok.currentText().split()[0])
+            except IndexError:
+                pre_id = -1
+            # if self.in_user_id < 0:
+            #     self.teach_spisok.removeItem(0)
+            self.in_user_id = pre_id
             self.groups.set_param_str((Const.YEAR, self.in_user_id))
             self.groupBox.clear()
             if self.groups.refresh_select():
@@ -340,6 +351,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
 
     def teachf_refresh_sql(self):
         self.teach_spisok.clear()
+        self.teach_spisok.addItem('')
         if self.teach.refresh_select():
             self.groupBox.hide()
             self.teach.first()
@@ -347,10 +359,10 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
             while self.teach.isValid():
                 self.teach_spisok.addItem(f"{self.teach.value(Const.USR_ID):4} : {self.teach.value(Const.USR_NAME)}")
                 if self.user_id == self.teach.value(Const.USR_ID):
-                    idx = self.teach.at()
+                    idx = self.teach.at() + 1
                 self.teach.next()
-            self.groupBox.show()
             self.teach_spisok.setCurrentIndex(idx)
+            self.groupBox.show()
 
     def statf_teacher_refresh(self):
         self.stat_hours.set_param_str((Const.YEAR, self.in_user_id))
@@ -386,10 +398,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
                     break
                 else:
                     self.tableView.setCurrentIndex(self.tableView.model().index(i, 0))
-            # print('-' * 60)
-
             self.tableView.setFocus()
-
         else:
             self.tableView.setModel(None)
 
@@ -407,9 +416,6 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
                     self.journf_start_edit_day()
                 else:
                     self.clicked_enter.emit()
-            # elif event.key() == QtCore.Qt.Key_F2:
-            #     if self.commitButton.isVisible():
-            #         self.commitButton.click()
             else:
                 res = True
                 for n in dir(QtCore.Qt):

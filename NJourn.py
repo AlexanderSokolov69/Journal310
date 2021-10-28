@@ -51,12 +51,24 @@ class MainWindow(QMainWindow, Ui_NMainWindow):
                 act.setChecked(False)
             self.menu_users.addAction(act)
         self.menu_users.triggered.connect(self._change_current_user_id)
-        self.setCentralWidget(QTab4FormWindow(int(self.user_id)))
+        # self.setCentralWidget(QTab4FormWindow(int(self.user_id)))
+        if Const.TEST_MODE:
+            print('self.user_id:', self.user_id)
+        self.win_1 = QTab4FormWindow(int(self.user_id))
+        self.win_1.message_out.connect(self._show_message)
+        self.win_2 = QT5Window(int(self.user_id))
+        self.setCentralWidget(self.win_2)
 
     # def _show_about(self):
     #
     #     self.wnd.show()
 
+    def _show_message(self, msg):
+        if Const.TEST_MODE:
+            print('statusBar print', msg)
+        # self.statusbar.show()
+        self.statusbar.setStyleSheet("color: rgb(240, 40, 40);font: 12pt \"MS Shell Dlg 2\";")
+        self.statusbar.showMessage(msg, 10000)
 
     def _change_current_user_id(self, action):
         new_user = action.objectName()
@@ -66,13 +78,13 @@ class MainWindow(QMainWindow, Ui_NMainWindow):
             else:
                 obj.setChecked(False)
         self.user_id = int(new_user)
-        self.setCentralWidget(QTab4FormWindow(int(self.user_id)))
+        self.setCentralWidget(self.win_2)
 
     def _change_to_rasp(self):
-        self.setCentralWidget(QTab4FormWindow(int(self.user_id)))
+        self.setCentralWidget(self.win_1)
 
     def _change_to_journ(self):
-        self.setCentralWidget(QT5Window(int(self.user_id)))
+        self.setCentralWidget(self.win_2)
 
 
 if __name__ == '__main__':
@@ -93,7 +105,10 @@ if __name__ == '__main__':
             print('Logged as:', user)
         # wnd = MainWindow(int(qsql.record().value(0)))
         # wnd = QT5Window(int(qsql.record().value(0)))
-        wnd =MainWindow(user[0])
+        if user:
+            wnd = MainWindow(user[0])
+        else:
+            wnd = MainWindow(-1)
         spl.finish(wnd)
         wnd.showMaximized()
     sys.exit(app.exec())
