@@ -56,8 +56,7 @@ class MainWindow(QMainWindow, Ui_NMainWindow):
             print('self.user_id:', self.user_id)
         self.win_1 = QTab4FormWindow(int(self.user_id))
         self.win_1.message_out.connect(self._show_message)
-        self.win_2 = QT5Window(int(self.user_id))
-        self.setCentralWidget(self.win_2)
+        self.setCentralWidget(QT5Window(int(self.user_id)))
 
     # def _show_about(self):
     #
@@ -78,13 +77,13 @@ class MainWindow(QMainWindow, Ui_NMainWindow):
             else:
                 obj.setChecked(False)
         self.user_id = int(new_user)
-        self.setCentralWidget(self.win_2)
+        self.setCentralWidget(QT5Window(int(self.user_id)))
 
     def _change_to_rasp(self):
         self.setCentralWidget(self.win_1)
 
     def _change_to_journ(self):
-        self.setCentralWidget(self.win_2)
+        self.setCentralWidget(QT5Window(int(self.user_id)))
 
 
 if __name__ == '__main__':
