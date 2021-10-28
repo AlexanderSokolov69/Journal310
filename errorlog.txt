@@ -1,0 +1,69 @@
+2021-10-28 01:35:01.612632 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:35:02.768608 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:46:08.506813 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:46:09.131695 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:48:06.057717 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:48:06.682651 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:52:01.639281 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:52:02.280184 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:52:02.452029 ==> 'NoneType' object has no attribute 'addWidget' | 
+  File "C:\Tools\Python\310\Journal390\NJourn.py", line 48, in <module>
+    wnd = MainWindow(int(qsql.record().value(0)))
+
+<===
+2021-10-28 01:52:19.775426 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:52:20.400925 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:52:20.572692 ==> 'builtin_function_or_method' object has no attribute 'addWidget' | 
+  File "C:\Tools\Python\310\Journal390\NJourn.py", line 48, in <module>
+    wnd = MainWindow(int(qsql.record().value(0)))
+
+<===
+2021-10-28 01:57:09.070965 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:57:09.838633 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:57:10.010513 ==> __init__() takes 2 positional arguments but 3 were given | 
+  File "C:\Tools\Python\310\Journal390\NJourn.py", line 48, in <module>
+    wnd = MainWindow(int(qsql.record().value(0)))
+
+<===
+2021-10-28 01:59:44.385346 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:59:45.010309 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 01:59:45.182033 ==> setLayout(self, QLayout): argument 1 has unexpected type 'QT5Window' | 
+  File "C:\Tools\Python\310\Journal390\NJourn.py", line 50, in <module>
+    wnd = MainWindow(int(qsql.record().value(0)))
+
+<===
+2021-10-28 02:00:55.942340 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:00:56.567869 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:04:31.095400 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:04:32.361794 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:05:32.572271 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:05:33.322794 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:30:35.145932 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:30:35.802028 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:30:35.973922 ==> name 'Tab4FormWindow' is not defined | 
+  File "C:\Tools\Python\310\Journal390\NJourn.py", line 53, in <module>
+    wnd = MainWindow(int(qsql.record().value(0)))
+
+<===

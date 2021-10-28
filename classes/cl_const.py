@@ -3,7 +3,7 @@ from PyQt5.QtSql import QSqlDatabase
 
 class Const:
     DB: QSqlDatabase = None
-    TEST_MODE = False
+    TEST_MODE = True
     IN_TRANSACTION = False
     YEAR = 2021
     D_START = '2021-10-01'

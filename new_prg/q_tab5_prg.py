@@ -200,14 +200,12 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
 
         self.gtable.set_param_str((record[Const.JRN_IDG], ))
         self.gtable.refresh_select()
-        self.gtable.first()
-        i = 0
-        while self.gtable.isValid():
-            val = self.gtable.record()
-            userId = val.value(Const.QGT_IDU)
+        for i in range(len(self.gtable.cache)):
+            val = self.gtable.cache[i]
+            userId = val[Const.QGT_IDU]
             lb = QLineEdit(f"{i + 1}")
             lb.setReadOnly(True)
-            if val.value(Const.QGT_NAVIGATOR)[0] in '1':
+            if val[Const.QGT_NAVIGATOR][0] in '1':
                 lb.setStyleSheet("background-color: rgb(240, 240, 240);font: 12pt \"MS Shell Dlg 2\";")
             else:
                 lb.setStyleSheet("color: rgb(170, 0, 0);background-color: rgb(240, 240, 240);"
@@ -216,9 +214,9 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
             lb.setMaximumWidth(30)
             self.edit_spisok.append(lb)
             layoutCorr.addWidget(lb, pos, 0)
-            lb = QLineEdit(val.value(Const.QGT_STUDNAME).strip())
+            lb = QLineEdit(val[Const.QGT_STUDNAME].strip())
             lb.setReadOnly(True)
-            if val.value(Const.QGT_NAVIGATOR)[0] in '1':
+            if val[Const.QGT_NAVIGATOR][0] in '1':
                 lb.setStyleSheet("background-color: rgb(240, 240, 240);font: 12pt \"MS Shell Dlg 2\";")
             else:
                 lb.setStyleSheet("color: rgb(170, 0, 0);background-color: rgb(240, 240, 240);"
@@ -257,8 +255,6 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
             self.edit_spisok.append(oc)
             layoutCorr.addWidget(oc, pos, 6)
             pos += 2
-            self.gtable.next()
-            i += 1
         le1.selectAll()
         le1.setFocus()
 

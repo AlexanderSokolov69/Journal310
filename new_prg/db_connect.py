@@ -15,7 +15,7 @@ class TSqlQuery(QSqlQuery):
     def __init__(self, params=None, dsort=None):
         super(TSqlQuery, self).__init__()
         self.flog = LogWriter()
-        self.prepare_str = self.prepare_str_def[:]
+        self.prepare_str_modify()
         self.date_col = self.date_col_def.copy()
         self.param_str = []
         self.sort_str = ''
@@ -24,6 +24,22 @@ class TSqlQuery(QSqlQuery):
             self.set_param_str(params)
         if dsort:
             self.set_sort_str(dsort)
+
+    def prepare_str_modify(self, appstr=None):
+        if appstr:
+            self.prepare_str = f"""{self.prepare_str_def} {appstr}"""
+        else:
+            self.prepare_str = self.prepare_str_def[:]
+
+    def query_to_list(self, sql):
+        super().exec(sql)
+        self.data_to_cache()
+        return self.cache
+
+    def query_one_to_list(self, sql):
+        super().exec(sql)
+        self.data_to_cache()
+        return [val[0] for val in self.cache]
 
     def set_param_str(self, spis=None):
         self.param_str = spis
@@ -61,6 +77,9 @@ class TSqlQuery(QSqlQuery):
                 s.append(self.record().value(i))
             self.cache.append(s)
             self.next()
+
+    def rows(self):
+        return len(self.cache)
 
     def rec_update(self, id, arg):
         args = ', '.join([f"""{item[0]} = '{item[1]}' """ for item in arg.items()])
@@ -131,6 +150,20 @@ class QStatisticsOne(TSqlQuery):
             join rasp r on r.idGroups = g.id
             where c.year = ? and g.idUsers = ?"""
 
+
+class QRasp(TSqlQuery):
+    table_name = 'rasp'
+    prepare_str_def = f"""select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ? """
 
 
 if __name__ == '__main__':

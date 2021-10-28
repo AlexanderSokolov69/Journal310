@@ -82,6 +82,7 @@ class QTableModel(QAbstractTableModel):
     def endResetModel(self) -> None:
         self.refresh_visual.emit()
 
+
 class JournQTableModel(QTableModel):
     def data(self, index: QModelIndex, role: Qt.ItemDataRole = None):
         ret = None
@@ -112,3 +113,6 @@ class JournQTableModel(QTableModel):
             return QtGui.QColor('#f0fcfc')
         return ret
 
+
+class RaspQTableModel(QTableModel):
+    pass

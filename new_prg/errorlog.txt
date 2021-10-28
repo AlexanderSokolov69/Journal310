@@ -1,0 +1,1277 @@
+2021-10-28 02:31:22.953606 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:31:23.579103 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:31:43.354929 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:31:44.464515 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:41:21.910450 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:41:22.644726 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:41:56.029335 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:41:56.654606 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:42:26.199711 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:42:26.840298 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:45:08.236033 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:45:10.213417 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:46:49.763040 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:46:50.388361 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:52:23.036105 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:52:23.661437 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:58:16.414425 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:58:17.054898 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:58:55.764586 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 02:58:56.405684 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:02:57.506577 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:02:58.147562 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:02:58.288092 ==> ======>  Tab5. Start __init__
+<===
+2021-10-28 03:02:58.319284 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-28 03:03:01.636031 ==> SQL exec: select u.id, trim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               join priv pp on pp.id = r.idPriv
+               where pp.access like ?
+         order by u.name
+<===
+2021-10-28 03:03:01.636031 ==> Params: ('1%',)
+Result: Ok
+<===
+2021-10-28 03:03:02.057881 ==> SQL exec: select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id
+                where c.year = ? and u.id = ? order by g.name
+<===
+2021-10-28 03:03:02.057881 ==> Params: (2021, 23)
+Result: Ok
+<===
+2021-10-28 03:03:03.604819 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ?  order by j.date
+<===
+2021-10-28 03:03:03.604819 ==> Params: (4,)
+Result: Ok
+<===
+2021-10-28 03:03:03.995344 ==> SQL exec: select sum(c.hday) from groups g
+            join courses c on g.idCourses = c.id
+            join rasp r on r.idGroups = g.id
+            where c.year = ? and g.idUsers = ?
+<===
+2021-10-28 03:03:03.995344 ==> Params: (2021, 23)
+Result: Ok
+<===
+2021-10-28 03:03:06.209787 ==> SQL exec: select sum(c.hday) from groups g
+            join courses c on g.idCourses = c.id
+            join rasp r on r.idGroups = g.id
+            where c.year = ? and g.idUsers = ?
+<===
+2021-10-28 03:03:06.209787 ==> Params: (2021, 23)
+Result: Ok
+<===
+2021-10-28 03:04:47.932156 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:04:48.651441 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:04:48.807622 ==> ======>  Tab5. Start __init__
+<===
+2021-10-28 03:04:48.838800 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-28 03:04:52.168027 ==> SQL exec: select u.id, trim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               join priv pp on pp.id = r.idPriv
+               where pp.access like ?
+         order by u.name
+<===
+2021-10-28 03:04:52.168027 ==> Params: ('1%',)
+Result: Ok
+<===
+2021-10-28 03:04:52.606046 ==> SQL exec: select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id
+                where c.year = ? and u.id = ? order by g.name
+<===
+2021-10-28 03:04:52.606046 ==> Params: (2021, 23)
+Result: Ok
+<===
+2021-10-28 03:04:54.450621 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ?  order by j.date
+<===
+2021-10-28 03:04:54.450621 ==> Params: (4,)
+Result: Ok
+<===
+2021-10-28 03:04:54.888046 ==> SQL exec: select sum(c.hday) from groups g
+            join courses c on g.idCourses = c.id
+            join rasp r on r.idGroups = g.id
+            where c.year = ? and g.idUsers = ?
+<===
+2021-10-28 03:04:54.888046 ==> Params: (2021, 23)
+Result: Ok
+<===
+2021-10-28 03:04:57.514049 ==> SQL exec: select sum(c.hday) from groups g
+            join courses c on g.idCourses = c.id
+            join rasp r on r.idGroups = g.id
+            where c.year = ? and g.idUsers = ?
+<===
+2021-10-28 03:04:57.514049 ==> Params: (2021, 23)
+Result: Ok
+<===
+2021-10-28 03:05:18.255165 ==> SQL exec: select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id
+                where c.year = ? and u.id = ? order by g.name
+<===
+2021-10-28 03:05:18.255165 ==> Params: (2021, 15)
+Result: Ok
+<===
+2021-10-28 03:05:22.347980 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ?  order by j.date
+<===
+2021-10-28 03:05:22.347980 ==> Params: (45,)
+Result: Ok
+<===
+2021-10-28 03:05:23.004147 ==> SQL exec: select sum(c.hday) from groups g
+            join courses c on g.idCourses = c.id
+            join rasp r on r.idGroups = g.id
+            where c.year = ? and g.idUsers = ?
+<===
+2021-10-28 03:05:23.004147 ==> Params: (2021, 15)
+Result: Ok
+<===
+2021-10-28 03:05:30.246751 ==> SQL exec: select t.id as 'id', g.name as 'Группа', u.name as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий', t.idUsers as 'UID', t.idGroups as 'GID',
+                    u.navigator
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where t.idGroups = ? order by u.name
+<===
+2021-10-28 03:05:30.246751 ==> Params: (45,)
+Result: Ok
+<===
+2021-10-28 03:05:30.246751 ==> 'list' object has no attribute 'value' | 
+  File "C:\Tools\Python\310\Journal390\new_prg\q_tab5_prg.py", line 205, in journf_start_edit_day
+    userId = val.value(Const.QGT_IDU)
+
+<===
+2021-10-28 03:08:27.721775 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:08:28.346694 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:08:28.502929 ==> ======>  Tab5. Start __init__
+<===
+2021-10-28 03:08:28.534083 ==> ======>  Tab5. Finish __init__
+<===
+2021-10-28 03:08:31.841705 ==> SQL exec: select u.id, trim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               join priv pp on pp.id = r.idPriv
+               where pp.access like ?
+         order by u.name
+<===
+2021-10-28 03:08:31.841705 ==> Params: ('1%',)
+Result: Ok
+<===
+2021-10-28 03:08:32.263390 ==> SQL exec: select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id
+                where c.year = ? and u.id = ? order by g.name
+<===
+2021-10-28 03:08:32.263390 ==> Params: (2021, 23)
+Result: Ok
+<===
+2021-10-28 03:08:33.781349 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ?  order by j.date
+<===
+2021-10-28 03:08:33.781349 ==> Params: (4,)
+Result: Ok
+<===
+2021-10-28 03:08:34.187453 ==> SQL exec: select sum(c.hday) from groups g
+            join courses c on g.idCourses = c.id
+            join rasp r on r.idGroups = g.id
+            where c.year = ? and g.idUsers = ?
+<===
+2021-10-28 03:08:34.187453 ==> Params: (2021, 23)
+Result: Ok
+<===
+2021-10-28 03:08:37.495982 ==> SQL exec: select sum(c.hday) from groups g
+            join courses c on g.idCourses = c.id
+            join rasp r on r.idGroups = g.id
+            where c.year = ? and g.idUsers = ?
+<===
+2021-10-28 03:08:37.495982 ==> Params: (2021, 23)
+Result: Ok
+<===
+2021-10-28 03:08:41.903284 ==> SQL exec: select t.id as 'id', g.name as 'Группа', u.name as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий', t.idUsers as 'UID', t.idGroups as 'GID',
+                    u.navigator
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where t.idGroups = ? order by u.name
+<===
+2021-10-28 03:08:41.903284 ==> Params: (4,)
+Result: Ok
+<===
+2021-10-28 03:08:52.706793 ==> SQL exec: select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
+                from groups g
+                join users u on g.idUsers = u.id
+                join courses c on g.idCourses = c.id
+                where c.year = ? and u.id = ? order by g.name
+<===
+2021-10-28 03:08:52.706793 ==> Params: (2021, 15)
+Result: Ok
+<===
+2021-10-28 03:08:59.538859 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ?  order by j.date
+<===
+2021-10-28 03:08:59.538859 ==> Params: (45,)
+Result: Ok
+<===
+2021-10-28 03:09:00.194878 ==> SQL exec: select sum(c.hday) from groups g
+            join courses c on g.idCourses = c.id
+            join rasp r on r.idGroups = g.id
+            where c.year = ? and g.idUsers = ?
+<===
+2021-10-28 03:09:00.194878 ==> Params: (2021, 15)
+Result: Ok
+<===
+2021-10-28 03:09:04.945784 ==> SQL exec: select t.id as 'id', g.name as 'Группа', u.name as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий', t.idUsers as 'UID', t.idGroups as 'GID',
+                    u.navigator
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where t.idGroups = ? order by u.name
+<===
+2021-10-28 03:09:04.945784 ==> Params: (45,)
+Result: Ok
+<===
+2021-10-28 03:09:28.381263 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:09:29.444037 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:26:33.685471 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:26:35.201728 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:26:50.126362 ==> SQL exec: select u.id, trim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               join priv pp on pp.id = r.idPriv
+               where pp.access like ?
+         order by u.name
+<===
+2021-10-28 03:26:50.141952 ==> Params: ('1%',)
+Result: Ok
+<===
+2021-10-28 03:36:59.936155 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:37:00.592720 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:37:23.641788 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:37:23.641788 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:37:34.906516 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:37:34.906516 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:37:37.132512 ==> SQL exec: select u.id, trim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               join priv pp on pp.id = r.idPriv
+               where pp.access like ?
+         order by u.name
+<===
+2021-10-28 03:37:37.132512 ==> Params: ('1%',)
+Result: Ok
+<===
+2021-10-28 03:37:37.476801 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:37:37.476801 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:37:37.664351 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:37:37.664351 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:37:37.851721 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:37:37.851721 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:37:38.054847 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:37:38.054847 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:37:38.257946 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:37:38.257946 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:37:38.446016 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:37:38.446016 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:39:21.889283 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:39:22.639790 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:39:43.967264 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:39:43.967264 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:39:55.932537 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:39:55.932537 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:39:57.698682 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:39:57.698682 ==> Params: (4,)
+Result: Ok
+<===
+2021-10-28 03:39:59.965039 ==> SQL exec: select u.id, trim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               join priv pp on pp.id = r.idPriv
+               where pp.access like ?
+         order by u.name
+<===
+2021-10-28 03:39:59.980610 ==> Params: ('1%',)
+Result: Ok
+<===
+2021-10-28 03:40:00.309320 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:40:00.309320 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:40:00.512394 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:40:00.512394 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:40:00.715385 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:40:00.715385 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:40:00.918542 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:40:00.918542 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:40:01.121617 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:40:01.121617 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:40:01.325203 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:40:01.325203 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:40:01.528317 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:40:01.528317 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:41:49.154299 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:41:49.794777 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:42:11.132464 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:42:11.132464 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:42:23.279100 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:42:23.279100 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:42:25.045316 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:42:25.045316 ==> Params: (4,)
+Result: Ok
+<===
+2021-10-28 03:42:26.998483 ==> SQL exec: select u.id, trim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               join priv pp on pp.id = r.idPriv
+               where pp.access like ?
+         order by u.name
+<===
+2021-10-28 03:42:26.998483 ==> Params: ('1%',)
+Result: Ok
+<===
+2021-10-28 03:42:27.357809 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:42:27.357809 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:42:27.552824 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:42:27.552824 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:42:27.849652 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:42:27.849652 ==> Params: (-1,)
+Result: Ok
+<===
+2021-10-28 03:42:28.052704 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:42:28.052704 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:42:28.255862 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:42:28.255862 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:42:28.553300 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:42:28.553300 ==> Params: (-1,)
+Result: Ok
+<===
+2021-10-28 03:42:28.756477 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:42:28.756477 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:42:28.959530 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:42:28.959530 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:42:29.256263 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:42:29.256263 ==> Params: (-1,)
+Result: Ok
+<===
+2021-10-28 03:42:29.459922 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:42:29.459922 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:42:29.772328 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:42:29.772328 ==> Params: (-1,)
+Result: Ok
+<===
+2021-10-28 03:42:31.272489 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:42:31.272489 ==> Params: (2021,)
+Result: WRONG!!!
+<===
+2021-10-28 03:45:17.359844 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:45:17.984812 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-28 03:45:40.429156 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:45:40.429156 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:45:51.554110 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:45:51.554110 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:45:53.257798 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:45:53.257798 ==> Params: (4,)
+Result: Ok
+<===
+2021-10-28 03:45:55.128646 ==> SQL exec: select u.id, trim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id
+               join priv pp on pp.id = r.idPriv
+               where pp.access like ?
+         order by u.name
+<===
+2021-10-28 03:45:55.128646 ==> Params: ('1%',)
+Result: Ok
+<===
+2021-10-28 03:45:56.253743 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?   and g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:45:56.269362 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:45:57.332215 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?   and g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:45:57.332215 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:46:04.209266 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:46:04.209266 ==> Params: (1,)
+Result: Ok
+<===
+2021-10-28 03:46:05.209106 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?   and g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:46:05.224669 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:46:06.214515 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?   and g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:46:06.214515 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:46:12.982251 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:46:12.982251 ==> Params: (1,)
+Result: Ok
+<===
+2021-10-28 03:46:13.966869 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?   and g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:46:13.966869 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:46:14.888609 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?   and g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:46:14.888609 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:46:20.902156 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:46:20.902156 ==> Params: (1,)
+Result: Ok
+<===
+2021-10-28 03:46:21.886379 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?   and g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:46:21.886379 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:46:27.747421 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:46:27.747421 ==> Params: (1,)
+Result: Ok
+<===
+2021-10-28 03:46:33.657638 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:46:33.657638 ==> Params: (1,)
+Result: Ok
+<===
+2021-10-28 03:46:35.923553 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?   and g.idUsers = 15 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:46:35.923553 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:46:45.137271 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?   and g.idUsers = 20 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:46:45.137271 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:46:46.465510 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?   and g.idUsers = 20 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:46:46.465510 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:46:48.387835 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:46:48.403417 ==> Params: (7,)
+Result: Ok
+<===
+2021-10-28 03:47:07.478132 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?   and g.idUsers = 19 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:47:07.478132 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:47:10.180590 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?   and g.idUsers = 19 order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:47:10.180590 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:47:11.727127 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:47:11.727127 ==> Params: (27,)
+Result: Ok
+<===
+2021-10-28 03:47:33.794202 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:47:33.794202 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:47:45.732088 ==> SQL exec: select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where jc.year = ?  order by d.name, k.name, r.tstart
+<===
+2021-10-28 03:47:45.732088 ==> Params: (2021,)
+Result: Ok
+<===
+2021-10-28 03:47:47.356733 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:47:47.356733 ==> Params: (4,)
+Result: Ok
+<===
+2021-10-28 03:48:32.254966 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:48:32.254966 ==> Params: (32,)
+Result: Ok
+<===
+2021-10-28 03:48:37.318322 ==> SQL exec: select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Статусы', trim(j.comment) as 'Доп. информация', trim(j.usercomm) as 'Ученики', 
+                     j.idGroups as 'IDG'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                where j.idGroups = ? 
+<===
+2021-10-28 03:48:37.318322 ==> Params: (28,)
+Result: Ok
+<===
