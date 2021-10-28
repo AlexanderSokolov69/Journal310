@@ -93,7 +93,10 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
         spis.refresh_select()
         keys = [val[:][0] for val in spis.cache]
         # print(keys)
-        id = keys.index(self.user_id)
+        try:
+            id = keys.index(self.user_id)
+        except ValueError:
+            id = -1
         self.flt_user.addItems([f"{val[:][0]:4} : {val[:][1]}" for val in spis.cache])
         self.flt_user.setCurrentIndex(id + 1)
         self.flt_day.insertItem(0, '')
