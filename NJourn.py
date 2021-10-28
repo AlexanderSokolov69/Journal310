@@ -2,14 +2,16 @@ import os
 import sys
 import traceback as tb
 
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import QApplication, QSplashScreen, QMainWindow, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QSplashScreen, QMainWindow, QVBoxLayout, QInputDialog
 
 from classes.cl_const import Const
 from classes.cl_logwriter import LogWriter
+from new_prg.db_connect import TSqlQuery
 from new_prg.main_form import Ui_NMainWindow
+from new_prg.q_converts import get_prepod_list
 from new_prg.q_tab4_prg import QTab4FormWindow
 from new_prg.q_tab5_prg import QT5Window
 from widgets_prg.t_db_session import QtConnectDb
@@ -28,11 +30,41 @@ class MainWindow(QMainWindow, Ui_NMainWindow):
         self.initUi(user_id)
 
     def initUi(self, user_id=None):
-        # wnd = QT5Window(int(user_id))
-        # layout = QVBoxLayout()
-        # layout.addWidget(wnd)
-        # self.setCentralWidget(QT5Window(int(user_id)))
-        self.setCentralWidget(QTab4FormWindow(int(user_id)))
+        self.user_id = user_id
+        self.setWindowTitle('Кубышка (it-куб. Белая Холуница)')
+        self.action_rasp.triggered.connect(self._change_to_rasp)
+        self.action_journ.triggered.connect(self._change_to_journ)
+        self.menu.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";")
+        self.menu_users.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";")
+        users = get_prepod_list()
+        for user in users:
+            act = QtWidgets.QAction(self)
+            act.setObjectName(f"{user[0]}")
+            act.setText(f"{user[1]}")
+            act.setCheckable(True)
+            if user[0] == self.user_id:
+                act.setChecked(True)
+            else:
+                act.setChecked(False)
+            self.menu_users.addAction(act)
+        self.menu_users.triggered.connect(self._change_current_user_id)
+        self.setCentralWidget(QTab4FormWindow(int(self.user_id)))
+
+    def _change_current_user_id(self, action):
+        new_user = action.objectName()
+        for obj in self.menu_users.actions():
+            if obj.objectName() == new_user:
+                obj.setChecked(True)
+            else:
+                obj.setChecked(False)
+        self.user_id = int(new_user)
+        self.setCentralWidget(QTab4FormWindow(int(self.user_id)))
+
+    def _change_to_rasp(self):
+        self.setCentralWidget(QTab4FormWindow(int(self.user_id)))
+
+    def _change_to_journ(self):
+        self.setCentralWidget(QT5Window(int(self.user_id)))
 
 
 if __name__ == '__main__':
@@ -47,11 +79,13 @@ if __name__ == '__main__':
     if QtConnectDb('settings.ini').get_con():
         if Const.TEST_MODE:
             print('Connect: Ok')
-        qsql = QSqlQuery()
-        qsql.exec(f"select id from users where winlogin = '{os.getlogin()}'")
-        qsql.first()
-        wnd = MainWindow(int(qsql.record().value(0)))
+        sql = f"select id from users where winlogin = '{os.getlogin()}'"
+        user = TSqlQuery().query_one_to_list(sql)
+        if Const.TEST_MODE:
+            print('Logged as:', user)
+        # wnd = MainWindow(int(qsql.record().value(0)))
         # wnd = QT5Window(int(qsql.record().value(0)))
+        wnd =MainWindow(user[0])
         spl.finish(wnd)
         wnd.showMaximized()
     sys.exit(app.exec())

@@ -31,13 +31,58 @@ class TSqlQuery(QSqlQuery):
         else:
             self.prepare_str = self.prepare_str_def[:]
 
+    def rec_append(self, args: dict):
+        k = []
+        v = []
+        for key in args.keys():
+            k.append(key)
+            v.append(args[key])
+        if key:
+            sql = f"""insert into {self.table_name}({', '.join(k)})
+                    values ({', '.join(['?' for _ in v])})"""
+            super().prepare(sql)
+            for val in v:
+                super().addBindValue(val)
+            ret = super().exec()
+            if Const.TEST_MODE:
+                self.flog.to_log(f"""SQL exec: {super().lastQuery()}""")
+                if  ret:
+                    self.flog.to_log(f"""Params: {v}\nResult: Ok""")
+                else:
+                    self.flog.to_log(f"""Params: {v}\nResult: WRONG!!!""")
+            return ret
+        return False
+
+    def rec_delete(self, id):
+        sql = f"""delete from {self.table_name} where id = {id}"""
+        ret = super().exec(sql)
+        if Const.TEST_MODE:
+            self.flog.to_log(f"""SQL exec: {super().lastQuery()}""")
+            if  ret:
+                self.flog.to_log(f"""Params: {id}\nResult: Ok""")
+            else:
+                self.flog.to_log(f"""Params: {id}\nResult: WRONG!!!""")
+        return ret
+
     def query_to_list(self, sql):
-        super().exec(sql)
+        ret = super().exec(sql)
+        if Const.TEST_MODE:
+            self.flog.to_log(f"""SQL exec: {super().lastQuery()}""")
+            if  ret:
+                self.flog.to_log(f"""Params: {self.param_str}\nResult: Ok""")
+            else:
+                self.flog.to_log(f"""Params: {self.param_str}\nResult: WRONG!!!""")
         self.data_to_cache()
         return self.cache
 
     def query_one_to_list(self, sql):
-        super().exec(sql)
+        ret = super().exec(sql)
+        if Const.TEST_MODE:
+            self.flog.to_log(f"""SQL exec: {super().lastQuery()}""")
+            if  ret:
+                self.flog.to_log(f"""Params: {self.param_str}\nResult: Ok""")
+            else:
+                self.flog.to_log(f"""Params: {self.param_str}\nResult: WRONG!!!""")
         self.data_to_cache()
         return [val[0] for val in self.cache]
 
@@ -107,6 +152,7 @@ class QUsers(TSqlQuery):
                join priv pp on pp.id = r.idPriv
                where pp.access like ?
         """
+
 
 class QGroups(TSqlQuery):
     table_name = 'groups'

@@ -52,6 +52,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.edited_record = None
         self.commitButton.hide()
         self.rollbackButton.hide()
+        self.tableView.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";")
 
         self.teach = QUsers(params=(Const.ACC_PREPOD, ), dsort=('u.name', ))
         self.groups = QGroups(dsort=('g.name',))
@@ -273,8 +274,6 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
             if to_save:
                 if 'lesson' in wid.objectName():
                     args = wid.objectName().split()
-                    # if Const.TEST_MODE:
-                    #     print(args)
                     if len(args) == 2:
                         if args[1] == 'Date':
                             result_head[args[1]] = date_ru_us(wid.text())
@@ -297,20 +296,13 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
                                 result_head['usercomm'].append(f'{args[1]}={wid.text().split()[0]}')
             wid.deleteLater()
         if to_save:
-            # id = self.journ.data[self.record_cursor][0]
             result_head['present'] = (' '.join(result_head['present'])).strip()
             result_head['estim'] = (' '.join(result_head['estim'])).strip()
             result_head['shtraf'] = (' '.join(result_head['shtraf'])).strip()
             result_head['usercomm'] = (' '.join(result_head['usercomm'])).strip()
             if self.edited_record:
                 self.journ.rec_update(self.edited_record, result_head)
-            # self.journ.rec_update(id, result_head)
-            # self.journ.update()
-            # self.tableView.model().endResetModel()
-            # self.tableView.resizeColumnsToContents()
-            # self.tableView.setCurrentIndex(self.tableView.model().index(self.record_cursor, 0))
-            # self.count_statistics()
-            self.teachf_refresh_sql()
+            self.journf_refresh_sql()
         self.tableView.setFocus()
         self.edit_spisok.clear()
 
@@ -375,7 +367,6 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
                 if self.groups.cache[i][Const.GRP_ID] == grp:
                     self.programName.setText(self.groups.cache[i][Const.GRP_CNAME])
                     break
-#            print('==> ', grp)
             self.journ.set_param_str((grp, ))
             self.journ.refresh_select()
             model =  JournQTableModel(self.journ)
@@ -386,11 +377,17 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
             self.tableView.model().endResetModel()
             self.tableView.resizeColumnsToContents()
             dd = datetime.date.today()
+            self.statf_refresh()
             for i in range(len(self.journ.cache)):
+                # print(i, datetime.date.fromisoformat(self.journ.cache[i][Const.JRN_DATE]))
                 if dd <= datetime.date.fromisoformat(self.journ.cache[i][Const.JRN_DATE]):
                     self.tableView.setCurrentIndex(self.tableView.model().index(i - 1, 0))
+                    # print('break')
                     break
-            self.statf_refresh()
+                else:
+                    self.tableView.setCurrentIndex(self.tableView.model().index(i, 0))
+            # print('-' * 60)
+
             self.tableView.setFocus()
 
         else:

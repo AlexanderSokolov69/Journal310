@@ -68,8 +68,8 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
             calend.append(self.create_day(nday))
             self.h_layout_table.addLayout(calend[-1])
 
-        self.rasp = QRasp(params=(Const.YEAR, ), dsort=('d.name', 'k.name', 'r.tstart'))
-        self.journ = QJournals()
+        self.rasp = QRasp(params=(Const.YEAR, ), dsort=('[День]', 'k.name', 'r.tstart'))
+        self.journ = QJournals(dsort=('[Дата]', '[Время нач.]'))
 
         self.tab4_add_btn.clicked.connect(self.group_clicked)
         self.tab4_edit_btn.clicked.connect(self.group_clicked)
@@ -106,6 +106,7 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
         self.flt_kab.addItems([s[0] for s in self.kab_lst])
         self.flt_kab.setCurrentIndex(0)
 
+        self.tab4_rasp_view.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";")
         self.tab4_rasp_view.setModel(RaspQTableModel(self.rasp))
         self.tab4_rasp_view.resizeColumnsToContents()
         self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(0, 0))
@@ -130,8 +131,11 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
     def journ_corrector(self):
         object = self.sender().objectName()
         if object == 'tab4_del_journ':
-            id = self.journ.cache[self.tab4_journ_view.currentIndex().row()][0]
-            self.journ.rec_delete(id)
+            id_select = []
+            for index in self.tab4_journ_view.selectedIndexes():
+                if len(self.journ.cache[index.row()][Const.JRN_THEME].strip()) < 9:
+                    id = self.journ.cache[index.row()][Const.JRN_ID]
+                    self.journ.rec_delete(id)
             self.journ_update()
         elif object == 'tab4_add_journ':
             if self.tab4_lmonts.currentText():
@@ -143,7 +147,7 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
                         if item[self.IDGROUPS_POS] == self.idGroups:
                             list_days[item[self.IDDAY_POS]] = [item[self.START_POS], item[self.END_POS]]
                     list_days = qget_days_list(list_days, month)
-                    test = [] if self.journ.rows() == 0 else [day[1] for day in self.journ.data]
+                    test = [] if self.journ.rows() == 0 else [day[1] for day in self.journ.cache]
                     for rec in list_days:
                         if rec[0] not in test:
                             arg = dict()

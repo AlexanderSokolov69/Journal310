@@ -46,7 +46,6 @@ def qget_day_list():
     return TSqlQuery().query_one_to_list(sql)
 
 
-
 def qget_short_day_list():
     sql = "select cname from days order by id"
     ret =  TSqlQuery().query_one_to_list(sql)
@@ -95,3 +94,12 @@ def qget_days_list(days: dict, mon=9):
             ret.append([str(d1), *days[d1.weekday()]])
         d1 += oneday
     return ret
+
+
+def get_prepod_list():
+    sql = f"""select u.id, trim(u.name) as trimname from users u
+               join roles r on u.idRoles = r.id
+               join priv pp on pp.id = r.idPriv
+               where pp.access like '{Const.ACC_PREPOD}'
+               order by trimname"""
+    return TSqlQuery().query_to_list(sql)
