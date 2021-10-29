@@ -72,9 +72,12 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
         self.rasp = QRasp(params=(Const.YEAR, ), dsort=('[День]', 'k.name', 'r.tstart'))
         self.journ = QJournals(dsort=('[Дата]', '[Время нач.]'))
 
-        self.tab4_add_btn.clicked.connect(self.group_clicked)
-        self.tab4_edit_btn.clicked.connect(self.group_clicked)
-        self.tab4_del_btn.clicked.connect(self.group_clicked)
+        self.tab4_add_btn.setVisible(False)
+        self.tab4_edit_btn.setVisible(False)
+        self.tab4_del_btn.setVisible(False)
+        # self.tab4_add_btn.clicked.connect(self.group_clicked)
+        # self.tab4_edit_btn.clicked.connect(self.group_clicked)
+        # self.tab4_del_btn.clicked.connect(self.group_clicked)
         self.tab4_commit_btn.clicked.connect(self.group_clicked)
         self.tab4_rollback_btn.clicked.connect(self.group_clicked)
 
@@ -109,6 +112,10 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
 
         self.tab4_rasp_view.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";")
         self.tab4_rasp_view.setModel(RaspQTableModel(self.rasp))
+        self.tab4_rasp_view.hideColumn(Const.RSP_ID)
+        self.tab4_rasp_view.hideColumn(Const.RSP_CNTLESS)
+        self.tab4_rasp_view.hideColumn(Const.RSP_IDG)
+        self.tab4_rasp_view.hideColumn(Const.RSP_IDD)
         self.tab4_rasp_view.resizeColumnsToContents()
         self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(0, 0))
         self.tab4_rasp_view.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -169,6 +176,11 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
     def journ_update(self):
         self.journ.refresh_select()
         self.tab4_journ_view.setModel(JournQTableModel(self.journ))
+        self.tab4_journ_view.hideColumn(Const.JRN_ID)
+        self.tab4_journ_view.hideColumn(Const.JRN_ESTIM)
+        self.tab4_journ_view.hideColumn(Const.JRN_SHTRAF)
+        self.tab4_journ_view.hideColumn(Const.JRN_USRCOMM)
+        self.tab4_journ_view.hideColumn(Const.JRN_IDG)
         self.tab4_journ_view.resizeColumnsToContents()
         self.tab4_journ_view.setCurrentIndex(self.tab4_rasp_view.model().index(0, 0))
         self.tab4_journ_view.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -324,6 +336,10 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
         self.rasp.refresh_select()
         self.tab4_count_lcd.display(self.rasp.rows())
         self.tab4_rasp_view.setModel(RaspQTableModel(self.rasp))
+        self.tab4_rasp_view.hideColumn(Const.RSP_ID)
+        self.tab4_rasp_view.hideColumn(Const.RSP_CNTLESS)
+        self.tab4_rasp_view.hideColumn(Const.RSP_IDG)
+        self.tab4_rasp_view.hideColumn(Const.RSP_IDD)
         self.tab4_rasp_view.resizeColumnsToContents()
         self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(0, 0))
         self.tab4_rasp_view.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -491,7 +507,7 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
         curLayout = self.tab4_edit_layout
         """ Создание полей редактирования записи """
         self.current_data = self.rasp.get_record(self.id)
-        # print(self.id)
+        print(self.current_data)
         self.delete_edit_form(curLayout)
         if not self.current_data[0][2] and self.new_preset:
             self.current_data[1][2] = self.new_preset['idDays']
@@ -506,16 +522,14 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
             self.edit_widgets.append(QLabel(val[1], self))
             curLayout.addWidget(self.edit_widgets[-1], i, 0)
             self.edit_widgets[-1].setSizePolicy(lP)
-            if val[0][:2] == 'id':
+            if val[0] == 'id':
+                pass
+            elif val[0][:2] == 'id':
                 self.edit_widgets.append(QComboBox(self))
                 self.edit_widgets[-1].setDisabled(False)
                 self.edit_widgets[-1].setSizePolicy(sP)
                 self.edit_widgets[-1].setFocusPolicy(Qt.StrongFocus)
                 curLayout.addWidget(self.edit_widgets[-1], i, 1)
-                # if val[0][2:] == 'Groups':
-                #     sql = f"""select id,trim(name) as name from {val[0][2:]} order by name"""
-                # else:
-                #     sql = f"""select id, trim(name) from {val[0][2:]} order by name"""
                 sql = f"""select id, trim(name) as name from {val[0][2:]} order by name"""
                 spis = self.rasp.execute_command(sql)
                 spis = [f"{v[0]:4} : {v[1]}" for v in spis]
@@ -524,10 +538,6 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
                     self.edit_widgets[-1].addItem(el)
                     if int(el.split()[0]) == val[2]:
                         idx = i
-                # for i in range(self.edit_widgets[-1].count()):
-                #     fnd = self.edit_widgets[-1].itemText(i)
-                #     id = fnd[:fnd.find(':') - 1]
-                #     if id == str(val[2]):
                 self.edit_widgets[-1].setCurrentIndex(idx)
             else:
                 le = QLineEdit(str(val[2]), self)
@@ -535,7 +545,6 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
                     le.setInputMask('99:99')
                     le.setObjectName(val[0][:])
                     if val[0][:] == 'tend':
-                        # le.installEventFilter(self)
                         le.returnPressed.connect(self.calculate)
                     else:
                         le.returnPressed.connect(self.selected_edit)

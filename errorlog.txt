@@ -1,0 +1,266 @@
+2021-10-29 09:22:19.906818 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 09:22:20.024047 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 09:22:47.627414 ==> 'QRasp' object has no attribute 'get_record' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 293, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 09:22:49.286356 ==> 'QRasp' object has no attribute 'get_record' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 293, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 09:23:47.471075 ==> wrapped C/C++ object of type QTab4FormWindow has been deleted | 
+  File "C:\Tools\Python\Journal310\NJourn.py", line 83, in _change_to_rasp
+    self.setCentralWidget(self.win_1)
+
+<===
+2021-10-29 09:23:55.627857 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 09:23:55.656791 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 09:25:25.376958 ==> Старт программы
+<===
+2021-10-29 09:25:25.378953 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 09:25:25.423867 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 09:25:34.545957 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-29 09:28:33.122719 ==> Завершение работы. [15]
+<===
+2021-10-29 09:32:13.887301 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 09:32:13.916223 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 09:34:39.788128 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 09:34:39.818048 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 09:39:30.549742 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 09:39:30.579661 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:18:12.781306 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:18:12.812969 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:18:13.911047 ==> 'QTab4FormWindow' object has no attribute 'tableView' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 271, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-29 10:18:14.020799 ==> 'QTab4FormWindow' object has no attribute 'tableView' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 271, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-29 10:18:14.100429 ==> 'QTab4FormWindow' object has no attribute 'tableView' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 271, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-29 10:18:14.177437 ==> 'QTab4FormWindow' object has no attribute 'tableView' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 271, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-29 10:18:14.381410 ==> 'QTab4FormWindow' object has no attribute 'tableView' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 215, in eventFilter
+    self.change_current_journ()
+
+<===
+2021-10-29 10:18:17.507848 ==> 'QTab4FormWindow' object has no attribute 'tableView' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 314, in showEvent
+    self.activate()
+
+<===
+2021-10-29 10:23:11.017418 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:23:11.050169 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:24:12.392849 ==> wrapped C/C++ object of type QTab4FormWindow has been deleted | 
+  File "C:\Tools\Python\Journal310\NJourn.py", line 83, in _change_to_rasp
+    self.setCentralWidget(self.win_1)
+
+<===
+2021-10-29 10:25:01.471340 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:25:01.502583 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:25:53.831660 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:25:53.862906 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:33:17.726462 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:33:17.757709 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:33:18.716463 ==> type object 'Const' has no attribute 'RSP_' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 275, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-29 10:33:18.777336 ==> type object 'Const' has no attribute 'RSP_' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 275, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-29 10:33:18.792958 ==> type object 'Const' has no attribute 'RSP_' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 275, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-29 10:33:18.824601 ==> type object 'Const' has no attribute 'RSP_' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 275, in rasp_set_filter
+    self.activate()
+
+<===
+2021-10-29 10:33:46.089356 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:33:46.104984 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:38:03.562609 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:38:03.593855 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:38:40.020235 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:38:40.051882 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:39:30.803668 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:39:30.826801 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:39:38.855787 ==> 'QRasp' object has no attribute 'get_record' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 302, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 10:51:43.189881 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:51:43.205503 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:51:52.016930 ==> 'NoneType' object is not subscriptable | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 302, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 10:58:35.901660 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:58:35.932907 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 10:58:50.099596 ==> 'int' object is not subscriptable | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 302, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 11:14:02.901077 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:14:02.917094 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:14:17.957664 ==> 'QRasp' object has no attribute 'execute_command' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 302, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 11:15:28.147884 ==> Старт программы
+<===
+2021-10-29 11:15:28.163505 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:15:28.203754 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:15:33.325765 ==> 15, Соколов А.Л, Успешный вход
+<===
+2021-10-29 11:20:06.485605 ==> Завершение работы. [15]
+<===
+2021-10-29 11:31:05.145075 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:31:05.173883 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:31:17.080648 ==> 'QRasp' object has no attribute 'execute_command' | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 302, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 11:40:38.936169 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:40:38.964404 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:40:48.570197 ==> 'NoneType' object is not iterable | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 302, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 11:41:34.614932 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:41:34.641972 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:42:31.784419 ==>  | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 302, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 11:43:20.725338 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:43:20.754745 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:47:41.733572 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:47:41.764678 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:48:22.160067 ==> list index out of range | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 302, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 11:51:46.194089 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:51:46.224288 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:51:56.989348 ==> 'NoneType' object is not iterable | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 302, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 11:53:54.977535 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:53:55.004885 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:57:59.233820 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:57:59.259668 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:59:09.049320 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:59:09.076948 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 11:59:20.308435 ==> list index out of range | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 302, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 12:02:53.377456 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 12:02:53.410859 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 12:03:01.938061 ==> list index out of range | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 305, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 12:03:03.193805 ==> list index out of range | 
+  File "C:\Tools\Python\Journal310\new_prg\q_tab4_prg.py", line 305, in group_clicked
+    self.start_edit_rasp()
+
+<===
+2021-10-29 12:03:27.821390 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 12:03:27.851120 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 12:03:57.164185 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-10-29 12:03:57.194104 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===

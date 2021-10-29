@@ -67,11 +67,11 @@ class QTableModel(QAbstractTableModel):
                 return "None"
             else:
                 return str(ret)
-        if role == Qt.TextAlignmentRole:
+        elif role == Qt.TextAlignmentRole:
             if isinstance(ret, int) or isinstance(ret, float):
                 # Align right, vertical middle.
                 return Qt.AlignVCenter + Qt.AlignRight
-        if role == Qt.BackgroundRole and index.row() % 2:
+        elif role == Qt.BackgroundRole and index.row() % 2:
             # See below for the data structure.
             return QtGui.QColor('#f0fcfc')
         return ret
@@ -104,15 +104,42 @@ class JournQTableModel(QTableModel):
                 return "None"
             else:
                 return str(ret)
-        if role == Qt.TextAlignmentRole:
+        elif role == Qt.TextAlignmentRole:
+            if col in (Const.JRN_PRESENT, Const.JRN_START, Const.JRN_END):
+                return Qt.AlignVCenter + Qt.AlignHCenter
             if isinstance(ret, int) or isinstance(ret, float):
                 # Align right, vertical middle.
                 return Qt.AlignVCenter + Qt.AlignRight
-        if role == Qt.BackgroundRole and index.row() % 2:
+        elif role == Qt.BackgroundRole and index.row() % 2:
             # See below for the data structure.
             return QtGui.QColor('#f0fcfc')
         return ret
 
 
 class RaspQTableModel(QTableModel):
-    pass
+    def data(self, index: QModelIndex, role: Qt.ItemDataRole = None):
+        ret = None
+        row = index.row()
+        col = index.column()
+        if role == Qt.DisplayRole or role == Qt.EditRole:
+            try:
+                ret = self.sql_obj.cache[row][col]
+            except IndexError:
+                pass
+            if isinstance(ret, str):
+                ret = ret.strip()
+            if ret is None:
+                return "None"
+            else:
+                return str(ret)
+        elif role == Qt.TextAlignmentRole:
+            if col in (Const.RSP_KABNAME, Const.RSP_START, Const.RSP_END, Const.RSP_ACCH):
+                return Qt.AlignVCenter + Qt.AlignHCenter
+            if isinstance(ret, int) or isinstance(ret, float):
+                # Align right, vertical middle.
+                return Qt.AlignVCenter + Qt.AlignRight
+        elif role == Qt.BackgroundRole and index.row() % 2:
+            # See below for the data structure.
+            return QtGui.QColor('#f0fcfc')
+        return ret
+
