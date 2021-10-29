@@ -31,6 +31,41 @@ class TSqlQuery(QSqlQuery):
         else:
             self.prepare_str = self.prepare_str_def[:]
 
+    # def execute_command(self, sql):
+    #     cur = QSqlQuery()
+    #     if cur.exec(sql):
+    #         cur.first()
+    #         spis = []
+    #         while cur.isValid():
+    #             s = []
+    #             for i in range(cur.record().count()):
+    #                 s.append(cur.record().value(i))
+    #             spis.append(s)
+    #             cur.next()
+    #         return spis
+    #     else:
+    #         return []
+
+
+    def get_record(self, id_rec):
+        sql = f"select * from {self.table_name} where id = {id_rec}"
+        cur = super()
+        ret = cur.exec(sql)
+        if Const.TEST_MODE:
+            self.flog.to_log(f"""SQL exec: {super().lastQuery()}""")
+            if  ret:
+                self.flog.to_log(f""" Ok""")
+            else:
+                self.flog.to_log(f""" WRONG!!!""")
+        if ret:
+            cur.first()
+            s = []
+            for i in range(cur.record().count()):
+                s.append([cur.record().fieldName(i), '', cur.record().value(i)])
+            return s
+        else:
+            return None
+
     def rec_append(self, args: dict):
         k = []
         v = []
@@ -199,9 +234,9 @@ class QStatisticsOne(TSqlQuery):
 
 class QRasp(TSqlQuery):
     table_name = 'rasp'
-    prepare_str_def = f"""select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+    prepare_str_def = f"""select r.id, TRIM(g.name) + ' - ' + trim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
                     k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
-                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', trim(r.comment) as 'Доп. информация', 
                     r.idGroups as 'Группа', d.id as 'День'
                 from rasp r
                 join kabs k on r.idKabs = k.id
@@ -210,6 +245,26 @@ class QRasp(TSqlQuery):
                 join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
                 join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
                 where jc.year = ? """
+
+    def get_record(self, id_rec):
+        sql = f"select idDays, idKabs, tstart, tend from {self.table_name} where id = {id_rec}"
+        cur = super()
+        cur.exec(sql)
+        cur.first()
+        keys = [('id', 'id'),
+                ('idDays', 'День недели:'),
+                ('idKabs', 'Кабинет:'),
+                ('tstart', 'Начало:'),
+                ('tend', 'Окончание:'),]
+        s = []
+        for i in range(len(keys)):
+            try:
+                val = cur.record().value(i)
+            except:
+                val = None
+            s.append([keys[i][0], keys[i][1], val])
+        return s
+
 
 
 if __name__ == '__main__':

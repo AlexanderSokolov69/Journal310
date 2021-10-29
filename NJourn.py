@@ -80,6 +80,8 @@ class MainWindow(QMainWindow, Ui_NMainWindow):
         self.setCentralWidget(QT5Window(int(self.user_id)))
 
     def _change_to_rasp(self):
+        self.win_1 = QTab4FormWindow(int(self.user_id))
+        self.win_1.message_out.connect(self._show_message)
         self.setCentralWidget(self.win_1)
 
     def _change_to_journ(self):
