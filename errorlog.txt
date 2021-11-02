@@ -264,3 +264,25 @@
 <===
 2021-10-29 12:03:57.194104 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
 <===
+2021-11-03 02:17:29.111211 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-11-03 02:17:29.877008 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-11-03 02:24:53.010792 ==>  | 
+  File "C:\Tools\Python\310\Journal390\new_prg\q_tab4_prg.py", line 142, in journ_corrector
+    for index in self.tab4_journ_view.selectedIndexes():
+
+<===
+2021-11-03 02:25:02.657350 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-11-03 02:25:03.329652 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-11-03 02:25:03.564003 ==>  | 
+  File "C:\Tools\Python\310\Journal390\NJourn.py", line 112, in <module>
+    wnd = MainWindow(-1)
+
+<===
+2021-11-03 02:25:44.104748 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-11-03 02:25:44.761739 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===

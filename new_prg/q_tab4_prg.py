@@ -140,7 +140,7 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
             del_cnt = 0
             id_select = []
             for index in self.tab4_journ_view.selectedIndexes():
-                if index.column() == 0:
+                if index.column() == Const.JRN_DATE:
                     if len(self.journ.cache[index.row()][Const.JRN_THEME].strip()) < 9:
                         id = self.journ.cache[index.row()][Const.JRN_ID]
                         self.journ.rec_delete(id)
