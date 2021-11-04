@@ -286,3 +286,7 @@
 <===
 2021-11-03 02:25:44.761739 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
 <===
+2021-11-04 12:17:17.348259 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2021-11-04 12:17:17.998612 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===

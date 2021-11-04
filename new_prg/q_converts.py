@@ -90,8 +90,8 @@ def qget_days_list(days: dict, mon=9):
     ret = []
     oneday = datetime.timedelta(1)
     while d1 < d2:
-        if d1.weekday() in days.keys():
-            ret.append([str(d1), *days[d1.weekday()]])
+        if (d1.weekday() + 1) in days.keys():
+            ret.append([str(d1), *days[d1.weekday() + 1]])
         d1 += oneday
     return ret
 
