@@ -140,7 +140,7 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
             del_cnt = 0
             id_select = []
             for index in self.tab4_journ_view.selectedIndexes():
-                if index.column() == 0:
+                if index.column() == Const.JRN_DATE:
                     if len(self.journ.cache[index.row()][Const.JRN_THEME].strip()) < 9:
                         id = self.journ.cache[index.row()][Const.JRN_ID]
                         self.journ.rec_delete(id)
@@ -263,10 +263,10 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
                 id = self.flt_user.currentText().split()[0]
                 filters.append(f'g.idUsers = {id}')
             if self.flt_day.currentIndex() > 0:
-                id = self.flt_day.currentIndex() - 1
+                id = self.flt_day.currentIndex()
                 filters.append(f'r.idDays = {id}')
             if self.flt_kab.currentIndex() > 0:
-                id = self.flt_kab.currentIndex() - 1
+                id = self.flt_kab.currentIndex()
                 filters.append(f'r.idKabs = {id}')
             #            self.tab4_rasp_view.model().beginResetModel()
             if filters:

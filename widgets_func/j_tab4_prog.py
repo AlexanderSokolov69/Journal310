@@ -233,18 +233,16 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                 id = self.flt_user.currentText().split()[0]
                 filters.append(f'g.idUsers = {id}')
             if self.flt_day.currentIndex() > 0:
-                id = self.flt_day.currentIndex() - 1
+                id = self.flt_day.currentIndex()
                 filters.append(f'r.idDays = {id}')
             if self.flt_kab.currentIndex() > 0:
-                id = self.flt_kab.currentIndex() - 1
+                id = self.flt_kab.currentIndex()
                 filters.append(f'r.idKabs = {id}')
-            #            self.tab4_rasp_view.model().beginResetModel()
             if filters:
                 self.rasp.set_filter(' and '.join(filters))
             else:
                 self.rasp.set_filter()
             self.rasp.update()
-            #            self.tab4_rasp_view.model().endResetModel()
             self.activate()
 
     def group_clicked(self):
@@ -351,8 +349,6 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                 self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(i, 0))
                 self.tab4_rasp_view.update()
 
-    #        print(self.tab4_rasp_view.model().itemData(self.tab4_rasp_view.model().index(i, 1))[0].split()[0])
-
     def color_table_click(self):
         """
         Обработка клика мыши в цветовом поле
@@ -403,15 +399,6 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
             m2 = 0
             h2 = 0
         return (f"{h2:02}:{m2:02}")
-
-    # def click(self):
-    #     btn = self.sender()
-    #     # print(btn.objectName(), type(btn))
-    #     num_day, num_kab, num_time = map(int, btn.objectName().split())
-    #     if btn.isChecked():
-    #         btn.setStyleSheet(f"background-color: rgb{self.kab_lst[num_kab][1]};")
-    #     else:
-    #         btn.setStyleSheet(f"background-color: rgb(255, 255, 255);")
 
     def create_day(self, day=0):
         """
