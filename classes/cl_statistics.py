@@ -79,7 +79,7 @@ class Statistics:
         if self.user_id:
             self.user.set_filter(f"u.id={self.user_id}")
         else:
-            self.user.set_filter("u.id = (select gg.idUsers from groups gg where gg.idUsers = u.id)")
+            self.user.set_filter(f"u.id = (select gg.idUsers from groups gg where gg.idUsers = u.id)")
         self.d_user = {}
         if self.user.rows() > 0:                            # Users - Список лиц
             for u in self.user.data:

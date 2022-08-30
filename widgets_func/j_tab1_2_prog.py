@@ -30,7 +30,7 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         :return:
         """
         self.logfile = LogWriter()
-        self.setWindowTitle('IT-куб. Белая Холуница. Журналы. v.1.0')
+        self.setWindowTitle('IT-куб. Белая Холуница. Журналы. v.3.0')
         self.con = con
         self.login_id = login_id
         self.id = None

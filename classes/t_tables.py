@@ -22,7 +22,7 @@ class TRasp(TSQLObject):
                 join days d on r.idDays = d.id
                 join groups g on r.idGroups = g.id
                 join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
-                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses"""
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu where cu.year = {Const.YEAR}) jc on jc.id = g.idCourses"""
             self.set_order('d.id, k.id, r.tstart')
         else:
             self.sql = f"""{sql}"""
@@ -49,7 +49,7 @@ class TJournals(TSQLObject):
                      j.shtraf as 'Штрафы', j.comment as 'Доп. информация'
                 from journals j
                 join groups g on g.id = j.idGroups
-                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses"""
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu where cu.year = {Const.YEAR}) jc on jc.id = g.idCourses"""
             self.set_order('j.date, j.tstart')
         else:
             self.sql = f"""{sql}"""
@@ -122,7 +122,7 @@ class TGroups(TSQLObject):
                     trim(g.comment) as 'Доп. информация' 
                 from groups g
                 join users u on g.idUsers = u.id
-                join courses c on g.idCourses = c.id"""
+                join (select * from courses where year = {Const.YEAR}) c on g.idCourses = c.id"""
         else:
             self.sql = f"""{sql}"""
         self.set_order(ord)
@@ -142,7 +142,7 @@ class TGroupTable(TSQLObject):
                 from group_table t
                 join groups g on g.id = t.idGroups
                 join users u on u.id = t.idUsers
-                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses"""
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu where cu.year = {Const.YEAR}) jc on jc.id = g.idCourses"""
 
         else:
             self.sql = f"""{sql}"""

@@ -48,7 +48,11 @@ class TSqlQuery(QSqlQuery):
 
 
     def get_record(self, id_rec):
-        sql = f"select * from {self.table_name} where id = {id_rec}"
+        if 'courses' in self.table_name:
+            sql = f"select * from {self.table_name} where id = {id_rec} and year = {Const.YEAR}"
+        else:
+            sql = f"select * from {self.table_name} where id = {id_rec}"
+
         cur = super()
         ret = cur.exec(sql)
         if Const.TEST_MODE:
@@ -191,12 +195,12 @@ class QUsers(TSqlQuery):
 
 class QGroups(TSqlQuery):
     table_name = 'groups'
-    prepare_str_def = """select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+    prepare_str_def = f"""select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
                     c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
                     trim(g.comment) as 'Доп. информация' 
                 from groups g
                 join users u on g.idUsers = u.id
-                join courses c on g.idCourses = c.id
+                join (select * from courses where year = {Const.YEAR}) c on g.idCourses = c.id
                 where c.year = ? and u.id = ?"""
 
 
@@ -208,7 +212,7 @@ class QGroupTables(TSqlQuery):
                 from group_table t
                 join groups g on g.id = t.idGroups
                 join users u on u.id = t.idUsers
-                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu where cu.year = {Const.YEAR}) jc on jc.id = g.idCourses
                 where t.idGroups = ?"""
 
 
@@ -220,14 +224,14 @@ class QJournals(TSqlQuery):
                      j.idGroups as 'IDG'
                 from journals j
                 join groups g on g.id = j.idGroups
-                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu where cu.year = {Const.YEAR}) jc on jc.id = g.idCourses
                 where j.idGroups = ? """
 
 
 class QStatisticsOne(TSqlQuery):
     table_name = None
     prepare_str_def = f"""select sum(c.hday) from groups g
-            join courses c on g.idCourses = c.id
+            join (select * from courses where year = {Const.YEAR}) c on g.idCourses = c.id
             join rasp r on r.idGroups = g.id
             where c.year = ? and g.idUsers = ?"""
 
@@ -243,7 +247,7 @@ class QRasp(TSqlQuery):
                 join days d on r.idDays = d.id
                 join groups g on r.idGroups = g.id
                 join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
-                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu) jc on jc.id = g.idCourses
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu where cu.year = {Const.YEAR}) jc on jc.id = g.idCourses
                 where jc.year = ? """
 
     def get_record(self, id_rec):

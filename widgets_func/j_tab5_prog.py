@@ -45,7 +45,7 @@ class T5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.user = TUsers(self.con)
         self.groups = TGroups(self.con)
         self.user.set_filter( f'u.id = {self.user_id}')
-        self.groups.set_filter( f"g.idUsers = {self.user_id} and c.year = {Const.YEAR}")
+        self.groups.set_filter( f"g.idUsers = {self.user_id}")
         # print(self.groups.data)
         self.group_table = TGroupTable(self.con)
         self.journ = TJournals(self.con)

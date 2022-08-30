@@ -82,7 +82,10 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
         self.tab3_reserv_lcd.display(len(self.usrs.data))
 
     def tab3_change_group(self):
-        idGroups = self.grp.data[self.tab3_group_list.currentIndex().row()][0]
+        try:
+            idGroups = self.grp.data[self.tab3_group_list.currentIndex().row()][0]
+        except Exception:
+            idGroups = 0
         sql = f"""select t.id as 'id', u.name as 'Фамилия И.О.', u.sertificate as 'серт.ПФДО',
                     t.comment as 'Комментарий', p.comment as 'Класс',
                     p.name as 'Уч.заведение'
@@ -103,7 +106,7 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
             self.tab3_volume_lcd.display(cnt[0][0])
         else:
             self.tab3_volume_lcd.display(0)
-        sql = f"""select sum(c.lesson) * 2 from courses c
+        sql = f"""select sum(c.lesson) * 2 from (select * from courses cu where cu.year = {Const.YEAR}) c
                 left join groups g on g.idCourses = c.id
                 left join group_table gt on gt.idGroups = g.id"""
         cnt = self.grp_tbl.execute_command(sql)
@@ -119,7 +122,7 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
                 (select count(*) from group_table gt where gt.idGroups = g.id) as 'Кол-во детей'
                 from groups g
                 join users u on g.idUsers = u.id
-                join courses c on g.idCourses = c.id
+                join (select * from courses where year = {Const.YEAR}) c on g.idCourses = c.id
               where g.idCourses = {idCourses}"""
         self.grp.set_sql(sql, 'g.name')
         self.grp.update()

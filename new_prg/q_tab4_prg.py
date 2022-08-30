@@ -530,7 +530,10 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
                 self.edit_widgets[-1].setSizePolicy(sP)
                 self.edit_widgets[-1].setFocusPolicy(Qt.StrongFocus)
                 curLayout.addWidget(self.edit_widgets[-1], i, 1)
-                sql = f"""select id, trim(name) as name from {val[0][2:]} order by name"""
+                if "courses" in val[0]:
+                    sql = f"""select id, trim(name) as name from {val[0][2:]} where year = {Const.YEAR} order by name"""  # Хитрый список
+                else:
+                    sql = f"""select id, trim(name) as name from {val[0][2:]} order by name"""  # Хитрый список
                 spis = self.rasp.execute_command(sql)
                 spis = [f"{v[0]:4} : {v[1]}" for v in spis]
                 idx = -1

@@ -88,9 +88,9 @@ class TSQLObject(QObject):
                     self.logfile.to_log(f"""Start try [update class] \n{sql}""")
                 ret = self.cur.execute(sql).fetchall()
                 self.need_to_refresh.emit()
-            except pyodbc.OperationalError:
-                self.logfile.to_log(f"""\n{'-' * 20}\nРазрыв связи\n{'-' * 20}""")
-                sys.exit()
+            # except pyodbc.OperationalError:
+            #     self.logfile.to_log(f"""\n{'-' * 20}\nРазрыв связи\n{'-' * 20}""")
+            #     sys.exit()
             except (sqlite3.Error, sqlite3.Warning) as err:
                 self.logfile.to_log(f"""{err} [update class] \n{sql}""")
                 ret = None
@@ -202,7 +202,11 @@ class TSQLObject(QObject):
         :return:
         """
         fields = ', '.join([key[0] for key in self.keys])
-        sql = f"select {fields} from {self.dbname} where id = {id}"
+        if 'courses' in self.dbname:
+            sql = f"select {fields} from {self.dbname} where id = {id} and year = {Const.YEAR}"
+        else:
+            sql = f"select {fields} from {self.dbname} where id = {id}"
+
         cur = self.con.cursor()
         data = None
         try:

@@ -23,7 +23,7 @@ class Rasp(SQLObject):
                 join days d on r.idDays = d.id
                 join groups g on r.idGroups = g.id
                 join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
-                join (select cu.id, cu.acchour, cu.hday from courses cu) jc on jc.id = g.idCourses"""
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = {Const.YEAR}) jc on jc.id = g.idCourses"""
             self.set_order('d.id, k.id, r.tstart')
         else:
             self.sql = f"""{sql}"""

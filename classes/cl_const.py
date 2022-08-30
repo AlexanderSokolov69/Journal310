@@ -5,9 +5,9 @@ class Const:
     DB: QSqlDatabase = None
     TEST_MODE = True
     IN_TRANSACTION = False
-    YEAR = 2021
-    D_START = '2021-10-01'
-    D_END = '2022-01-01'
+    YEAR = 2022
+    D_START = '2022-10-01'
+    D_END = '2023-01-01'
 
     # Access items
     ACC_PREPOD = '1%'

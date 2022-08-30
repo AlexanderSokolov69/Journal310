@@ -236,7 +236,10 @@ class SQLObject(QObject):
         :return:
         """
         fields = ', '.join([key[0] for key in self.keys])
-        sql = f"select {fields} from {self.dbname} where id = {id}"
+        if 'courses' in self.dbname:
+            sql = f"select {fields} from {self.dbname} where id = {id} and year = {Const.YEAR}"
+        else:
+            sql = f"select {fields} from {self.dbname} where id = {id}"
         cur = self.con.cursor()
         data = None
         try:

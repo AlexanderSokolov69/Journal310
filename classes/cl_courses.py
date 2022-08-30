@@ -18,7 +18,8 @@ class Courses(SQLObject):
         if sql is None:
             self.sql = f"""select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
                    lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
-                from courses"""
+                from (select * from courses cu where cu.year = {Const.YEAR}) c"""
+
         else:
             self.sql = f"""{sql}"""
         self.set_order(ord)
