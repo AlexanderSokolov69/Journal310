@@ -31,7 +31,7 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
         self.usrs = Users(con, date_col=7)
 
         self.tab3_program_box.addItems([f"{item[0]:3}: {item[6]:5} :{item[2]:<8} : {item[1]}"
-                                        for item in self.crs.data])
+                                        for item in self.crs.data if item[8] == Const.YEAR])
         self.tab3_program_box.setCurrentIndex(2)
         self.tab3_programm_lcd.display(len(self.crs.data))
         self.tab3_change_program()
