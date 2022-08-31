@@ -496,12 +496,14 @@ class Tab4FormWindow(QWidget, Ui_tab4Form):
                 #     sql = f"""select id,trim(name) as name from {val[0][2:]} order by name"""
                 # else:
                 #     sql = f"""select id, trim(name) from {val[0][2:]} order by name"""
-                if "courses" in val[0]:
-                    sql = f"""select id, trim(name) as name from {val[0][2:]} where year = {Const.YEAR} order by name"""  # Хитрый список
+                if "Groups" in val[0]:
+                    sql = f"""select a.id, trim(a.name) as name from {val[0][2:]} a 
+                    join courses c on idCourses = c.id where c.year = {Const.YEAR} order by a.name"""  # Хитрый список
                 else:
                     sql = f"""select id, trim(name) as name from {val[0][2:]} order by name"""  # Хитрый список
                 spis = self.rasp.execute_command(sql)
                 spis = [f"{v[0]:4} : {v[1]}" for v in spis]
+                # print(val[0][2:],' === ', *spis)
                 idx = -1
                 for i, el in enumerate(spis):
                     self.edit_widgets[-1].addItem(el)

@@ -138,7 +138,10 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
                 if val[0][2:] == 'Users':
                     spis = Users(self.con).priv_users()
                 else:
-                    sql = f"""select id, trim(name), trim(comment) from {val[0][2:]}"""
+                    if val[0][2:] == 'Courses':
+                        sql = f"""select id, trim(name), trim(comment) from {val[0][2:]} where year = {Const.YEAR}"""
+                    else:
+                        sql = f"""select id, trim(name), trim(comment) from {val[0][2:]}"""
                     spis = self.currTable.execute_command(sql)
                 # spis = [f"{val[0]:4} : {val[1]} : {val[2]}" for val in spis]
                 idx = -1
