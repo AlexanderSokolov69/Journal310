@@ -23,3 +23,5 @@ class Courses(SQLObject):
         else:
             self.sql = f"""{sql}"""
         self.set_order(ord)
+
+

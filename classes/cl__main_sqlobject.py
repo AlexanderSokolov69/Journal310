@@ -94,6 +94,7 @@ class SQLObject(QObject):
                 sql = f"""{self.sql} {self.filter} {self.order}"""
                 if Const.TEST_MODE:
                     self.logfile.to_log(f"""start try [update class] \n{sql}""")
+                    print(sql)
                 ret = self.cur.execute(sql).fetchall()
             except pyodbc.OperationalError:
                 self.logfile.to_log(f"""\n{'-'*20}\nРазрыв связи\n{'-'*20}""")

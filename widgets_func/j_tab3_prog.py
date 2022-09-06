@@ -100,7 +100,12 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
         self.tab3_sostav_table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tab3_counter_lcd.display(self.grp_tbl.rows())
         self.tab3_sostav_table.selectRow(0)
-        sql = f"""select count(*) from group_table group by idUsers"""
+        sql = f"""select count(*) from 
+        (select gt.idUsers from group_table gt 
+            join groups g on g.id = gt.idGroups
+            join courses c on c.id = g.idCourses where c.year = {Const.YEAR}
+            group by gt.idUsers) gtbl
+        """
         cnt = self.grp_tbl.execute_command(sql)
         if cnt:
             self.tab3_volume_lcd.display(cnt[0][0])
@@ -131,7 +136,8 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
             self.tab3_group_list.resizeColumnToContents(i)  #  resizeColumnsToContents()
         self.tab3_group_list.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tab3_group_list.setRootIndex(QModelIndex())  # selectRow(0)
-        sql = f"""select count(*) from groups"""
+        sql = f"""select count(*) from 
+            (select g.id from groups g join courses c on c.id = g.idCourses where c.year = {Const.YEAR}) grp"""
         cnt = self.grp.execute_command(sql)
         if cnt:
             self.tab3_groups_lcd.display(cnt[0][0])
