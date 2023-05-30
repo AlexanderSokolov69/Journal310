@@ -1,0 +1,50 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyAttributeOutsideInitInspection" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyBroadExceptionInspection" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="29">
+            <item index="0" class="java.lang.String" itemvalue="SQLAlchemy" />
+            <item index="1" class="java.lang.String" itemvalue="Flask" />
+            <item index="2" class="java.lang.String" itemvalue="os.path" />
+            <item index="3" class="java.lang.String" itemvalue="os" />
+            <item index="4" class="java.lang.String" itemvalue="sys" />
+            <item index="5" class="java.lang.String" itemvalue="date" />
+            <item index="6" class="java.lang.String" itemvalue="sqlite3" />
+            <item index="7" class="java.lang.String" itemvalue="rezult.jpg" />
+            <item index="8" class="java.lang.String" itemvalue="oops.jpg" />
+            <item index="9" class="java.lang.String" itemvalue="readme.txt" />
+            <item index="10" class="java.lang.String" itemvalue="Shult.exe" />
+            <item index="11" class="java.lang.String" itemvalue="end.jpg" />
+            <item index="12" class="java.lang.String" itemvalue="ris_2.jpeg" />
+            <item index="13" class="java.lang.String" itemvalue="shult_db.sqlite" />
+            <item index="14" class="java.lang.String" itemvalue="random" />
+            <item index="15" class="java.lang.String" itemvalue="datetime" />
+            <item index="16" class="java.lang.String" itemvalue="instruct.txt" />
+            <item index="17" class="java.lang.String" itemvalue="time" />
+            <item index="18" class="java.lang.String" itemvalue="good.gif" />
+            <item index="19" class="java.lang.String" itemvalue="filelock" />
+            <item index="20" class="java.lang.String" itemvalue="platformdirs" />
+            <item index="21" class="java.lang.String" itemvalue="PyQt5" />
+            <item index="22" class="java.lang.String" itemvalue="backports.entry-points-selectable" />
+            <item index="23" class="java.lang.String" itemvalue="virtualenv" />
+            <item index="24" class="java.lang.String" itemvalue="distlib" />
+            <item index="25" class="java.lang.String" itemvalue="pygame" />
+            <item index="26" class="java.lang.String" itemvalue="face_recognition" />
+            <item index="27" class="java.lang.String" itemvalue="numpy" />
+            <item index="28" class="java.lang.String" itemvalue="Pillow" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="SpellCheckingInspection" enabled="false" level="TYPO" enabled_by_default="false">
+      <option name="processCode" value="true" />
+      <option name="processLiterals" value="true" />
+      <option name="processComments" value="true" />
+    </inspection_tool>
+  </profile>
+</component>
