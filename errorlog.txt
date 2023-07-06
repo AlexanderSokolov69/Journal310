@@ -14387,3 +14387,531 @@ select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j
 <===
 2022-09-06 23:33:09.482918 ==> Завершение работы. [15]
 <===
+2023-05-30 13:49:01.270687 ==> Старт программы
+<===
+2023-05-30 13:49:01.277687 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2023-05-30 13:49:02.435855 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2023-05-30 13:49:02.459837 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', r.idPriv,  u.navigator
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2023-05-30 13:49:17.329531 ==> 15, Соколов А.Л., Успешный вход
+<===
+2023-05-30 13:49:17.372599 ==> start try [update class] 
+select id, name as 'Наименование', access as 'Привилегии'
+               from priv  order by id
+<===
+2023-05-30 13:49:17.433458 ==> start try [update class] 
+select r.id as 'id', rtrim(r.name) as 'Наименование', p.name as 'Привилегии', 
+               r.comment as 'Коментарий'
+               from roles r
+               join priv p on p.id = r.idPriv  order by id
+<===
+2023-05-30 13:49:17.514830 ==> start try [update class] 
+select id, name as 'Наименование', comment as 'Доп.инфо'
+               from places  order by Наименование
+<===
+2023-05-30 13:49:17.654059 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from (select * from courses cu where cu.year = 2022) c  order by id
+<===
+2023-05-30 13:49:17.742728 ==> start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', g.comment as 'Доп. информация'
+                from groups g
+                join users u on g.idUsers = u.id
+                join (select * from courses where year = 2022) c on g.idCourses = c.id  order by g.id
+<===
+2023-05-30 13:49:17.863039 ==> start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', g.comment as 'Доп. информация'
+                from groups g
+                join users u on g.idUsers = u.id
+                join (select * from courses where year = 2022) c on g.idCourses = c.id  order by g.id
+<===
+2023-05-30 13:49:17.948099 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from (select * from courses cu where cu.year = 2022) c  order by id
+<===
+2023-05-30 13:49:18.044580 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from (select * from courses cu where cu.year = 2022) c  order by id
+<===
+2023-05-30 13:49:18.171881 ==> start try [update class] 
+select id, name as 'Наименование курса', target as 'Возраст', volume as 'Объем',
+                   lesson as 'Занятий/нед.', acchour as 'Академ.час', hday as 'Занятий в день', url as 'Ссылка на сайт', year as 'Учебный год' 
+                from (select * from courses cu where cu.year = 2022) c  order by id
+<===
+2023-05-30 13:49:18.237801 ==> start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', g.comment as 'Доп. информация'
+                from groups g
+                join users u on g.idUsers = u.id
+                join (select * from courses where year = 2022) c on g.idCourses = c.id  order by g.id
+<===
+2023-05-30 13:49:18.380189 ==> start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', g.comment as 'Доп. информация'
+                from groups g
+                join users u on g.idUsers = u.id
+                join (select * from courses where year = 2022) c on g.idCourses = c.id  order by g.id
+<===
+2023-05-30 13:49:18.469168 ==> start try [update class] 
+select t.id as 'id', rtrim(g.name) as 'Группа', rtrim(u.name) as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий' 
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers  order by id
+<===
+2023-05-30 13:49:19.440394 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', r.idPriv,  u.navigator
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2023-05-30 13:49:24.300441 ==> start try [update class] 
+select g.id, g.name as 'Группа', c.year as 'Уч.год', u.name as 'ФИО наставника',
+                (select count(*) from group_table gt where gt.idGroups = g.id) as 'Кол-во детей'
+                from groups g
+                join users u on g.idUsers = u.id
+                join (select * from courses where year = 2022) c on g.idCourses = c.id
+              where g.idCourses = 21  order by g.name
+<===
+2023-05-30 13:49:24.370863 ==> start try [update class] 
+select g.id, g.name as 'Группа', c.year as 'Уч.год', u.name as 'ФИО наставника',
+                (select count(*) from group_table gt where gt.idGroups = g.id) as 'Кол-во детей'
+                from groups g
+                join users u on g.idUsers = u.id
+                join (select * from courses where year = 2022) c on g.idCourses = c.id
+              where g.idCourses = 21  order by g.name
+<===
+2023-05-30 13:49:24.460358 ==> Start try [execute command] 
+select count(*) from 
+            (select g.id from groups g join courses c on c.id = g.idCourses where c.year = 2022) grp
+<===
+2023-05-30 13:49:24.521605 ==> start try [update class] 
+select t.id as 'id', u.name as 'Фамилия И.О.', u.sertificate as 'серт.ПФДО',
+                    t.comment as 'Комментарий', p.comment as 'Класс',
+                    p.name as 'Уч.заведение'
+                from group_table t
+                join users u on u.id = t.idUsers
+                join places p on p.id = u.idPlaces
+                where t.idGroups = 90  order by u.name
+<===
+2023-05-30 13:49:24.609094 ==> Start try [execute command] 
+select count(*) from 
+        (select gt.idUsers from group_table gt 
+            join groups g on g.id = gt.idGroups
+            join courses c on c.id = g.idCourses where c.year = 2022
+            group by gt.idUsers) gtbl
+        
+<===
+2023-05-30 13:49:24.673802 ==> Start try [execute command] 
+select sum(c.lesson) * 2 from (select * from courses cu where cu.year = 2022) c
+                left join groups g on g.idCourses = c.id
+                left join group_table gt on gt.idGroups = g.id
+<===
+2023-05-30 13:49:24.741263 ==> start try [update class] 
+select distinct u.id as 'ID', 
+                   (select count(*) from group_table gt where gt.idUsers = u.id) as '!', 
+                   u.name as 'Фамилия И.О.', u.sertificate as 'серт.ПФДО',
+                   p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.', 
+                   u.phone as 'Телефон', u.birthday as 'Д.рожд',  
+                   u.comment as 'Доп.информация'
+                    from users u
+                    join places p on u.idPlaces = p.id
+                    left join group_table g on g.idUsers = u.id
+                  where idRoles = 2   order by u.id
+<===
+2023-05-30 13:49:27.710976 ==> Start try [execute command] 
+select name from days order by id
+<===
+2023-05-30 13:49:27.802436 ==> Start try [execute command] 
+select cname from days order by id
+<===
+2023-05-30 13:49:27.863888 ==> Start try [execute command] 
+select name, color from kabs order by id
+<===
+2023-05-30 13:49:27.987133 ==> Start try [execute command] 
+select name from times order by id
+<===
+2023-05-30 13:49:28.391887 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:28.495225 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j  order by j.date, j.tstart
+<===
+2023-05-30 13:49:36.608564 ==> Start try [execute command] 
+select num, name from monts order by id
+<===
+2023-05-30 13:49:36.697261 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:36.842840 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:37.009421 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:37.313523 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 64 order by j.date, j.tstart
+<===
+2023-05-30 13:49:37.496216 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 64 order by j.date, j.tstart
+<===
+2023-05-30 13:49:37.755568 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', r.idPriv,  u.navigator
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2023-05-30 13:49:41.925609 ==> Start try [execute command] 
+select distinct u.id, trim(u.name) as name, trim(u.comment), trim(p.access) from users u
+                        join roles r on u.idRoles = r.id
+        			    join priv p on r.idPriv = p.id
+        			    order by name 
+<===
+2023-05-30 13:49:42.247428 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:42.339798 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:42.454755 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:42.532331 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 94 order by j.date, j.tstart
+<===
+2023-05-30 13:49:42.600168 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 94 order by j.date, j.tstart
+<===
+2023-05-30 13:49:42.669410 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:42.751445 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:42.821779 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:42.946266 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 94 order by j.date, j.tstart
+<===
+2023-05-30 13:49:43.011893 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 94 order by j.date, j.tstart
+<===
+2023-05-30 13:49:43.084059 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:43.152571 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:43.221638 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:43.299157 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 94 order by j.date, j.tstart
+<===
+2023-05-30 13:49:43.364365 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 94 order by j.date, j.tstart
+<===
+2023-05-30 13:49:43.439244 ==> start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'Группа', d.id as 'День'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday from courses cu where cu.year = 2022) jc on jc.id = g.idCourses where g.idUsers = 15 order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:49:43.512825 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 94 order by j.date, j.tstart
+<===
+2023-05-30 13:49:43.624644 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 94 order by j.date, j.tstart
+<===
+2023-05-30 13:49:43.714724 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 94 order by j.date, j.tstart
+<===
+2023-05-30 13:49:43.819842 ==> start try [update class] 
+select j.id, j.date as 'Дата', j.name as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.comment as 'Доп. информация'
+                from journals j where j.idGroups = 94 order by j.date, j.tstart
+<===
+2023-05-30 13:49:43.890936 ==> ======>  Tab5. Start __init__
+<===
+2023-05-30 13:49:43.908008 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  order by u.name
+<===
+2023-05-30 13:49:48.174900 ==> Start try [update class] 
+select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
+                from groups g
+                join users u on g.idUsers = u.id
+                join (select * from courses where year = 2022) c on g.idCourses = c.id  order by g.id
+<===
+2023-05-30 13:49:48.257926 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', (select p.access from priv p where p.id = r.idPriv) as 'priv'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id where u.id = 15 order by u.name
+<===
+2023-05-30 13:49:48.326616 ==> Start try [update class] 
+select g.id, trim(g.name) as 'Группа', trim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', u.name as 'ФИО наставника', 
+                    trim(g.comment) as 'Доп. информация' 
+                from groups g
+                join users u on g.idUsers = u.id
+                join (select * from courses where year = 2022) c on g.idCourses = c.id where g.idUsers = 15 order by g.id
+<===
+2023-05-30 13:49:48.392401 ==> Start try [update class] 
+select t.id as 'id', g.name as 'Группа', u.name as 'Фамилия И.О.', 
+                    t.comment as 'Комментарий', t.idUsers as 'UID'
+                from group_table t
+                join groups g on g.id = t.idGroups
+                join users u on u.id = t.idUsers
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu where cu.year = 2022) jc on jc.id = g.idCourses  order by u.name
+<===
+2023-05-30 13:49:49.465422 ==> Start try [update class] 
+select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu where cu.year = 2022) jc on jc.id = g.idCourses  order by j.date, j.tstart
+<===
+2023-05-30 13:51:43.530709 ==> Start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация'
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2023-05-30 13:51:47.997838 ==> Start try [update class] 
+select g.id, rtrim(g.name) as 'Группа', rtrim(c.name) as 'Учебный курс', c.volume as 'Объем', 
+                    c.lesson as 'Занятие', c.year as 'Уч.год', rtrim(u.name) as 'ФИО наставника',
+                    g.idUsers, g.idCourses
+                from groups g
+                join users u on g.idUsers = u.id
+                join (select * from courses where year = 2022) c on g.idCourses = c.id  order by g.id
+<===
+2023-05-30 13:51:48.091875 ==> Start try [update class] 
+select r.id, RTRIM(g.name) + ' - ' + rtrim(ju.name) as 'Группа - наставник', d.name as 'День недели' , 
+                    k.name as 'Кабинет', r.tstart as 'Начало', r.tend as 'Окончание', 
+                    jc.acchour as 'Акк. час', jc.hday as 'Занятий в день', r.comment as 'Доп. информация', 
+                    r.idGroups as 'ID Группа', d.id as 'ID День', jc.year as 'Уч.год',
+                    ju.id as 'ID User', jc.id as 'ID Courses'
+                from rasp r
+                join kabs k on r.idKabs = k.id
+                join days d on r.idDays = d.id
+                join groups g on r.idGroups = g.id
+                join (select gu.id, u.name from groups gu join users u on gu.idUsers = u.id) ju on ju.id = g.id
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu where cu.year = 2022) jc on jc.id = g.idCourses  order by d.id, k.id, r.tstart
+<===
+2023-05-30 13:51:48.296317 ==> Start try [update class] 
+select j.id, j.date as 'Дата', rtrim(j.name) as 'Тема занятия', j.tstart as 'Время нач.', 
+                    j.tend as 'Время оконч.', j.present as 'Посещаемость', j.estim as 'Оценки',
+                     j.shtraf as 'Штрафы', j.comment as 'Доп. информация', j.usercomm, j.idGroups as 'idGroups'
+                from journals j
+                join groups g on g.id = j.idGroups
+                join (select cu.id, cu.acchour, cu.hday, cu.year from courses cu where cu.year = 2022) jc on jc.id = g.idCourses  order by j.date, j.tstart
+<===
+2023-05-30 13:53:03.048158 ==> Старт программы
+<===
+2023-05-30 13:53:03.050162 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2023-05-30 13:53:04.772160 ==> Подключена БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
+2023-05-30 13:53:04.782906 ==> start try [update class] 
+select u.id, rtrim(u.name) as 'Фамилия И.О.', u.fam as 'Фамилия', u.ima as 'Имя', 
+                u.otch as 'Отчество', u.login as 'Логин', u.phone as 'Телефон', 
+                u.email as 'E-mail', u.birthday as 'Д.рожд', u.sertificate as 'Сертификат ПФДО',
+                r.name as 'Роль', p.name as 'Место учёбы/работы', p.comment as 'Класс/Должн.',
+                u.comment as 'Доп.информация', r.idPriv,  u.navigator
+               from users u
+               join roles r on u.idRoles = r.id
+               join places p on u.idPlaces = p.id  
+<===
+2023-05-30 13:55:13.849268 ==> Старт программы
+<===
+2023-05-30 13:55:27.190164 ==>  Старт подключения БД: Driver=SQL Server;Server=172.16.1.12,1433;Database=Journal4303
+<===
