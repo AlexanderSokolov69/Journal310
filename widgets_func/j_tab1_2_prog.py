@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QLabel, QMainWindow, QAbstractItemView, QMessageBox, QLineEdit, \
+from PyQt6.QtWidgets import QLabel, QMainWindow, QAbstractItemView, QMessageBox, QLineEdit, \
     QComboBox, QDialogButtonBox, QHBoxLayout
-from PyQt5 import QtGui
-from PyQt5.QtCore import Qt
+from PyQt6 import QtGui
+from PyQt6.QtCore import Qt
 
 from classes.cl_logwriter import LogWriter
 from classes.cl_users import Users
@@ -72,8 +72,8 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
 
         self.tableView.doubleClicked.connect(self.edit_Button.click)
         self.MainTab.currentChanged.connect(self.main_prepare_tab)
-        self.buttonEditFrame.button(QDialogButtonBox.Save).setText('Сохранить')
-        self.buttonEditFrame.button(QDialogButtonBox.No).setText('Отмена')
+        self.buttonEditFrame.button(QDialogButtonBox.StandardButton.Save).setText('Сохранить')
+        self.buttonEditFrame.button(QDialogButtonBox.StandardButton.No).setText('Отмена')
         self.fltCheck.stateChanged.connect(self.tab1_filter)
         self.add_Button.clicked.connect(self.tab1_clicked_buttons)
         self.edit_Button.clicked.connect(self.tab1_clicked_buttons)
@@ -83,8 +83,8 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         self.buttonEditFrame.rejected.connect(self.tab1_deactivateEditFrame)
         self.buttonEditFrame.accepted.connect(self.tab1_save_edit_frame)
         self.MainTab.tabBarClicked.connect(self.check_for_commit)
-        self.tab2_buttonBox.button(QDialogButtonBox.Save).setText('Сохранить')
-        self.tab2_buttonBox.button(QDialogButtonBox.Cancel).setText('Отмена')
+        self.tab2_buttonBox.button(QDialogButtonBox.StandardButton.Save).setText('Сохранить')
+        self.tab2_buttonBox.button(QDialogButtonBox.StandardButton.Cancel).setText('Отмена')
         self.currTable.need_to_save.connect(self.tab2_refresh_form)
         self.tableView_Users.doubleClicked.connect(self.tab2_edit_form)
         self.tab2_del.clicked.connect(self.tab2_clicked_buttons)
@@ -248,7 +248,7 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         self.tableLabel.setText(f"{self.listBox.currentText()}   ({len(self.currTable.data)})")
         self.tableView.setModel(self.currTable.model())
         self.tableView.resizeColumnsToContents()
-        self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tableView.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.tableView.setDisabled(False)
 
         if Const.IN_TRANSACTION:
@@ -360,7 +360,7 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         self.currTable.update()
         self.tableView_Users.setModel(self.currTable.model())
         self.tableView_Users.resizeColumnsToContents()
-        self.tableView_Users.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tableView_Users.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.lcdNumber_Users.display(len(self.currTable.data))
 
     def tab2_edit_form(self):
@@ -419,6 +419,6 @@ class MWindow(QMainWindow, Ui_MainWindow):  # Главное окно прило
         self.currTable = Users(self.con, editable=True)
         self.tableView_Users.setModel(self.currTable.model())
         self.tableView_Users.resizeColumnsToContents()
-        self.tableView_Users.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tableView_Users.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.tab2_deactivateEditFrame()
 

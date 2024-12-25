@@ -1,4 +1,4 @@
-from PyQt5.QtSql import QSqlDatabase
+from PyQt6.QtSql import QSqlDatabase
 
 
 class Const:

@@ -1,8 +1,8 @@
 import sys
 import sqlite3
 
-from PyQt5.QtCore import QModelIndex
-from PyQt5.QtWidgets import QWidget, QApplication, QAbstractItemView
+from PyQt6.QtCore import QModelIndex
+from PyQt6.QtWidgets import QWidget, QApplication, QAbstractItemView
 
 from classes.cl_const import Const
 from classes.cl_courses import Courses
@@ -78,7 +78,7 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
         self.usrs.update()
         self.tab3_users_table.setModel(self.usrs.model())
         self.tab3_users_table.resizeColumnsToContents()
-        self.tab3_users_table.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tab3_users_table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.tab3_reserv_lcd.display(len(self.usrs.data))
 
     def tab3_change_group(self):
@@ -97,7 +97,7 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
         self.grp_tbl.update()
         self.tab3_sostav_table.setModel(self.grp_tbl.model())
         self.tab3_sostav_table.resizeColumnsToContents()
-        self.tab3_sostav_table.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tab3_sostav_table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.tab3_counter_lcd.display(self.grp_tbl.rows())
         self.tab3_sostav_table.selectRow(0)
         sql = f"""select count(*) from 
@@ -134,7 +134,7 @@ class Tab3FormWindow(QWidget, Ui_tab3Form):
         self.tab3_group_list.setModel(self.grp.model())
         for i in range(len(self.grp.data[0])):
             self.tab3_group_list.resizeColumnToContents(i)  #  resizeColumnsToContents()
-        self.tab3_group_list.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tab3_group_list.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.tab3_group_list.setRootIndex(QModelIndex())  # selectRow(0)
         sql = f"""select count(*) from 
             (select g.id from groups g join courses c on c.id = g.idCourses where c.year = {Const.YEAR}) grp"""

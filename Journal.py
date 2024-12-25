@@ -1,9 +1,9 @@
 import sys
 import traceback as tb
 
-from PyQt5 import QtCore
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QApplication, QSplashScreen
+from PyQt6 import QtCore
+from PyQt6.QtGui import QPixmap
+from PyQt6.QtWidgets import QApplication, QSplashScreen
 
 from classes.cl_const import Const
 from classes.cl_logwriter import LogWriter
@@ -24,7 +24,7 @@ if __name__ == '__main__':
         print('app = QApplication(sys.argv)')
     app = QApplication(sys.argv)
     spl = QSplashScreen(QPixmap('Splash/Splash01-02.PNG'))
-    spl.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
+    spl.setWindowFlag(QtCore.Qt.WindowType.WindowStaysOnTopHint)
     spl.show()
 
     if Const.TEST_MODE:

@@ -1,6 +1,6 @@
-from PyQt5 import QtGui
-from PyQt5.QtCore import QAbstractTableModel, pyqtSignal, Qt, QModelIndex
-from PyQt5.QtGui import QColor
+from PyQt6 import QtGui
+from PyQt6.QtCore import QAbstractTableModel, pyqtSignal, Qt, QModelIndex
+from PyQt6.QtGui import QColor
 
 from classes.bb_converts import date_us_ru
 from classes.cl_const import Const
@@ -20,12 +20,12 @@ class QTableModel(QAbstractTableModel):
         pass
 
     def headerData(self, section: int, orientation: Qt.Orientation, role=None):
-        if role == Qt.DisplayRole:
+        if role == Qt.ItemDataRole.DisplayRole:
             if orientation == Qt.Horizontal:
                 return self.sql_obj.record().field(section).name()
             else:
                 return ''
-        # if role == Qt.BackgroundColorRole: # BackgroundRole:
+        # if role == Qt.ItemDataRole.BackgroundRole: # BackgroundRole:
         #     # See below for the data structure.
         #     return QtGui.QColor('#c0f0f0')
         # if role == Qt.InitialSortOrderRole:
@@ -54,7 +54,7 @@ class QTableModel(QAbstractTableModel):
         col = index.column()
         # if col in self.date_col:
         #     ret = date_us_ru(ret)
-        if role == Qt.DisplayRole or role == Qt.EditRole:
+        if role == Qt.ItemDataRole.DisplayRole or role == Qt.ItemDataRole.EditRole:
 #            self.sql_obj.seek(row)
 #            ret = self.sql_obj.record().value(col)
             try:
@@ -67,17 +67,17 @@ class QTableModel(QAbstractTableModel):
                 return "None"
             else:
                 return str(ret)
-        elif role == Qt.TextAlignmentRole:
+        elif role == Qt.ItemDataRole.TextAlignmentRole:
             if isinstance(ret, int) or isinstance(ret, float):
                 # Align right, vertical middle.
-                return Qt.AlignVCenter + Qt.AlignRight
-        elif role == Qt.BackgroundRole and index.row() % 2:
+                return Qt.AlignmentFlag.AlignVCenter + Qt.AlignmentFlag.AlignRight
+        elif role == Qt.ItemDataRole.BackgroundRole and index.row() % 2:
             # See below for the data structure.
             return QtGui.QColor('#f0fcfc')
         return ret
 
     def flags(self, index):
-            return Qt.ItemIsSelectable | Qt.ItemIsEnabled
+            return Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled
 
     def endResetModel(self) -> None:
         self.refresh_visual.emit()
@@ -88,7 +88,7 @@ class JournQTableModel(QTableModel):
         ret = None
         row = index.row()
         col = index.column()
-        if role == Qt.DisplayRole or role == Qt.EditRole:
+        if role == Qt.ItemDataRole.DisplayRole or role == Qt.ItemDataRole.EditRole:
             try:
                 if col in (Const.JRN_SHTRAF, Const.JRN_ESTIM, Const.JRN_PRESENT, Const.JRN_USRCOMM):
                     ret = len(self.sql_obj.cache[row][col].split())
@@ -104,13 +104,13 @@ class JournQTableModel(QTableModel):
                 return "None"
             else:
                 return str(ret)
-        elif role == Qt.TextAlignmentRole:
+        elif role == Qt.ItemDataRole.TextAlignmentRole:
             if col in (Const.JRN_PRESENT, Const.JRN_START, Const.JRN_END):
-                return Qt.AlignVCenter + Qt.AlignHCenter
+                return Qt.AlignmentFlag.AlignVCenter + Qt.AlignHCenter
             if isinstance(ret, int) or isinstance(ret, float):
                 # Align right, vertical middle.
-                return Qt.AlignVCenter + Qt.AlignRight
-        elif role == Qt.BackgroundRole and index.row() % 2:
+                return Qt.AlignmentFlag.AlignVCenter + Qt.AlignmentFlag.AlignRight
+        elif role == Qt.ItemDataRole.BackgroundRole and index.row() % 2:
             # See below for the data structure.
             return QtGui.QColor('#f0fcfc')
         return ret
@@ -121,7 +121,7 @@ class RaspQTableModel(QTableModel):
         ret = None
         row = index.row()
         col = index.column()
-        if role == Qt.DisplayRole or role == Qt.EditRole:
+        if role == Qt.ItemDataRole.DisplayRole or role == Qt.ItemDataRole.EditRole:
             try:
                 ret = self.sql_obj.cache[row][col]
             except IndexError:
@@ -132,13 +132,13 @@ class RaspQTableModel(QTableModel):
                 return "None"
             else:
                 return str(ret)
-        elif role == Qt.TextAlignmentRole:
+        elif role == Qt.ItemDataRole.TextAlignmentRole:
             if col in (Const.RSP_KABNAME, Const.RSP_START, Const.RSP_END, Const.RSP_ACCH):
-                return Qt.AlignVCenter + Qt.AlignHCenter
+                return Qt.AlignmentFlag.AlignVCenter + Qt.AlignHCenter
             if isinstance(ret, int) or isinstance(ret, float):
                 # Align right, vertical middle.
-                return Qt.AlignVCenter + Qt.AlignRight
-        elif role == Qt.BackgroundRole and index.row() % 2:
+                return Qt.AlignmentFlag.AlignVCenter + Qt.AlignmentFlag.AlignRight
+        elif role == Qt.ItemDataRole.BackgroundRole and index.row() % 2:
             # See below for the data structure.
             return QtGui.QColor('#f0fcfc')
         return ret

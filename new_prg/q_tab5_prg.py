@@ -3,11 +3,11 @@ import os
 import traceback as tb
 import datetime
 
-from PyQt5 import QtWidgets, QtCore, QtSql, QtGui
-from PyQt5.QtCore import QTimer, QModelIndex, QEvent, pyqtSignal
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtSql import QSqlQueryModel, QSqlQuery
-from PyQt5.QtWidgets import QMainWindow, QApplication, QAbstractItemView, QPushButton, QLineEdit, QLabel, QCheckBox, \
+from PyQt6 import QtWidgets, QtCore, QtSql, QtGui
+from PyQt6.QtCore import QTimer, QModelIndex, QEvent, pyqtSignal
+from PyQt6.QtGui import QPixmap
+from PyQt6.QtSql import QSqlQueryModel, QSqlQuery
+from PyQt6.QtWidgets import QMainWindow, QApplication, QAbstractItemView, QPushButton, QLineEdit, QLabel, QCheckBox, \
     QWidget, QFrame, QInputDialog, QTextEdit, QSizePolicy, QPlainTextEdit, QComboBox, QSplashScreen
 
 from classes.bb_converts import date_us_ru, date_ru_us
@@ -85,9 +85,9 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         MaxWidth = 800
         layoutCorr = self.letter_place.layout()
         layoutShape = self.shape_frame.layout()
-        self.shape_frame.setSizePolicy(QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum))
+        self.shape_frame.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum))
         layoutCorr.setContentsMargins(20, 20, 20, 20)
-        layoutCorr.setAlignment(QtCore.Qt.AlignCenter)
+        layoutCorr.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.txt_comment.show()
         self.txt_comment.setPlainText(record[Const.JRN_COMMENT])
         self.txt_comment.setMinimumWidth(MaxWidth)
@@ -163,12 +163,12 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         posSh += 2
 #
         lb = QLabel('№')
-        lb.setAlignment(QtCore.Qt.AlignCenter)
+        lb.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.edit_spisok.append(lb)
         layoutCorr.addWidget(lb, pos, 0)
 
         lb = QLabel('Фамилия И.О.')
-        lb.setAlignment(QtCore.Qt.AlignCenter)
+        lb.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.edit_spisok.append(lb)
         layoutCorr.addWidget(lb, pos, 1)
 #
@@ -178,22 +178,22 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         layoutCorr.addWidget(lb, pos, 3)
 
         lb = QLabel('Оценка')
-        lb.setAlignment(QtCore.Qt.AlignCenter)
+        lb.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.edit_spisok.append(lb)
         layoutCorr.addWidget(lb, pos, 4)
 
         lb = QLabel('Рейтинг')
-        lb.setAlignment(QtCore.Qt.AlignCenter)
+        lb.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.edit_spisok.append(lb)
         layoutCorr.addWidget(lb, pos, 5)
 
         lb = QLabel('Коммент.')
-        lb.setAlignment(QtCore.Qt.AlignCenter)
+        lb.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.edit_spisok.append(lb)
         layoutCorr.addWidget(lb, pos, 6)
 
         h_line = QFrame()
-        h_line.setFrameShape(QFrame.HLine)
+        h_line.setFrameShape(QFrame.Shape.HLine)
         layoutCorr.addWidget(h_line, pos, 0, pos + 1, 7)
 
         pos += 1
@@ -214,7 +214,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
             else:
                 lb.setStyleSheet("color: rgb(170, 0, 0);background-color: rgb(240, 240, 240);"
                                  "font: 12pt \"MS Shell Dlg 2\";")
-            lb.setAlignment(QtCore.Qt.AlignCenter)
+            lb.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             lb.setMaximumWidth(30)
             self.edit_spisok.append(lb)
             layoutCorr.addWidget(lb, pos, 0)
@@ -226,7 +226,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
                 lb.setStyleSheet("color: rgb(170, 0, 0);background-color: rgb(240, 240, 240);"
                                  "font: 12pt \"MS Shell Dlg 2\";")
             # lb.setMinimumWidth(300)
-            lb.setAlignment(QtCore.Qt.AlignLeft)
+            lb.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
             self.edit_spisok.append(lb)
             layoutCorr.addWidget(lb, pos, 1)
             lb = QLabel(' ')
@@ -384,7 +384,7 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
             model =  JournQTableModel(self.journ)
             self.tableView.setModel(model)
             self.tableView.model().beginResetModel()
-            self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
+            self.tableView.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
             # self.tableView.setMaximumWidth(800)
             self.tableView.model().endResetModel()
             self.tableView.hideColumn(Const.JRN_ID)
@@ -413,10 +413,10 @@ class QT5Window(QWidget, Ui_tab5Form):  # tab5 формы
         self.lcd_year.display(Const.YEAR)
 
     def eventFilter(self, object, event):
-        if event.type() == QEvent.KeyPress:
-            if event.key() == QtCore.Qt.Key_Escape:
+        if event.type() == QEvent.Type.KeyPress:
+            if event.key() == QtCore.Qt.Key.Key_Escape:
                 self.clicked_cancel.emit()
-            elif event.key() == QtCore.Qt.Key_Return:
+            elif event.key() == QtCore.Qt.Key.Key_Return:
                 if self.tableView.isEnabled():
                     self.journf_start_edit_day()
                 else:
