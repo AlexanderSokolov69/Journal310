@@ -42,7 +42,8 @@ class ConnectDb:
                 db_name = cfg.get("Settings", "db_name")
                 srv_name = cfg.get("Settings", "srv_name")
                 srv_port = cfg.get("Settings", "srv_port")
-                connect_str = f"Driver=SQL Server;Server={srv_name},{srv_port};Database={db_name}"
+                # connect_str = f"Driver=SQL Server;Server={srv_name},{srv_port};Database={db_name}"
+                connect_str = "Driver={ODBC Driver 17 for SQL Server}" + f";Server={srv_name},{srv_port};Database={db_name}"
 
             Const.YEAR = int(cfg.get("Settings", "l_year"))
             Const.D_START = cfg.get("Settings", "otch_start")
@@ -59,7 +60,7 @@ class ConnectDb:
             flog.to_log(f""" Старт подключения БД: {connect_str}""")
             self.con = self.toSql(connect_str).get_connect()
             flog.to_log(f"""Подключена БД: {connect_str}""")
-            # print('Подключена БД:',  path)
+            print('Подключена БД', self.con)
         except Exception as err:
             flog.to_log(f"""СТОП!!! \n\t{err} \n\tПодключение не удалось {connect_str}""")
             sys.exit()
@@ -68,12 +69,15 @@ class ConnectDb:
         return Sql(connect_str)
 
     def get_con(self):
+        if Const.TEST_MODE:
+            print('get_con() started')
         return self.con
 
+
 if __name__ == '__main__':
-    pass
-   #con = ConnectDb('../settings.ini').get_con()
-    #print(con)
+    # pass
+    con = ConnectDb('../settings.ini').get_con()
+    print(con)
     # conn = pyodbc.connect('DSN=it-cube64;UID=sa;PWD=Prestige2011!')
 
        # = pyodbc.connect("Driver=SQL Server; Server=172.16.1.12,1433; Database=master; UID = 'sa'; PWD = 'Prestige2011!';")

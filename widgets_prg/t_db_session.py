@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from PyQt5.QtSql import QSqlDatabase
+from PyQt6.QtSql import QSqlDatabase
 
 from classes.cl_const import Const
 from classes.db_session import ConnectDb
@@ -13,8 +13,10 @@ class QtSql:
         str_con = f"""{conn};UID={user};PWD={password};"""
         if Const.TEST_MODE:
             print(str_con)
-        self.db = QSqlDatabase().addDatabase('QODBC')
-        self.db.setDatabaseName(str_con)
+        # self.db = QSqlDatabase().addDatabase('QODBC')
+        # self.db.setDatabaseName(str_con)
+        self.db = QSqlDatabase().addDatabase('QSQLITE')
+        self.db.setDatabaseName('db/database_J.dbd')
         Const.DB = self.db
 
     def get_connect(self):

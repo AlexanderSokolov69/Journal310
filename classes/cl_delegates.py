@@ -1,6 +1,6 @@
-from PyQt5 import Qt
-from PyQt5.QtGui import QBrush
-from PyQt5.QtWidgets import QItemDelegate
+from PyQt6 import Qt
+from PyQt6.QtGui import QBrush
+from PyQt6.QtWidgets import QItemDelegate
 from classes.cl_const import Const
 
 

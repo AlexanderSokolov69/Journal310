@@ -2,10 +2,10 @@ import os
 import sys
 import traceback as tb
 
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import QApplication, QSplashScreen, QMainWindow, QVBoxLayout, QInputDialog
+from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtGui import QPixmap
+from PyQt6.QtSql import QSqlQuery
+from PyQt6.QtWidgets import QApplication, QSplashScreen, QMainWindow, QVBoxLayout, QInputDialog
 
 from classes.cl_const import Const
 from classes.cl_logwriter import LogWriter
@@ -92,17 +92,19 @@ if __name__ == '__main__':
     sys.excepthook = except_hook
     app = QApplication(sys.argv)
     flog = LogWriter()
-
     spl = QSplashScreen(QPixmap('Splash/Splash01-02.PNG'))
-    spl.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
+    spl.setWindowFlag(QtCore.Qt.WindowType.WindowStaysOnTopHint)
     spl.show()
 
     if QtConnectDb('settings.ini').get_con():
+        print('System User:', os.getlogin())
         if Const.TEST_MODE:
             print('Connect: Ok')
-        sql = f"select id from users where winlogin = '{os.getlogin()}'"
+        # sql = f"select id from users where winlogin = '{os.getlogin()}'"
+        sql = "select id from users where winlogin = 'user01'"
         user = TSqlQuery().query_one_to_list(sql)
         if Const.TEST_MODE:
+            user = [15]
             print('Logged as:', user)
         # wnd = MainWindow(int(qsql.record().value(0)))
         # wnd = QT5Window(int(qsql.record().value(0)))
@@ -111,5 +113,8 @@ if __name__ == '__main__':
         else:
             wnd = MainWindow(-1)
         spl.finish(wnd)
+        print(wnd)
         wnd.showMaximized()
-    sys.exit(app.exec())
+        sys.exit(app.exec())
+    else:
+        print('Ошибка подключения к БД')

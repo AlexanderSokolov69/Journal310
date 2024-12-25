@@ -1,6 +1,6 @@
-from PyQt5 import QtGui
-from PyQt5.QtCore import QAbstractTableModel, QModelIndex, Qt, pyqtSignal
-from PyQt5.QtWidgets import QComboBox
+from PyQt6 import QtGui
+from PyQt6.QtCore import QAbstractTableModel, QModelIndex, Qt, pyqtSignal
+from PyQt6.QtWidgets import QComboBox
 
 from classes.bb_converts import date_us_ru
 from classes.cl_const import Const
@@ -9,6 +9,7 @@ from classes.t__sqlobject import TSQLObject
 
 class TJournalModel(QAbstractTableModel):
     refresh_visual = pyqtSignal()
+
     def __init__(self, sql_obj: TSQLObject, date_col=[]):
         super(TJournalModel, self).__init__()
         self.sql_obj = sql_obj
@@ -20,15 +21,15 @@ class TJournalModel(QAbstractTableModel):
         return self.summa_present
 
     def headerData(self, section: int, orientation: Qt.Orientation, role=None):
-        if role == Qt.DisplayRole:
-            if orientation == Qt.Horizontal:
+        if role == Qt.ItemDataRole.DisplayRole:
+            if orientation == Qt.Orientation.Horizontal:
                 return self.sql_obj.header[section]
             else:
                 return ''
-        if role == Qt.BackgroundColorRole: # BackgroundRole:
+        if role == Qt.ItemDataRole.BackgroundRole: # BackgroundRole:
             # See below for the data structure.
             return QtGui.QColor('#c0f0f0')
-        if role == Qt.InitialSortOrderRole:
+        if role == Qt.ItemDataRole.InitialSortOrderRole:
             self.beginResetModel()
             if self.sort_col == section:
                 self.sql_obj.data.sort(key=lambda i: i[section], reverse=True)
@@ -63,21 +64,21 @@ class TJournalModel(QAbstractTableModel):
                 ret = date_us_ru(ret)
         else:
             ret = ' '
-        if role == Qt.DisplayRole or role == Qt.EditRole:
+        if role == Qt.ItemDataRole.DisplayRole or role == Qt.ItemDataRole.EditRole:
             if ret is None:
                 return ""
             else:
                 return str(ret)
-        if role == Qt.TextAlignmentRole:
+        if role == Qt.ItemDataRole.TextAlignmentRole:
             if isinstance(ret, int) or isinstance(ret, float):
                 # Align right, vertical middle.
-                return Qt.AlignVCenter + Qt.AlignRight
-        if role == Qt.BackgroundRole and index.row() % 2:
+                return Qt.AlignmentFlag.AlignVCenter + Qt.AlignmentFlag.AlignRight
+        if role == Qt.ItemDataRole.BackgroundRole and index.row() % 2:
             # See below for the data structure.
             return QtGui.QColor('#f0fcfc')
 
     def flags(self, index):
-            return Qt.ItemIsSelectable | Qt.ItemIsEnabled
+            return Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled
 
     def endResetModel(self) -> None:
         self.summa_present = 0

@@ -1,6 +1,6 @@
-from PyQt5 import QtCore, QtGui
-from PyQt5.QtCore import Qt, pyqtSignal, QObject, QEvent
-from PyQt5.QtWidgets import QTableView, QLabel
+from PyQt6 import QtCore, QtGui
+from PyQt6.QtCore import Qt, pyqtSignal, QObject, QEvent
+from PyQt6.QtWidgets import QTableView, QLabel
 from classes.cl_const import Const
 from classes.bb_converts import *
 import datetime
@@ -22,15 +22,15 @@ class MyTableModel(QtCore.QAbstractTableModel):
         self.current_index = (-1, -1)
 
     def headerData(self, section: int, orientation: Qt.Orientation, role=None):
-        if role == QtCore.Qt.DisplayRole:
-            if orientation == Qt.Horizontal:
+        if role == Qt.ItemDataRole.DisplayRole:
+            if orientation == Qt.Orientation.Horizontal:
                 return self.head[section]
             else:
                 return ''
-        if role == Qt.BackgroundColorRole: # BackgroundRole:
+        if role == Qt.ItemDataRole.BackgroundRole:  # BackgroundRole:
             # See below for the data structure.
             return QtGui.QColor('#c0f0f0')
-        if role == Qt.InitialSortOrderRole:
+        if role == Qt.ItemDataRole.InitialSortOrderRole:
             self.beginResetModel()
             if self.sort_col == section:
                 self.data.sort(key=lambda i: i[section], reverse=True)
@@ -56,7 +56,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
             row = index.row()
             col = index.column()
 
-            if role == QtCore.Qt.DisplayRole or role == QtCore.Qt.EditRole:
+            if role == Qt.ItemDataRole.DisplayRole or role == Qt.ItemDataRole.EditRole:
                 ret = self.data[row][col]
                 if isinstance(ret, str):
                     ret = ret.strip()
@@ -66,14 +66,14 @@ class MyTableModel(QtCore.QAbstractTableModel):
                     return ""
                 else:
                     return str(ret)
-            elif role == Qt.TextAlignmentRole:
+            elif role == Qt.ItemDataRole.TextAlignmentRole:
                 if isinstance(ret, int) or isinstance(ret, float):
                     # Align right, vertical middle.
-                    return Qt.AlignVCenter + Qt.AlignRight
-            elif role == Qt.BackgroundRole and index.row() % 2:
+                    return Qt.AlignmentFlag.AlignVCenter + Qt.AlignmentFlag.AlignRight
+            elif role == Qt.ItemDataRole.BackgroundRole and index.row() % 2:
                 # See below for the data structure.
                 return QtGui.QColor('#f0fcfc')
-            elif role == Qt.TextColorRole:
+            elif role == Qt.ItemDataRole.ForegroundRole:
                 if len(self.data[row]) == 16 and \
                         not str(self.data[row][Const.USR_NAVIGATOR]) == '1'\
                         and self.data[row][Const.USR_IDPRIV] == 2:
@@ -81,7 +81,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
                 elif len(self.data[row]) == 16 and \
                         self.data[row][Const.USR_IDPRIV] != 2:
                     return QtGui.QColor('#009900')
-            # elif role == Qt.BackgroundColorRole:
+            # elif role == Qt.ItemDataRole.BackgroundRole:
             #     if len(self.data[row]) == 16 and \
             #         self.data[row][Const.USR_IDPRIV] != 2:
             #         return QtGui.QColor('#ff5599')
@@ -90,7 +90,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
 
 
     def setData(self, index, value, role=None):  # !!!
-        if role == Qt.EditRole:
+        if role == Qt.ItemDataRole.EditRole:
             if index.column() > 0:
                 if index.column() == self.date_col:
                     value = date_ru_us(value)
@@ -102,12 +102,12 @@ class MyTableModel(QtCore.QAbstractTableModel):
 
     def flags(self, index):  # !!!
         if self.editable and index.column() in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
-            return Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsEditable
+            return Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsEditable
         else:
             # if index.column() == 0:
             #     self.need_edit.emit()
             # self.current_index = (0, 0)
-            return Qt.ItemIsSelectable | Qt.ItemIsEnabled
+            return Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled
 
 
 class MultiClicker(QObject):
@@ -127,11 +127,11 @@ class MultiClicker(QObject):
         self.clicked.emit()
 
     def eventFilter(self, object, event):
-        if event.type() == QEvent.MouseButtonPress:
+        if event.type() == QEvent.Type.MouseButtonPress:
             if event.buttons() == Qt.LeftButton:
                 self.single_click_timer.start()
                 return True
-        elif event.type() == QEvent.MouseButtonDblClick:
+        elif event.type() == QEvent.Type.MouseButtonDblClick:
             if event.buttons() == Qt.LeftButton:
                 self.single_click_timer.stop()
                 self.dblClicked.emit()

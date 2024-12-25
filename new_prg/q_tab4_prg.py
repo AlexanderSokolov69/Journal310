@@ -2,12 +2,12 @@ import os
 import sys
 import sqlite3
 
-from PyQt5.QtCore import pyqtSignal, Qt, QEvent, QObject, QRect
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import QWidget, QApplication, QAbstractItemView, QGridLayout, QLabel, \
+from PyQt6.QtCore import pyqtSignal, Qt, QEvent, QObject, QRect
+from PyQt6.QtGui import QPixmap
+from PyQt6.QtSql import QSqlQuery
+from PyQt6.QtWidgets import QWidget, QApplication, QAbstractItemView, QGridLayout, QLabel, \
     QFrame, QButtonGroup, QSizePolicy, QPushButton, QComboBox, QLineEdit, QSplashScreen
-from PyQt5 import QtCore
+from PyQt6 import QtCore
 
 from classes.cl_const import Const
 from classes.cl_journals import Journals
@@ -118,7 +118,7 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_rasp_view.hideColumn(Const.RSP_IDD)
         self.tab4_rasp_view.resizeColumnsToContents()
         self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(0, 0))
-        self.tab4_rasp_view.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tab4_rasp_view.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
 
         self.tab4_journ_view.setModel(JournQTableModel(self.journ))
         self.rasp_curent_row = -1
@@ -183,7 +183,7 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_journ_view.hideColumn(Const.JRN_IDG)
         self.tab4_journ_view.resizeColumnsToContents()
         self.tab4_journ_view.setCurrentIndex(self.tab4_rasp_view.model().index(0, 0))
-        self.tab4_journ_view.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tab4_journ_view.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.tab4_count_journ.display(self.journ.rows())
         self.tab4_journ_view.update()
 
@@ -211,7 +211,7 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
                 self.tab4_rollback_btn.setDisabled(True)
             self.restate_commit()
             if object.objectName() == 'tab4_journ_view':
-                if event.type() == QEvent.MouseButtonDblClick:
+                if event.type() == QEvent.Type.MouseButtonDblClick:
                     if Const.TEST_MODE:
                         print('dbl')
             elif object.objectName() == 'tab4_rasp_view':
@@ -221,16 +221,16 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
                     self.rasp_curent_row = row
                     self.change_current_journ()
         else:
-            if event.type() == QEvent.KeyPress:
-                if event.key() == QtCore.Qt.Key_Escape:
+            if event.type() == QEvent.Type.KeyPress:
+                if event.key() == QtCore.Qt.Key.Key_Escape:
                     if Const.TEST_MODE:
                         print('esc')
                     self.clicked_cancel.emit()
-                elif event.key() == QtCore.Qt.Key_Return:
+                elif event.key() == QtCore.Qt.Key.Key_Return:
                     if Const.TEST_MODE:
                         print('enter')
                     self.clicked_enter.emit()
-                elif event.key() == QtCore.Qt.Key_F2:
+                elif event.key() == QtCore.Qt.Key.Key_F2:
                     if Const.IN_TRANSACTION:
                         Const().to_commit(self.con)
                         self.tab4_commit_btn.click()
@@ -342,7 +342,7 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
         self.tab4_rasp_view.hideColumn(Const.RSP_IDD)
         self.tab4_rasp_view.resizeColumnsToContents()
         self.tab4_rasp_view.setCurrentIndex(self.tab4_rasp_view.model().index(0, 0))
-        self.tab4_rasp_view.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tab4_rasp_view.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         for d, day in enumerate(self.days_lst):
             for k, kab in enumerate(self.kab_lst):
                 for t, time in enumerate(self.time_lst):
@@ -445,21 +445,21 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
         MAX_F = 20
         MAX_T = 35
         obj = QGridLayout()
-        obj.setAlignment(QtCore.Qt.AlignCenter)
-        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        obj.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         head = QLabel(self.short_days_lst[day] + ' ')
-        head.setAlignment(QtCore.Qt.AlignLeft)
+        head.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
         head.setStyleSheet(f"""font: {self.FONT_SIZE + 2}pt "MS Shell Dlg 2";""")
         head.setMinimumWidth(MAX_T)
         head.setMaximumWidth(MAX_T)
-        head.setSizePolicy(QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding))
+        head.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding))
         obj.addWidget(head, 0, 0)
-        obj.setAlignment(QtCore.Qt.AlignLeft)
+        obj.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
         for i, num in enumerate(self.kab_lst):
             lbl = QLabel(f" {num[0]} ")
-            lbl.setAlignment(QtCore.Qt.AlignCenter)
+            lbl.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             lbl.setSizePolicy(sizePolicy)
             lbl.setStyleSheet(f"""font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
             lbl.setMaximumWidth(MAX_F)
@@ -468,9 +468,9 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
             lbl = QLabel(f"{self.time_lst[i]}")
             lbl.setMinimumWidth(MAX_T)
             lbl.setMaximumWidth(MAX_T)
-            lbl.setSizePolicy(QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding))
+            lbl.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding))
             lbl.setStyleSheet(f"""font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
-            lbl.setAlignment(QtCore.Qt.AlignLeft)
+            lbl.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
             obj.addWidget(lbl, i + 1, 0)
             for j, num in enumerate(self.kab_lst):
                 ch_b = QLabelClk('')
@@ -478,16 +478,16 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
                 ch_b.setMaximumWidth(MAX_F)
                 ch_b.clicked.connect(self.color_table_click)
                 ch_b.dblClicked.connect(self.color_table_dbl_click)
-                ch_b.setAlignment(QtCore.Qt.AlignCenter)
+                ch_b.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 ch_b.setObjectName(f"{day} {j} {i}")
                 ch_b.setStyleSheet(
                     f"""background-color: rgb(255, 255, 255);  font: {self.FONT_SIZE}pt "MS Shell Dlg 2";""")
                 sizePolicy.setHeightForWidth(ch_b.sizePolicy().hasHeightForWidth())
-                ch_b.setSizePolicy(QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum))
+                ch_b.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum))
                 self.slots_dic[ch_b.objectName()] = ch_b
                 obj.addWidget(ch_b, i + 1, j + 1)
         v_line = QFrame()
-        v_line.setFrameShape(QFrame.VLine)
+        v_line.setFrameShape(QFrame.Shape.VLine)
         obj.addWidget(v_line, 0, len(self.kab_lst) + 1, len(self.time_lst) + 2, len(self.kab_lst) + 1)
         return obj
 
@@ -516,8 +516,8 @@ class QTab4FormWindow(QWidget, Ui_tab4Form):
             self.current_data[4][2] = self.new_preset['tend']
             self.new_preset.clear()
         lrow = 0
-        sP = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        lP = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sP = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        lP = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         for i, val in enumerate(self.current_data):
             self.edit_widgets.append(QLabel(val[1], self))
             curLayout.addWidget(self.edit_widgets[-1], i, 0)

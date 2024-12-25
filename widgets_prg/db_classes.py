@@ -1,4 +1,4 @@
-from PyQt5 import QtSql
+from PyQt6 import QtSql
 
 from classes.cl_const import Const
 from classes.cl_logwriter import LogWriter

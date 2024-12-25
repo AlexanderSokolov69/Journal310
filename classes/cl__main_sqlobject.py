@@ -7,7 +7,7 @@ import pyodbc
 from classes.cl_const import Const
 from classes.cl_logwriter import LogWriter
 from .qt__classes import MyTableModel
-from PyQt5.QtCore import pyqtSignal, QObject
+from PyQt6.QtCore import pyqtSignal, QObject
 
 
 class SQLObject(QObject):

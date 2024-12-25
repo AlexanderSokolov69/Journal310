@@ -3,9 +3,9 @@ import sys
 import traceback as tb
 import datetime
 
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtCore import QTimer, QModelIndex, QEvent, pyqtSignal
-from PyQt5.QtWidgets import QMainWindow, QApplication, QAbstractItemView, QPushButton, QLineEdit, QLabel, QCheckBox, \
+from PyQt6 import QtWidgets, QtCore
+from PyQt6.QtCore import QTimer, QModelIndex, QEvent, pyqtSignal
+from PyQt6.QtWidgets import QMainWindow, QApplication, QAbstractItemView, QPushButton, QLineEdit, QLabel, QCheckBox, \
     QWidget, QFrame, QInputDialog
 
 from classes.bb_converts import date_us_ru, date_ru_us

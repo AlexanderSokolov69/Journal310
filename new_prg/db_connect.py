@@ -1,7 +1,7 @@
 import sys
-from PyQt5 import QtSql
-from PyQt5.QtSql import QSqlQuery, QSqlDatabase
-from PyQt5.QtWidgets import QApplication
+from PyQt6 import QtSql
+from PyQt6.QtSql import QSqlQuery, QSqlDatabase
+from PyQt6.QtWidgets import QApplication
 
 from classes.cl_const import Const
 from classes.cl_logwriter import LogWriter
@@ -45,7 +45,6 @@ class TSqlQuery(QSqlQuery):
     #         return spis
     #     else:
     #         return []
-
 
     def get_record(self, id_rec):
         if 'courses' in self.table_name:
@@ -118,7 +117,7 @@ class TSqlQuery(QSqlQuery):
         ret = super().exec(sql)
         if Const.TEST_MODE:
             self.flog.to_log(f"""SQL exec: {super().lastQuery()}""")
-            if  ret:
+            if ret:
                 self.flog.to_log(f"""Params: {self.param_str}\nResult: Ok""")
             else:
                 self.flog.to_log(f"""Params: {self.param_str}\nResult: WRONG!!!""")

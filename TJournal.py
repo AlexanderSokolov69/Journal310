@@ -1,8 +1,8 @@
 import sys
 
-from PyQt5 import QtCore
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QApplication, QSplashScreen, QLabel
+from PyQt6 import QtCore
+from PyQt6.QtGui import QPixmap
+from PyQt6.QtWidgets import QApplication, QSplashScreen, QLabel
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

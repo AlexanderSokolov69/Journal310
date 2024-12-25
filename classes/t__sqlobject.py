@@ -6,7 +6,7 @@ from sqlite3 import connect
 from classes.cl_const import Const
 from classes.cl_logwriter import LogWriter
 from classes.err_classes import SQLUpdateError
-from PyQt5.QtCore import pyqtSignal, QObject
+from PyQt6.QtCore import pyqtSignal, QObject
 
 
 class TSQLObject(QObject):
